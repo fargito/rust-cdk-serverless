@@ -17,8 +17,8 @@ async fn main() -> Result<(), Error> {
     Ok(())
 }
 
-pub(crate) async fn handler(event: LambdaEvent<Request>) -> Result<(), Error> {
+pub(crate) async fn handler(event: LambdaEvent<Request>) -> Result<String, Error> {
     info!("Request: {:?}", event);
 
-    Ok(())
+    Ok("Hello world!".into())
 }
