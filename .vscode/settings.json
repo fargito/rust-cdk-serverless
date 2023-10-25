@@ -1,0 +1,37 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "search.exclude": {
+    "**/coverage": true,
+    "**/node_modules": true,
+    "**/.serverless": true,
+    "**/build": true,
+    "**/bundles": true,
+    "**/dist": true,
+    "**/tsconfig.tsbuildinfo": true,
+    "**/cdk.out": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/coverage/**": true,
+    "**/.serverless/**": true,
+    "**/build/**": true,
+    "**/bundles/**": true,
+    "**/cdk.out/**": true
+  },
+  "[dotenv][ignore][properties][shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[html][javascript][json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.inlayHints.enabled": "offUnlessPressed"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "vitest.commandLine": "bun vitest"
+}

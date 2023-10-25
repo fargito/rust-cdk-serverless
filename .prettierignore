@@ -1,0 +1,12 @@
+*.hbs
+.next
+**/.serverless
+**/stack.json
+.gitlab-ci.yml
+.npm
+.webpack
+**/coverage
+**/dist
+**/build
+**/public
+**/cdk.out
