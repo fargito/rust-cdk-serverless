@@ -2,7 +2,7 @@ use std::env;
 
 use aws_lambda_events::apigw::ApiGatewayV2httpRequest;
 use aws_sdk_dynamodb::types::AttributeValue;
-use shared::*;
+use shared::{get_dynamodb_client, setup_dynamodb, setup_logging};
 
 use lambda_runtime::{service_fn, Error, LambdaEvent};
 use tracing::{debug, info};
@@ -11,11 +11,12 @@ use std::time::Instant;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    setup_logging();
-
     let start = Instant::now();
-    let _ = aws_config::load_from_env().await;
-    debug!("AWS config created in {:.2?}", start.elapsed());
+
+    setup_logging();
+    setup_dynamodb().await;
+
+    debug!("DynamoDB client initialized in {:.2?}", start.elapsed());
 
     let func = service_fn(handler);
     lambda_runtime::run(func).await?;
@@ -30,12 +31,7 @@ pub(crate) async fn handler(event: LambdaEvent<ApiGatewayV2httpRequest>) -> Resu
 
     let start = Instant::now();
 
-    // initialize dynamodb client
-    let config = aws_config::load_from_env().await;
-
-    debug!("AWS config loaded in {:.2?}", start.elapsed());
-
-    let dynamodb_client = aws_sdk_dynamodb::Client::new(&config);
+    let dynamodb_client = get_dynamodb_client();
 
     debug!("DynamoDB client created in {:.2?}", start.elapsed());
 
@@ -47,6 +43,8 @@ pub(crate) async fn handler(event: LambdaEvent<ApiGatewayV2httpRequest>) -> Resu
         .item("content", AttributeValue::S("Miam".into()))
         .send()
         .await?;
+
+    debug!("Item stored in {:.2?}", start.elapsed());
 
     Ok("Hello world!".into())
 }

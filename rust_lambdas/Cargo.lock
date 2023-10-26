@@ -1537,6 +1537,9 @@ dependencies = [
 name = "shared"
 version = "0.1.0"
 dependencies = [
+ "aws-config",
+ "aws-sdk-dynamodb",
+ "tokio",
  "tracing",
  "tracing-subscriber",
 ]
