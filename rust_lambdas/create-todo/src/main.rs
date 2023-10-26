@@ -1,14 +1,11 @@
 use std::env;
 
+use aws_lambda_events::apigw::ApiGatewayV2httpRequest;
 use aws_sdk_dynamodb::types::AttributeValue;
-use serde::Deserialize;
 use shared::*;
 
 use lambda_runtime::{service_fn, Error, LambdaEvent};
 use tracing::info;
-
-#[derive(Deserialize, Debug)]
-struct Request {}
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -20,7 +17,7 @@ async fn main() -> Result<(), Error> {
     Ok(())
 }
 
-pub(crate) async fn handler(event: LambdaEvent<Request>) -> Result<String, Error> {
+pub(crate) async fn handler(event: LambdaEvent<ApiGatewayV2httpRequest>) -> Result<String, Error> {
     info!("Request: {:?}", event);
 
     let todos_table_name = env::var("TODOS_TABLE_NAME").expect("Missing TODOS_TABLE_NAME env var");

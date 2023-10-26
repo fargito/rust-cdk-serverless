@@ -7,6 +7,7 @@ edition = "2021"
 shared = { path = "../shared" }
 
 aws-config = { workspace = true }
+aws_lambda_events = { workspace = true }
 aws-sdk-dynamodb = { workspace = true }
 lambda_runtime = { workspace = true }
 serde = { workspace = true }
