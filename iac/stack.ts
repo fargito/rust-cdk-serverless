@@ -22,12 +22,28 @@ export class TodoAppStack extends Stack {
       environment: {},
     });
 
+    const listTodosLambda = new RustFunction(this, 'ListTodos', {
+      package: 'list_todos',
+      setupLogging: true,
+      architecture: Architecture.ARM_64,
+      environment: {},
+    });
+
     httpApi.addRoutes({
-      path: '/todo',
+      path: '/todos',
       methods: [HttpMethod.POST],
       integration: new HttpLambdaIntegration(
         'CreateTodoIntegration',
         createTodoLambda,
+      ),
+    });
+
+    httpApi.addRoutes({
+      path: '/todos',
+      methods: [HttpMethod.GET],
+      integration: new HttpLambdaIntegration(
+        'ListTodosIntegration',
+        listTodosLambda,
       ),
     });
   }
