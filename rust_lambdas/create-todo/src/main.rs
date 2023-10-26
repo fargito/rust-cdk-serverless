@@ -5,7 +5,9 @@ use aws_sdk_dynamodb::types::AttributeValue;
 use shared::*;
 
 use lambda_runtime::{service_fn, Error, LambdaEvent};
-use tracing::info;
+use tracing::{debug, info};
+
+use std::time::Instant;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -22,9 +24,13 @@ pub(crate) async fn handler(event: LambdaEvent<ApiGatewayV2httpRequest>) -> Resu
 
     let todos_table_name = env::var("TODOS_TABLE_NAME").expect("Missing TODOS_TABLE_NAME env var");
 
+    let start = Instant::now();
+
     // initialize dynamodb client
     let config = aws_config::load_from_env().await;
     let dynamodb_client = aws_sdk_dynamodb::Client::new(&config);
+
+    debug!("DynamoDB client created in {:.2?}", start.elapsed());
 
     dynamodb_client
         .put_item()
