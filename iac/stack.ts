@@ -1,6 +1,8 @@
 import { HttpApi, HttpMethod } from '@aws-cdk/aws-apigatewayv2-alpha';
 import { HttpLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
 import { Stack, StackProps } from 'aws-cdk-lib';
+import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
+import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Architecture } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 import { RustFunction, Settings } from 'rust.aws-cdk-lambda';
@@ -11,6 +13,12 @@ export class TodoAppStack extends Stack {
 
     const httpApi = new HttpApi(this, 'HttpApi');
 
+    const todosTable = new Table(this, 'TodosTable', {
+      partitionKey: { name: 'PK', type: AttributeType.STRING },
+      sortKey: { name: 'SK', type: AttributeType.STRING },
+      billingMode: BillingMode.PAY_PER_REQUEST,
+    });
+
     // Cargo workspace directory
     Settings.WORKSPACE_DIR = 'rust_lambdas';
     Settings.TARGET = 'aarch64-unknown-linux-gnu';
@@ -19,14 +27,32 @@ export class TodoAppStack extends Stack {
       package: 'create_todo',
       setupLogging: true,
       architecture: Architecture.ARM_64,
-      environment: {},
+      environment: {
+        TODOS_TABLE_NAME: todosTable.tableName,
+      },
+      initialPolicy: [
+        new PolicyStatement({
+          effect: Effect.ALLOW,
+          resources: [todosTable.tableArn],
+          actions: ['dynamodb:PutItem'],
+        }),
+      ],
     });
 
     const listTodosLambda = new RustFunction(this, 'ListTodos', {
       package: 'list_todos',
       setupLogging: true,
       architecture: Architecture.ARM_64,
-      environment: {},
+      environment: {
+        TODOS_TABLE_NAME: todosTable.tableName,
+      },
+      initialPolicy: [
+        new PolicyStatement({
+          effect: Effect.ALLOW,
+          resources: [todosTable.tableArn],
+          actions: ['dynamodb:Query'],
+        }),
+      ],
     });
 
     httpApi.addRoutes({
