@@ -28,6 +28,7 @@ export class TodoAppStack extends Stack {
       package: 'create_todo',
       setupLogging: true,
       architecture: Architecture.ARM_64,
+      memorySize: 1024,
       logRetention: RetentionDays.ONE_DAY,
       environment: {
         TODOS_TABLE_NAME: todosTable.tableName,
@@ -45,6 +46,7 @@ export class TodoAppStack extends Stack {
       package: 'list_todos',
       setupLogging: true,
       architecture: Architecture.ARM_64,
+      memorySize: 1024,
       logRetention: RetentionDays.ONE_DAY,
       environment: {
         TODOS_TABLE_NAME: todosTable.tableName,

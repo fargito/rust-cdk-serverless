@@ -13,6 +13,10 @@ use std::time::Instant;
 async fn main() -> Result<(), Error> {
     setup_logging();
 
+    let start = Instant::now();
+    let _ = aws_config::load_from_env().await;
+    debug!("AWS config created in {:.2?}", start.elapsed());
+
     let func = service_fn(handler);
     lambda_runtime::run(func).await?;
 
@@ -28,6 +32,9 @@ pub(crate) async fn handler(event: LambdaEvent<ApiGatewayV2httpRequest>) -> Resu
 
     // initialize dynamodb client
     let config = aws_config::load_from_env().await;
+
+    debug!("AWS config loaded in {:.2?}", start.elapsed());
+
     let dynamodb_client = aws_sdk_dynamodb::Client::new(&config);
 
     debug!("DynamoDB client created in {:.2?}", start.elapsed());
