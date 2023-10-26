@@ -4,6 +4,7 @@ import { Stack, StackProps } from 'aws-cdk-lib';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Architecture } from 'aws-cdk-lib/aws-lambda';
+import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 import { RustFunction, Settings } from 'rust.aws-cdk-lambda';
 
@@ -27,6 +28,7 @@ export class TodoAppStack extends Stack {
       package: 'create_todo',
       setupLogging: true,
       architecture: Architecture.ARM_64,
+      logRetention: RetentionDays.ONE_DAY,
       environment: {
         TODOS_TABLE_NAME: todosTable.tableName,
       },
@@ -43,6 +45,7 @@ export class TodoAppStack extends Stack {
       package: 'list_todos',
       setupLogging: true,
       architecture: Architecture.ARM_64,
+      logRetention: RetentionDays.ONE_DAY,
       environment: {
         TODOS_TABLE_NAME: todosTable.tableName,
       },
