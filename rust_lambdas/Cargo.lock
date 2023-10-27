@@ -1665,6 +1665,7 @@ version = "0.1.0"
 dependencies = [
  "aws-config",
  "aws-sdk-dynamodb",
+ "serde",
  "tokio",
  "tracing",
  "tracing-subscriber",

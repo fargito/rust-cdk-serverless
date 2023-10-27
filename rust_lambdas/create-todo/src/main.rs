@@ -2,8 +2,8 @@ use std::env;
 
 use aws_lambda_events::http::StatusCode;
 use aws_sdk_dynamodb::types::AttributeValue;
-use serde::{Deserialize, Serialize};
-use shared::{get_dynamodb_client, setup_dynamodb, setup_logging};
+use serde::Deserialize;
+use shared::{get_dynamodb_client, setup_dynamodb, setup_logging, FailureResponse, Todo};
 
 use lambda_http::{service_fn, Body, Error, IntoResponse, Request};
 use tracing::debug;
@@ -32,16 +32,7 @@ struct CreateTodo {
     description: String,
 }
 
-#[derive(Serialize)]
-struct Todo {
-    id: String,
-    title: String,
-    description: String,
-}
-
-pub(crate) async fn handler(
-    request: Request,
-) -> Result<impl IntoResponse, std::convert::Infallible> {
+pub(crate) async fn handler(request: Request) -> Result<impl IntoResponse, Error> {
     let todos_table_name = env::var("TODOS_TABLE_NAME").expect("Missing TODOS_TABLE_NAME env var");
 
     let dynamodb_client = get_dynamodb_client();
@@ -70,7 +61,7 @@ pub(crate) async fn handler(
     // generate ulid in order to have sorted items
     let id = Ulid::new().to_string();
 
-    if let Err(_) = dynamodb_client
+    dynamodb_client
         .put_item()
         .table_name(todos_table_name)
         .item("PK", AttributeValue::S("TODO".into()))
@@ -82,12 +73,9 @@ pub(crate) async fn handler(
         )
         .send()
         .await
-    {
-        return Ok((
-            StatusCode::INTERNAL_SERVER_ERROR,
-            "Unable to set todo".into(),
-        ));
-    };
+        .map_err(|_| FailureResponse {
+            body: "Unable to set todo".into(),
+        })?;
 
     debug!("Item stored in {:.2?}", start.elapsed());
 
@@ -97,7 +85,9 @@ pub(crate) async fn handler(
         description: body.description,
     };
 
-    let todo = serde_json::to_string(&todo).expect("toto");
+    let todo = serde_json::to_string(&todo).map_err(|_| FailureResponse {
+        body: "Unable to serialize todo".into(),
+    })?;
 
     Ok((StatusCode::OK, todo))
 }
