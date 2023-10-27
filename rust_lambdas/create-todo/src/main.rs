@@ -2,7 +2,7 @@ use std::env;
 
 use aws_lambda_events::http::StatusCode;
 use aws_sdk_dynamodb::types::AttributeValue;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use shared::{get_dynamodb_client, setup_dynamodb, setup_logging};
 
 use lambda_http::{service_fn, Body, Error, IntoResponse, Request};
@@ -32,6 +32,13 @@ struct CreateTodo {
     description: String,
 }
 
+#[derive(Serialize)]
+struct Todo {
+    id: String,
+    title: String,
+    description: String,
+}
+
 pub(crate) async fn handler(
     request: Request,
 ) -> Result<impl IntoResponse, std::convert::Infallible> {
@@ -41,19 +48,19 @@ pub(crate) async fn handler(
 
     let body = match request.body() {
         Body::Empty => {
-            return Ok((StatusCode::BAD_REQUEST, "Invalid body"));
+            return Ok((StatusCode::BAD_REQUEST, "Invalid body".into()));
         }
         Body::Text(body) => {
             if let Ok(body) = serde_json::from_str::<CreateTodo>(&body) {
                 body
             } else {
-                return Ok((StatusCode::BAD_REQUEST, "Invalid body"));
+                return Ok((StatusCode::BAD_REQUEST, "Invalid body".into()));
             }
         }
         Body::Binary(_body) => {
             return Ok((
                 StatusCode::UNPROCESSABLE_ENTITY,
-                "Binary body not supported",
+                "Binary body not supported".into(),
             ));
         }
     };
@@ -68,15 +75,29 @@ pub(crate) async fn handler(
         .table_name(todos_table_name)
         .item("PK", AttributeValue::S("TODO".into()))
         .item("SK", AttributeValue::S(format!("ID#{id}")))
-        .item("title", AttributeValue::S(body.title))
-        .item("description", AttributeValue::S(body.description))
+        .item("title", AttributeValue::S(body.title.to_string()))
+        .item(
+            "description",
+            AttributeValue::S(body.description.to_string()),
+        )
         .send()
         .await
     {
-        return Ok((StatusCode::INTERNAL_SERVER_ERROR, "Unable to set todo"));
+        return Ok((
+            StatusCode::INTERNAL_SERVER_ERROR,
+            "Unable to set todo".into(),
+        ));
     };
 
     debug!("Item stored in {:.2?}", start.elapsed());
 
-    Ok((StatusCode::OK, "Hello world!"))
+    let todo = Todo {
+        id,
+        title: body.title,
+        description: body.description,
+    };
+
+    let todo = serde_json::to_string(&todo).expect("toto");
+
+    Ok((StatusCode::OK, todo))
 }
