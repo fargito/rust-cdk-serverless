@@ -38,23 +38,15 @@ pub(crate) async fn handler(request: Request) -> Result<impl IntoResponse, Error
     let dynamodb_client = get_dynamodb_client();
 
     let body = match request.body() {
-        Body::Empty => {
-            return Ok((StatusCode::BAD_REQUEST, "Invalid body".into()));
-        }
         Body::Text(body) => {
-            if let Ok(body) = serde_json::from_str::<CreateTodo>(&body) {
-                body
-            } else {
-                return Ok((StatusCode::BAD_REQUEST, "Invalid body".into()));
-            }
+            serde_json::from_str::<CreateTodo>(&body).map_err(|_| FailureResponse {
+                body: "Invalid request".into(),
+            })
         }
-        Body::Binary(_body) => {
-            return Ok((
-                StatusCode::UNPROCESSABLE_ENTITY,
-                "Binary body not supported".into(),
-            ));
-        }
-    };
+        _ => Err(FailureResponse {
+            body: "Invalid request".into(),
+        }),
+    }?;
 
     let start = Instant::now();
 
