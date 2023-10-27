@@ -7,6 +7,7 @@ use shared::{get_dynamodb_client, setup_dynamodb, setup_logging};
 
 use lambda_http::{service_fn, Body, Error, IntoResponse, Request};
 use tracing::debug;
+use ulid::Ulid;
 
 use std::time::Instant;
 
@@ -59,11 +60,14 @@ pub(crate) async fn handler(
 
     let start = Instant::now();
 
+    // generate ulid in order to have sorted items
+    let id = Ulid::new().to_string();
+
     if let Err(_) = dynamodb_client
         .put_item()
         .table_name(todos_table_name)
         .item("PK", AttributeValue::S("TODO".into()))
-        .item("SK", AttributeValue::S("TEST".into()))
+        .item("SK", AttributeValue::S(format!("ID#{id}")))
         .item("title", AttributeValue::S(body.title))
         .item("description", AttributeValue::S(body.description))
         .send()
