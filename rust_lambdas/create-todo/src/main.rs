@@ -1,85 +1,31 @@
+mod handler;
+
 use std::env;
 
-use aws_lambda_events::http::StatusCode;
-use aws_sdk_dynamodb::types::AttributeValue;
-use serde::Deserialize;
-use shared::{get_dynamodb_client, setup_dynamodb, setup_logging, FailureResponse, Todo};
+use shared::setup_logging;
 
-use lambda_http::{service_fn, Body, Error, IntoResponse, Request};
+use lambda_http::{service_fn, Error};
 use tracing::debug;
-use ulid::Ulid;
 
 use std::time::Instant;
+
+use handler::handler;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     let start = Instant::now();
 
     setup_logging();
-    setup_dynamodb().await;
+
+    let config = aws_config::load_from_env().await;
+    let dynamodb_client = aws_sdk_dynamodb::Client::new(&config);
+
+    let todos_table_name = env::var("TODOS_TABLE_NAME").expect("Missing TODOS_TABLE_NAME env var");
 
     debug!("DynamoDB client initialized in {:.2?}", start.elapsed());
 
-    let func = service_fn(handler);
+    let func = service_fn(|request| handler(request, &dynamodb_client, &todos_table_name));
     lambda_http::run(func).await?;
 
     Ok(())
-}
-
-#[derive(Deserialize)]
-struct CreateTodo {
-    title: String,
-    description: String,
-}
-
-pub(crate) async fn handler(request: Request) -> Result<impl IntoResponse, Error> {
-    let todos_table_name = env::var("TODOS_TABLE_NAME").expect("Missing TODOS_TABLE_NAME env var");
-
-    let dynamodb_client = get_dynamodb_client();
-
-    let body = match request.body() {
-        Body::Text(body) => {
-            serde_json::from_str::<CreateTodo>(&body).map_err(|_| FailureResponse {
-                body: "Invalid request".into(),
-            })
-        }
-        _ => Err(FailureResponse {
-            body: "Invalid request".into(),
-        }),
-    }?;
-
-    let start = Instant::now();
-
-    // generate ulid in order to have sorted items
-    let id = Ulid::new().to_string();
-
-    dynamodb_client
-        .put_item()
-        .table_name(todos_table_name)
-        .item("PK", AttributeValue::S("TODO".into()))
-        .item("SK", AttributeValue::S(format!("ID#{id}")))
-        .item("title", AttributeValue::S(body.title.to_string()))
-        .item(
-            "description",
-            AttributeValue::S(body.description.to_string()),
-        )
-        .send()
-        .await
-        .map_err(|_| FailureResponse {
-            body: "Unable to set todo".into(),
-        })?;
-
-    debug!("Item stored in {:.2?}", start.elapsed());
-
-    let todo = Todo {
-        id,
-        title: body.title,
-        description: body.description,
-    };
-
-    let todo = serde_json::to_string(&todo).map_err(|_| FailureResponse {
-        body: "Unable to serialize todo".into(),
-    })?;
-
-    Ok((StatusCode::OK, todo))
 }
