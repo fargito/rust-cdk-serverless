@@ -3,7 +3,7 @@ use aws_sdk_dynamodb::types::AttributeValue;
 use serde::Deserialize;
 use shared::{FailureResponse, Todo};
 
-use lambda_http::{Body, Error, IntoResponse, Request};
+use lambda_http::{Body, IntoResponse, Request};
 use tracing::debug;
 use ulid::Ulid;
 
@@ -19,7 +19,7 @@ pub(crate) async fn handler(
     request: Request,
     dynamodb_client: &aws_sdk_dynamodb::Client,
     todos_table_name: &str,
-) -> Result<impl IntoResponse, Error> {
+) -> Result<impl IntoResponse, FailureResponse> {
     let body = match request.body() {
         Body::Text(body) => {
             serde_json::from_str::<CreateTodo>(&body).map_err(|_| FailureResponse {
@@ -60,7 +60,7 @@ pub(crate) async fn handler(
         description: body.description,
     };
 
-    let todo = serde_json::to_string(&todo).map_err(|_| FailureResponse {
+    let todo = serde_json::to_value(todo).map_err(|_| FailureResponse {
         body: "Unable to serialize todo".into(),
     })?;
 
