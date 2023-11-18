@@ -1,14 +1,14 @@
 mod handler;
 
-use std::{convert::Infallible, env};
+use std::env;
+use std::time::Instant;
 
-use aws_lambda_events::http::StatusCode;
+use lambda_http::{service_fn, Error};
+use lambda_runtime::tower::ServiceExt;
+
 use shared::setup_logging;
 
-use lambda_http::{service_fn, Error, Request};
 use tracing::debug;
-
-use std::time::Instant;
 
 use handler::handler;
 
@@ -25,19 +25,12 @@ async fn main() -> Result<(), Error> {
 
     debug!("DynamoDB client initialized in {:.2?}", start.elapsed());
 
-    let func =
-        service_fn(|request| handler_with_errors(request, &dynamodb_client, &todos_table_name));
+    let func = service_fn(|request| handler(request, &dynamodb_client, &todos_table_name))
+        .map_result::<_, _, Error>(|res| match res {
+            Ok(res) => Ok(res),
+            Err(err) => Ok((err.status_code, serde_json::Value::String(err.body))),
+        });
     lambda_http::run(func).await?;
 
     Ok(())
-}
-
-async fn handler_with_errors(
-    request: Request,
-    dynamodb_client: &aws_sdk_dynamodb::Client,
-    todos_table_name: &str,
-) -> Result<(StatusCode, serde_json::Value), Infallible> {
-    handler(request, &dynamodb_client, &todos_table_name)
-        .await
-        .or_else(|err| Ok((err.status_code, serde_json::Value::String(err.body))))
 }

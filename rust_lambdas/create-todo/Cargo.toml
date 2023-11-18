@@ -9,7 +9,7 @@ shared = { path = "../shared" }
 aws-config = { workspace = true }
 aws_lambda_events = { workspace = true }
 aws-sdk-dynamodb = { workspace = true }
-lambda_http = "0.8.1"
+lambda_http = { workspace = true }
 lambda_runtime = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
