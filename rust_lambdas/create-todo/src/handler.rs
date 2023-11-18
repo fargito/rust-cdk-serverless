@@ -43,6 +43,7 @@ pub(crate) async fn handler(
         .table_name(todos_table_name)
         .item("PK", AttributeValue::S("TODO".into()))
         .item("SK", AttributeValue::S(format!("ID#{id}")))
+        .item("id", AttributeValue::S(id.clone()))
         .item("title", AttributeValue::S(body.title.to_string()))
         .item(
             "description",

@@ -1,24 +1,35 @@
-use serde::Deserialize;
-use shared::*;
+mod handler;
 
-use lambda_runtime::{service_fn, Error, LambdaEvent};
-use tracing::info;
+use std::env;
+use std::time::Instant;
 
-#[derive(Deserialize, Debug)]
-struct Request {}
+use lambda_http::{service_fn, tower::ServiceExt, Error};
+
+use shared::setup_logging;
+
+use tracing::debug;
+
+use handler::handler;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
+    let start = Instant::now();
+
     setup_logging();
 
-    let func = service_fn(handler);
-    lambda_runtime::run(func).await?;
+    let config = aws_config::load_from_env().await;
+    let dynamodb_client = aws_sdk_dynamodb::Client::new(&config);
+
+    let todos_table_name = env::var("TODOS_TABLE_NAME").expect("Missing TODOS_TABLE_NAME env var");
+
+    debug!("DynamoDB client initialized in {:.2?}", start.elapsed());
+
+    let func = service_fn(|request| handler(request, &dynamodb_client, &todos_table_name))
+        .map_result::<_, _, Error>(|res| match res {
+            Ok(res) => Ok(res),
+            Err(err) => Ok((err.status_code, err.body.into())),
+        });
+    lambda_http::run(func).await?;
 
     Ok(())
-}
-
-pub(crate) async fn handler(event: LambdaEvent<Request>) -> Result<Vec<String>, Error> {
-    info!("Request: {:?}", event);
-
-    Ok(vec!["toto".into(), "tata".into()])
 }

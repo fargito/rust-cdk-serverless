@@ -1124,7 +1124,8 @@ name = "list_todos"
 version = "0.1.0"
 dependencies = [
  "aws-config",
- "lambda_runtime",
+ "aws-sdk-dynamodb",
+ "lambda_http",
  "serde",
  "serde_json",
  "shared",
