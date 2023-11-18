@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts iac/index.ts",
+  "app": "bun run ./iac/index.ts",
   "requireApproval": "never",
   "watch": {
     "include": ["**"],
