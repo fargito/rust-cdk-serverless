@@ -1,7 +1,8 @@
-use serde::Serialize;
+use aws_lambda_events::http::StatusCode;
 
-#[derive(Debug, Serialize)]
+#[derive(Debug)]
 pub struct FailureResponse {
+    pub status_code: StatusCode,
     pub body: String,
 }
 
