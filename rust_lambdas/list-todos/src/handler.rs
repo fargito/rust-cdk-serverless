@@ -36,22 +36,34 @@ pub(crate) async fn handler(
         })?
         .into_iter()
         // TODO handle errors gracefully here
-        .map(|item| Todo {
-            id: item.get("id").unwrap().to_owned().as_s().unwrap().clone(),
-            title: item
-                .get("title")
-                .unwrap()
-                .to_owned()
-                .as_s()
-                .unwrap()
-                .clone(),
-            description: item
-                .get("description")
-                .unwrap()
-                .to_owned()
-                .as_s()
-                .unwrap()
-                .clone(),
+        .flat_map(|item| -> Result<Todo, DynamoDBError> {
+            Ok(Todo {
+                id: item
+                    .get("id")
+                    .ok_or(DynamoDBError::MissingAttribute { attribute: "id" })?
+                    .to_owned()
+                    .as_s()
+                    .map_err(|_| DynamoDBError::InvalidAttribute { attribute: "id" })?
+                    .to_string(),
+                title: item
+                    .get("title")
+                    .ok_or(DynamoDBError::MissingAttribute { attribute: "title" })?
+                    .to_owned()
+                    .as_s()
+                    .map_err(|_| DynamoDBError::InvalidAttribute { attribute: "title" })?
+                    .to_string(),
+                description: item
+                    .get("description")
+                    .ok_or(DynamoDBError::MissingAttribute {
+                        attribute: "description",
+                    })?
+                    .to_owned()
+                    .as_s()
+                    .map_err(|_| DynamoDBError::InvalidAttribute {
+                        attribute: "description",
+                    })?
+                    .to_string(),
+            })
         })
         .collect();
 
@@ -63,4 +75,12 @@ pub(crate) async fn handler(
     })?;
 
     Ok((StatusCode::OK, todos))
+}
+
+#[derive(thiserror::Error, Debug)]
+pub enum DynamoDBError<'a> {
+    #[error("missing attribute {attribute}")]
+    MissingAttribute { attribute: &'a str },
+    #[error("invalid attribute {attribute}")]
+    InvalidAttribute { attribute: &'a str },
 }

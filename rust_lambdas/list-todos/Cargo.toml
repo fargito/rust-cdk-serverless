@@ -11,6 +11,7 @@ aws-sdk-dynamodb = { workspace = true }
 lambda_http = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
+thiserror = "1.0.50"
 tokio = { workspace = true }
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
