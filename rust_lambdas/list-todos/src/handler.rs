@@ -35,7 +35,6 @@ pub(crate) async fn handler(
             body: "Got no items from DynamoDB".into(),
         })?
         .into_iter()
-        // TODO handle errors gracefully here
         .flat_map(|item| -> Result<Todo, DynamoDBError> {
             Ok(Todo {
                 id: item
