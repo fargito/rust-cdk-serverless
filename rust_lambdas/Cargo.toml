@@ -15,7 +15,7 @@ description = "A sample Rust Serverless app"
 
 [workspace.dependencies]
 aws_lambda_events = "0.12.1"
-aws-config = "1.0.3"
+aws-config = "1.1.0"
 aws-sdk-dynamodb = "1.3.0"
 lambda_http = "0.8.3"
 lambda_runtime = "0.8.3"
