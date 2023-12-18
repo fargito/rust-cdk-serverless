@@ -20,7 +20,7 @@
     "@types/node": "^20.9.1",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
-    "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/coverage-v8": "^1.0.0",
     "aws-cdk": "2.115.0",
     "aws-cdk-lib": "2.115.0",
     "constructs": "^10.0.98",
@@ -36,7 +36,7 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
     "vite-tsconfig-paths": "^4.0.5",
-    "vitest": "^0.34.6"
+    "vitest": "^1.0.0"
   },
   "engines": {
     "node": "^20.0.0"
