@@ -4,7 +4,6 @@ import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Architecture, Runtime, Function, Code } from 'aws-cdk-lib/aws-lambda';
-import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 import { join } from 'path';
 import path from 'path';
@@ -36,7 +35,6 @@ export class TodoAppStack extends Stack {
       code: Code.fromAsset(path),
       handler: 'useless',
       memorySize: 1024,
-      logRetention: RetentionDays.ONE_DAY,
       environment: {
         TODOS_TABLE_NAME: todosTable.tableName,
       },
