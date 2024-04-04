@@ -14,7 +14,7 @@
       "**/*.js",
       "tsconfig.json",
       "package.json",
-      "bun.lockb",
+      "pnpm-lock.yaml",
       "node_modules"
     ]
   },
