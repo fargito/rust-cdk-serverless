@@ -1,9 +1,9 @@
-import { HttpApi, HttpMethod } from '@aws-cdk/aws-apigatewayv2-alpha';
-import { HttpLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
+import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
+import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { Architecture } from 'aws-cdk-lib/aws-lambda';
+import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 import { RustFunction, Settings } from 'rust.aws-cdk-lambda';
@@ -23,6 +23,7 @@ export class TodoAppStack extends Stack {
     // Cargo workspace directory
     Settings.WORKSPACE_DIR = 'rust_lambdas';
     Settings.TARGET = 'aarch64-unknown-linux-gnu';
+    Settings.RUNTIME = Runtime.PROVIDED_AL2023;
 
     const createTodoLambda = new RustFunction(this, 'CreateTodo', {
       package: 'create_todo',
