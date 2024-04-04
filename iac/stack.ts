@@ -1,12 +1,11 @@
+import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
-import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { Architecture, Runtime, Function, Code } from 'aws-cdk-lib/aws-lambda';
+import { Architecture, Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
-import { join } from 'path';
-import path from 'path';
+import path, { join } from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -27,12 +26,16 @@ export class TodoAppStack extends Stack {
       billingMode: BillingMode.PAY_PER_REQUEST,
     });
 
-    const path = join(__dirname, baseLambdaDir, 'create_todo/bootstrap.zip');
+    const lambdaPath = join(
+      __dirname,
+      baseLambdaDir,
+      'create_todo/bootstrap.zip',
+    );
 
     const createTodoLambda = new Function(this, 'CreateTodo', {
       architecture: Architecture.ARM_64,
       runtime: Runtime.PROVIDED_AL2023,
-      code: Code.fromAsset(path),
+      code: Code.fromAsset(lambdaPath),
       handler: 'useless',
       memorySize: 1024,
       environment: {

@@ -6,10 +6,10 @@
     "bootstrap": "cdk bootstrap",
     "deploy": "cdk deploy",
     "destroy": "cdk destroy",
-    "lint-fix": "bun linter-base-config --fix",
-    "lint-fix-all": "bun lint-fix .",
+    "lint-fix": "pnpm linter-base-config --fix",
+    "lint-fix-all": "pnpm lint-fix .",
     "linter-base-config": "eslint --ext=js,ts",
-    "test-linter": "bun linter-base-config .",
+    "test-linter": "pnpm linter-base-config .",
     "test-type": "tsc",
     "test-unit": "vitest run --coverage",
     "watch": "tsc -w"
@@ -38,5 +38,6 @@
   },
   "engines": {
     "node": "^20.0.0"
-  }
+  },
+  "packageManager": "pnpm@8.15.6"
 }

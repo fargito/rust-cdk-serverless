@@ -33,7 +33,7 @@
     "editor.inlayHints.enabled": "offUnlessPressed"
   },
   "typescript.tsdk": "node_modules/typescript/lib",
-  "vitest.commandLine": "bun vitest",
+  "vitest.commandLine": "pnpm vitest",
   "cSpell.words": [
     "aarch",
     "Todos"
