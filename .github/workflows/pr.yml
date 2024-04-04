@@ -58,6 +58,8 @@ jobs:
 
       - name: Install Zig toolchain
         uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: 0.11.0
 
       - name: Install Cargo Lambda
         uses: jaxxstorm/action-install-gh-release@v1.9.0
