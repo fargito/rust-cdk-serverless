@@ -1,12 +1,20 @@
 import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { Architecture, Runtime, Function, Code } from 'aws-cdk-lib/aws-lambda';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
-import { RustFunction, Settings } from 'rust.aws-cdk-lambda';
+import { join } from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+
+const baseLambdaDir = '../rust_lambdas/target/lambda/';
 
 export class TodoAppStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -20,15 +28,13 @@ export class TodoAppStack extends Stack {
       billingMode: BillingMode.PAY_PER_REQUEST,
     });
 
-    // Cargo workspace directory
-    Settings.WORKSPACE_DIR = 'rust_lambdas';
-    Settings.TARGET = 'aarch64-unknown-linux-gnu';
-    Settings.RUNTIME = Runtime.PROVIDED_AL2023;
+    const path = join(__dirname, baseLambdaDir, 'create_todo/bootstrap.zip');
 
-    const createTodoLambda = new RustFunction(this, 'CreateTodo', {
-      package: 'create_todo',
-      setupLogging: true,
+    const createTodoLambda = new Function(this, 'CreateTodo', {
       architecture: Architecture.ARM_64,
+      runtime: Runtime.PROVIDED_AL2023,
+      code: Code.fromAsset(path),
+      handler: 'useless',
       memorySize: 1024,
       logRetention: RetentionDays.ONE_DAY,
       environment: {
@@ -43,24 +49,6 @@ export class TodoAppStack extends Stack {
       ],
     });
 
-    const listTodosLambda = new RustFunction(this, 'ListTodos', {
-      package: 'list_todos',
-      setupLogging: true,
-      architecture: Architecture.ARM_64,
-      memorySize: 1024,
-      logRetention: RetentionDays.ONE_DAY,
-      environment: {
-        TODOS_TABLE_NAME: todosTable.tableName,
-      },
-      initialPolicy: [
-        new PolicyStatement({
-          effect: Effect.ALLOW,
-          resources: [todosTable.tableArn],
-          actions: ['dynamodb:Query'],
-        }),
-      ],
-    });
-
     httpApi.addRoutes({
       path: '/todos',
       methods: [HttpMethod.POST],
@@ -70,13 +58,10 @@ export class TodoAppStack extends Stack {
       ),
     });
 
-    httpApi.addRoutes({
-      path: '/todos',
-      methods: [HttpMethod.GET],
-      integration: new HttpLambdaIntegration(
-        'ListTodosIntegration',
-        listTodosLambda,
-      ),
+    new CfnOutput(this, 'ToDoApi', {
+      value: httpApi.url ?? 'oto',
+      description: 'Todo endpoint',
+      exportName: 'youpuiiii',
     });
   }
 }
