@@ -26,16 +26,12 @@ export class TodoAppStack extends Stack {
       billingMode: BillingMode.PAY_PER_REQUEST,
     });
 
-    const lambdaPath = join(
-      __dirname,
-      baseLambdaDir,
-      'create_todo/bootstrap.zip',
-    );
-
     const createTodoLambda = new Function(this, 'CreateTodo', {
       architecture: Architecture.ARM_64,
       runtime: Runtime.PROVIDED_AL2023,
-      code: Code.fromAsset(lambdaPath),
+      code: Code.fromAsset(
+        join(__dirname, baseLambdaDir, 'create_todo/bootstrap.zip'),
+      ),
       handler: 'useless',
       memorySize: 1024,
       environment: {
@@ -50,6 +46,26 @@ export class TodoAppStack extends Stack {
       ],
     });
 
+    const listTodosLambda = new Function(this, 'ListTodos', {
+      architecture: Architecture.ARM_64,
+      runtime: Runtime.PROVIDED_AL2023,
+      code: Code.fromAsset(
+        join(__dirname, baseLambdaDir, 'list_todos/bootstrap.zip'),
+      ),
+      handler: 'useless',
+      memorySize: 1024,
+      environment: {
+        TODOS_TABLE_NAME: todosTable.tableName,
+      },
+      initialPolicy: [
+        new PolicyStatement({
+          effect: Effect.ALLOW,
+          resources: [todosTable.tableArn],
+          actions: ['dynamodb:Query'],
+        }),
+      ],
+    });
+
     httpApi.addRoutes({
       path: '/todos',
       methods: [HttpMethod.POST],
@@ -59,10 +75,19 @@ export class TodoAppStack extends Stack {
       ),
     });
 
+    httpApi.addRoutes({
+      path: '/todos',
+      methods: [HttpMethod.GET],
+      integration: new HttpLambdaIntegration(
+        'ListTodosIntegration',
+        listTodosLambda,
+      ),
+    });
+
     new CfnOutput(this, 'ToDoApi', {
-      value: httpApi.url ?? 'oto',
-      description: 'Todo endpoint',
-      exportName: 'youpuiiii',
+      value: httpApi.url ?? 'null',
+      description: 'Todo Api endpoint',
+      exportName: 'todo-api-endpoint',
     });
   }
 }

@@ -13,5 +13,5 @@ test('SQS Queue and SNS Topic Created', () => {
     Architectures: ['arm64'],
   });
 
-  template.resourceCountIs('AWS::Lambda::Function', 1);
+  template.resourceCountIs('AWS::Lambda::Function', 2);
 });
