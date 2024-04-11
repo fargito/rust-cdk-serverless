@@ -1,5 +1,6 @@
 import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
+import { HttpIamAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
@@ -20,7 +21,9 @@ export class TodoAppStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const httpApi = new HttpApi(this, 'HttpApi');
+    const httpApi = new HttpApi(this, 'HttpApi', {
+      defaultAuthorizer: new HttpIamAuthorizer(),
+    });
 
     const todosTable = new Table(this, 'TodosTable', {
       partitionKey: { name: 'PK', type: AttributeType.STRING },
