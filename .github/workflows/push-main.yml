@@ -5,8 +5,11 @@ on:
     tags-ignore:
       - 'v*' # exclude version tags
 
-name: 🚀 Merge main
-concurrency: merge_main
+name: 🚀 Push main
+concurrency: push_main
+
+permissions:
+  id-token: write # this is required for AWS https://github.com/aws-actions/configure-aws-credentials#usage
 
 env:
   CI: true
