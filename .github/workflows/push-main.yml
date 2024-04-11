@@ -1,0 +1,95 @@
+on:
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - 'v*' # exclude version tags
+
+name: 🚀 Merge main
+concurrency: merge_main
+
+env:
+  CI: true
+  AWS_REGION: eu-west-1
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-and-test:
+    name: 🏗 Build Project & 🧪 Run Tests & 🚀 Deploy
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3.0.0
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache Rust build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            rust_lambdas/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Zig toolchain
+        uses: korandoru/setup-zig@v1.6.2
+        with:
+          zig-version: 0.11.0
+
+      - name: Install Cargo Lambda
+        uses: jaxxstorm/action-install-gh-release@v1.11.0
+        with:
+          repo: cargo-lambda/cargo-lambda
+          platform: linux
+          arch: x86_64
+
+      - name: Build Rust Lambdas
+        run: cargo lambda build --arm64 --release --output-format zip
+        working-directory: rust_lambdas
+
+      - name: '🧪 Test linter'
+        run: pnpm run test-linter
+
+      - name: '🏗 Test types'
+        run: pnpm test-type
+
+      - name: '🏗 Test unit'
+        run: pnpm test-unit
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
+
+      - name: CDK Bootstrap
+        run: pnpm run bootstrap
+
+      - name: '🚀 Deploy'
+        run: pnpm run deploy
