@@ -18,7 +18,7 @@ defaults:
 
 jobs:
   build-and-test:
-    name: 🏗 Build Project & 🧪 Run Tests
+    name: 🏗 Build & 🧪 Test
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -35,9 +35,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          cache: pnpm
 
-      - name: Install dependencies
+      - name: Install Node.js dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Cache Rust build
@@ -64,11 +64,11 @@ jobs:
         run: cargo lambda build --arm64 --release --output-format zip
         working-directory: rust_lambdas
 
-      - name: '🧪 Test linter'
+      - name: 🧪 Test linter
         run: pnpm run test-linter
 
-      - name: '🏗 Test types'
+      - name: 🏗 Test types
         run: pnpm test-type
 
-      - name: '🏗 Test unit'
+      - name: 🏗 Test unit
         run: pnpm test-unit
