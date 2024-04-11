@@ -45,17 +45,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Cache Rust build
-        uses: actions/cache@v4
+        uses: Swatinem/rust-cache@v2
         with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            rust_lambdas/target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
+          workspaces: 'rust_lambdas -> target'
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
