@@ -12,9 +12,13 @@
     "test-linter": "pnpm linter-base-config .",
     "test-type": "tsc",
     "test-unit": "vitest run --coverage",
+    "test-integration": "vitest run --coverage --passWithNoTests --config vite.config-integration.ts",
     "watch": "tsc -w"
   },
   "devDependencies": {
+    "@aws-sdk/client-cloudformation": "^3.552.0",
+    "@aws-sdk/credential-providers": "^3.552.0",
+    "@aws-sdk/types": "^3.535.0",
     "@swc-node/register": "^1.9.0",
     "@types/node": "^20.9.1",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
@@ -23,6 +27,7 @@
     "aws-cdk": "2.137.0",
     "aws-cdk-lib": "2.137.0",
     "constructs": "^10.0.98",
+    "dotenv": "^16.4.5",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.5.2",

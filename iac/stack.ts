@@ -1,5 +1,6 @@
 import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
+import { HttpIamAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
@@ -7,6 +8,8 @@ import { Architecture, Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
+
+import { httpApiExportName } from './shared';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -18,7 +21,9 @@ export class TodoAppStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const httpApi = new HttpApi(this, 'HttpApi');
+    const httpApi = new HttpApi(this, 'HttpApi', {
+      defaultAuthorizer: new HttpIamAuthorizer(),
+    });
 
     const todosTable = new Table(this, 'TodosTable', {
       partitionKey: { name: 'PK', type: AttributeType.STRING },
@@ -87,7 +92,7 @@ export class TodoAppStack extends Stack {
     new CfnOutput(this, 'ToDoApi', {
       value: httpApi.url ?? 'null',
       description: 'Todo Api endpoint',
-      exportName: 'todo-api-endpoint',
+      exportName: httpApiExportName,
     });
   }
 }
