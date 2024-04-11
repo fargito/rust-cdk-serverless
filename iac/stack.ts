@@ -8,6 +8,8 @@ import { Construct } from 'constructs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
 
+import { httpApiExportName } from './shared';
+
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
@@ -87,7 +89,7 @@ export class TodoAppStack extends Stack {
     new CfnOutput(this, 'ToDoApi', {
       value: httpApi.url ?? 'null',
       description: 'Todo Api endpoint',
-      exportName: 'todo-api-endpoint',
+      exportName: httpApiExportName,
     });
   }
 }
