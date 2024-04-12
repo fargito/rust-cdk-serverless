@@ -1,8 +1,10 @@
+import { Sha256 } from '@aws-crypto/sha256-js';
 import {
   CloudFormationClient,
   ListExportsCommand,
 } from '@aws-sdk/client-cloudformation';
 import { fromEnv, fromIni } from '@aws-sdk/credential-providers';
+import { SignatureV4 } from '@smithy/signature-v4';
 import { config } from 'dotenv';
 
 import { httpApiExportName } from 'iac/shared';
@@ -15,8 +17,12 @@ const credentials =
     ? fromEnv()
     : fromIni({ profile: process.env.AWS_PROFILE });
 
+const region = process.env.AWS_REGION;
+
+if (region === undefined) throw new Error('expected region');
+
 const cloudformationClient = new CloudFormationClient({
-  region: process.env.AWS_REGION,
+  region,
   credentials,
 });
 
@@ -30,4 +36,12 @@ const httpApiUrl = cfOutputs.Exports?.find(
 if (httpApiUrl === undefined)
   throw new Error('unable to retrieve the HTTP URL');
 
+const signatureV4 = new SignatureV4({
+  service: 'execute-api',
+  region,
+  credentials,
+  sha256: Sha256,
+});
+
 globalThis.httpApiUrl = httpApiUrl;
+globalThis.signatureV4 = signatureV4;

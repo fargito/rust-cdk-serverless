@@ -17,6 +17,13 @@ const __dirname = path.dirname(__filename);
 
 const baseLambdaDir = '../rust_lambdas/target/lambda/';
 
+type LambdaConfig = {
+  codePath: string;
+  httpPath: string;
+  httpMethod: HttpMethod;
+  policy: PolicyStatement[];
+};
+
 export class TodoAppStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -31,62 +38,70 @@ export class TodoAppStack extends Stack {
       billingMode: BillingMode.PAY_PER_REQUEST,
     });
 
-    const createTodoLambda = new Function(this, 'CreateTodo', {
-      architecture: Architecture.ARM_64,
-      runtime: Runtime.PROVIDED_AL2023,
-      code: Code.fromAsset(
-        join(__dirname, baseLambdaDir, 'create_todo/bootstrap.zip'),
-      ),
-      handler: 'useless',
-      memorySize: 1024,
-      environment: {
-        TODOS_TABLE_NAME: todosTable.tableName,
+    const lambdasConfig: Record<string, LambdaConfig> = {
+      CreateTodo: {
+        codePath: 'create_todo/bootstrap.zip',
+        httpMethod: HttpMethod.POST,
+        httpPath: '/todos',
+        policy: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            resources: [todosTable.tableArn],
+            actions: ['dynamodb:PutItem'],
+          }),
+        ],
       },
-      initialPolicy: [
-        new PolicyStatement({
-          effect: Effect.ALLOW,
-          resources: [todosTable.tableArn],
-          actions: ['dynamodb:PutItem'],
-        }),
-      ],
-    });
-
-    const listTodosLambda = new Function(this, 'ListTodos', {
-      architecture: Architecture.ARM_64,
-      runtime: Runtime.PROVIDED_AL2023,
-      code: Code.fromAsset(
-        join(__dirname, baseLambdaDir, 'list_todos/bootstrap.zip'),
-      ),
-      handler: 'useless',
-      memorySize: 1024,
-      environment: {
-        TODOS_TABLE_NAME: todosTable.tableName,
+      ListTodos: {
+        codePath: 'list_todos/bootstrap.zip',
+        httpMethod: HttpMethod.GET,
+        httpPath: '/todos',
+        policy: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            resources: [todosTable.tableArn],
+            actions: ['dynamodb:Query'],
+          }),
+        ],
       },
-      initialPolicy: [
-        new PolicyStatement({
-          effect: Effect.ALLOW,
-          resources: [todosTable.tableArn],
-          actions: ['dynamodb:Query'],
-        }),
-      ],
-    });
+      DeleteTodo: {
+        codePath: 'delete_todo/bootstrap.zip',
+        httpMethod: HttpMethod.DELETE,
+        httpPath: '/todos/{todoId}',
+        policy: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            resources: [todosTable.tableArn],
+            actions: ['dynamodb:DeleteItem'],
+          }),
+        ],
+      },
+    };
 
-    httpApi.addRoutes({
-      path: '/todos',
-      methods: [HttpMethod.POST],
-      integration: new HttpLambdaIntegration(
-        'CreateTodoIntegration',
-        createTodoLambda,
-      ),
-    });
+    Object.entries(lambdasConfig).map(([lambdaName, lambdaConfig]) => {
+      // create the lambda
+      const lambda = new Function(this, lambdaName, {
+        architecture: Architecture.ARM_64,
+        runtime: Runtime.PROVIDED_AL2023,
+        code: Code.fromAsset(
+          join(__dirname, baseLambdaDir, lambdaConfig.codePath),
+        ),
+        handler: 'useless',
+        memorySize: 1024,
+        environment: {
+          TODOS_TABLE_NAME: todosTable.tableName,
+        },
+        initialPolicy: lambdaConfig.policy,
+      });
 
-    httpApi.addRoutes({
-      path: '/todos',
-      methods: [HttpMethod.GET],
-      integration: new HttpLambdaIntegration(
-        'ListTodosIntegration',
-        listTodosLambda,
-      ),
+      // add it to the http api
+      httpApi.addRoutes({
+        path: lambdaConfig.httpPath,
+        methods: [lambdaConfig.httpMethod],
+        integration: new HttpLambdaIntegration(
+          `${lambdaName}Integration`,
+          lambda,
+        ),
+      });
     });
 
     new CfnOutput(this, 'ToDoApi', {
