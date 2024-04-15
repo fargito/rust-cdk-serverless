@@ -5,6 +5,6 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
     globals: true,
-    exclude: [...configDefaults.exclude, 'cdk.out/**', 'integrationTests/*'],
+    exclude: [...configDefaults.exclude, 'cdk.out/**', 'integration-tests/*'],
   },
 });

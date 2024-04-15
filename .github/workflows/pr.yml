@@ -43,7 +43,7 @@ jobs:
       - name: Cache Rust build
         uses: Swatinem/rust-cache@v2
         with:
-          workspaces: 'rust_lambdas -> target'
+          workspaces: 'rust-lambdas -> target'
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -62,7 +62,7 @@ jobs:
 
       - name: Build Rust Lambdas
         run: cargo lambda build --arm64 --release --output-format zip
-        working-directory: rust_lambdas
+        working-directory: rust-lambdas
 
       - name: 🧪 Test linter
         run: pnpm run test-linter
