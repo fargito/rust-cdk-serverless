@@ -15,7 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
-const baseLambdaDir = '../rust_lambdas/target/lambda/';
+const baseLambdaDir = '../rust-lambdas/target/lambda/';
 
 type LambdaConfig = {
   codePath: string;
@@ -40,7 +40,7 @@ export class TodoAppStack extends Stack {
 
     const lambdasConfig: Record<string, LambdaConfig> = {
       CreateTodo: {
-        codePath: 'create_todo/bootstrap.zip',
+        codePath: 'create-todo/bootstrap.zip',
         httpMethod: HttpMethod.POST,
         httpPath: '/todos',
         policy: [
@@ -52,7 +52,7 @@ export class TodoAppStack extends Stack {
         ],
       },
       ListTodos: {
-        codePath: 'list_todos/bootstrap.zip',
+        codePath: 'list-todos/bootstrap.zip',
         httpMethod: HttpMethod.GET,
         httpPath: '/todos',
         policy: [
@@ -64,7 +64,7 @@ export class TodoAppStack extends Stack {
         ],
       },
       DeleteTodo: {
-        codePath: 'delete_todo/bootstrap.zip',
+        codePath: 'delete-todo/bootstrap.zip',
         httpMethod: HttpMethod.DELETE,
         httpPath: '/todos/{todoId}',
         policy: [

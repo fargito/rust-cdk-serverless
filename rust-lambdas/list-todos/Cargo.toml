@@ -1,5 +1,5 @@
 [package]
-name = "list_todos"
+name = "list-todos"
 version = "0.1.0"
 edition = "2021"
 
