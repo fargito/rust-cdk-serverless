@@ -12,7 +12,7 @@
     "test-linter": "pnpm linter-base-config .",
     "test-type": "tsc",
     "test-unit": "vitest run --coverage",
-    "test-integration": "vitest run --coverage --passWithNoTests --config vite.config-integration.ts",
+    "test-integration": "vitest run --config vite.config-integration.ts",
     "watch": "tsc -w"
   },
   "devDependencies": {
