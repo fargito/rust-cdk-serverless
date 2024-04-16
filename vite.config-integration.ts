@@ -10,5 +10,8 @@ export default defineConfig({
     include: ['integration-tests/**/*.test.ts'],
     setupFiles: ['vitestIntegrationSetup'],
     testTimeout: 20 * 1000, // 20 seconds timeout
+    coverage: {
+      enabled: false,
+    },
   },
 });
