@@ -3,6 +3,7 @@ import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpIamAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
+import { EventBus } from 'aws-cdk-lib/aws-events';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Architecture, Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
@@ -38,7 +39,9 @@ export class TodoAppStack extends Stack {
       billingMode: BillingMode.PAY_PER_REQUEST,
     });
 
-    const lambdasConfig: Record<string, LambdaConfig> = {
+    const eventBus = new EventBus(this, 'EventBus');
+
+    const httpLambdasConfig: Record<string, LambdaConfig> = {
       CreateTodo: {
         codePath: 'create-todo/bootstrap.zip',
         httpMethod: HttpMethod.POST,
@@ -48,6 +51,11 @@ export class TodoAppStack extends Stack {
             effect: Effect.ALLOW,
             resources: [todosTable.tableArn],
             actions: ['dynamodb:PutItem'],
+          }),
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            resources: [eventBus.eventBusArn],
+            actions: ['events:PutEvents'],
           }),
         ],
       },
@@ -77,7 +85,8 @@ export class TodoAppStack extends Stack {
       },
     };
 
-    Object.entries(lambdasConfig).map(([lambdaName, lambdaConfig]) => {
+    // HTTP Lambdas config
+    Object.entries(httpLambdasConfig).map(([lambdaName, lambdaConfig]) => {
       // create the lambda
       const lambda = new Function(this, lambdaName, {
         architecture: Architecture.ARM_64,
@@ -89,6 +98,7 @@ export class TodoAppStack extends Stack {
         memorySize: 1024,
         environment: {
           TODOS_TABLE_NAME: todosTable.tableName,
+          EVENT_BUS_NAME: eventBus.eventBusName,
         },
         initialPolicy: lambdaConfig.policy,
       });
