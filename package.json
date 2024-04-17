@@ -9,6 +9,7 @@
     "lint-fix": "pnpm linter-base-config --fix",
     "lint-fix-all": "pnpm lint-fix .",
     "linter-base-config": "eslint --ext=js,ts",
+    "test": "pnpm test-linter && pnpm test-type && pnpm test-unit",
     "test-linter": "pnpm linter-base-config .",
     "test-type": "tsc",
     "test-unit": "vitest run --coverage",
