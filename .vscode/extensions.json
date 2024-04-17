@@ -3,6 +3,7 @@
     "esbenp.prettier-vscode",
     "foxundermoon.shell-format",
     "rust-lang.rust-analyzer",
-    "SebastianBille.iam-legend"
+    "SebastianBille.iam-legend",
+    "GitHub.vscode-github-actions"
   ]
 }
