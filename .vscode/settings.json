@@ -12,7 +12,8 @@
     "**/bundles": true,
     "**/dist": true,
     "**/tsconfig.tsbuildinfo": true,
-    "**/cdk.out": true
+    "**/cdk.out": true,
+    "**/Cargo.lock": true
   },
   "files.watcherExclude": {
     "**/node_modules/**": true,
@@ -36,6 +37,8 @@
   "vitest.commandLine": "pnpm vitest",
   "cSpell.words": [
     "aarch",
+    "eventbridge",
+    "serde",
     "Todos"
   ]
 }
