@@ -67,8 +67,11 @@ jobs:
       - name: 🧪 Test linter
         run: pnpm run test-linter
 
-      - name: 🏗 Test types
+      - name: 🏠 Test types
         run: pnpm test-type
 
       - name: 🏗 Test unit
         run: pnpm test-unit
+
+      - name: ⛅ Test CDK
+        run: pnpm test-cdk
