@@ -1,5 +1,6 @@
 use aws_lambda_events::http::StatusCode;
 use aws_sdk_dynamodb::types::AttributeValue;
+use aws_sdk_eventbridge::types::PutEventsRequestEntry;
 use serde::Deserialize;
 use shared::{FailureResponse, Todo};
 
@@ -18,7 +19,9 @@ struct CreateTodo {
 pub(crate) async fn handler(
     request: Request,
     dynamodb_client: &aws_sdk_dynamodb::Client,
+    eventbridge_client: &aws_sdk_eventbridge::Client,
     todos_table_name: &str,
+    event_bus_name: &str,
 ) -> Result<(StatusCode, serde_json::Value), FailureResponse> {
     let body = match request.body() {
         Body::Text(body) => {
@@ -68,6 +71,24 @@ pub(crate) async fn handler(
         status_code: StatusCode::INTERNAL_SERVER_ERROR,
         body: "Unable to serialize todo".into(),
     })?;
+
+    let entries = PutEventsRequestEntry::builder()
+        .event_bus_name(event_bus_name)
+        .source("api.todos")
+        .detail_type("TODO.CREATED")
+        .detail(todo.to_string())
+        .build();
+
+    // ignore the errors here
+    let _ = eventbridge_client
+        .put_events()
+        .entries(entries)
+        .send()
+        .await
+        .map_err(|_| FailureResponse {
+            status_code: StatusCode::INTERNAL_SERVER_ERROR,
+            body: "Unable to send confirmation event".into(),
+        });
 
     Ok((StatusCode::OK, todo))
 }
