@@ -12,6 +12,7 @@ module.exports = {
     '**/coverage/',
     '**/build/',
     '**/public/',
+    '**/rust-lambdas/',
   ],
   rules: {
     'prettier/prettier': 'error',
