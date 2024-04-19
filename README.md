@@ -1,12 +1,12 @@
 # Serverless CDK Rust
 
-A sample serverless app with Rust. I'm just experimenting stuff here so don't take anything for face value 🙃.
+A sample serverless app with Rust. I'm just experimenting stuff here so don't take anything at face value 🙃.
 
 ## Setup
 
 ### Requirements
 
-**NodeJS**: version is stored in `.nvmrc`. If you use `nvm`, you can run:
+**NodeJS**: See [official NodeJS install docs](https://nodejs.org/en/learn/getting-started/how-to-install-nodejs). The current NodeJS version is stored in `.nvmrc`. If you use `nvm`, you can run:
 
 ```bash
 nvm use
@@ -58,6 +58,8 @@ pnpm test
 ```
 
 ### Deploy
+
+⚠ Warning: you may have to log in to your AWS profile again, depending on the setup method.
 
 ```bash
 pnpm run deploy --profile <your-profile-name>
