@@ -1,10 +1,11 @@
+/* eslint-disable max-lines */
 import { EventScout } from '@event-scout/construct';
 import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpIamAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
-import { EventBus, Rule } from 'aws-cdk-lib/aws-events';
+import { EventBus, EventPattern, Rule } from 'aws-cdk-lib/aws-events';
 import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Architecture, Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
@@ -20,11 +21,18 @@ const __dirname = path.dirname(__filename);
 
 const baseLambdaDir = '../rust-lambdas/target/lambda/';
 
-type HttpLambdaConfig = {
+type LambdaConfig = {
   codePath: string;
+  policy: PolicyStatement[];
+};
+
+type HttpLambdaConfig = LambdaConfig & {
   httpPath: string;
   httpMethod: HttpMethod;
-  policy: PolicyStatement[];
+};
+
+type AsyncLambdaConfig = LambdaConfig & {
+  eventPattern: EventPattern;
 };
 
 export class TodoAppStack extends Stack {
@@ -124,29 +132,41 @@ export class TodoAppStack extends Stack {
       });
     });
 
-    // Async lambda
-    const onTodoCreatedLambda = new Function(this, 'OnTodoCreated', {
-      architecture: Architecture.ARM_64,
-      runtime: Runtime.PROVIDED_AL2023,
-      code: Code.fromAsset(
-        join(__dirname, baseLambdaDir, 'on-todo-created/bootstrap.zip'),
-      ),
-      handler: 'useless',
-      memorySize: 1024,
-      environment: {
-        TODOS_TABLE_NAME: todosTable.tableName,
-        RUST_LOG: 'info',
+    const asyncLambdasConfig: Record<string, AsyncLambdaConfig> = {
+      OnTodoCreated: {
+        codePath: 'on-todo-created/bootstrap.zip',
+        policy: [],
+        eventPattern: {
+          source: ['api.todos'],
+          detailType: ['TODO_CREATED'],
+        },
       },
-      initialPolicy: [],
-    });
+    };
 
-    new Rule(this, 'OnTodoCreatedEventRule', {
-      eventPattern: {
-        source: ['api.todos'],
-        detailType: ['TODO_CREATED'],
-      },
-      eventBus,
-      targets: [new LambdaFunction(onTodoCreatedLambda)],
+    // Async Lambdas config
+    Object.entries(asyncLambdasConfig).map(([lambdaName, lambdaConfig]) => {
+      // create the lambda
+      const lambda = new Function(this, lambdaName, {
+        architecture: Architecture.ARM_64,
+        runtime: Runtime.PROVIDED_AL2023,
+        code: Code.fromAsset(
+          join(__dirname, baseLambdaDir, lambdaConfig.codePath),
+        ),
+        handler: 'useless',
+        memorySize: 1024,
+        environment: {
+          TODOS_TABLE_NAME: todosTable.tableName,
+          RUST_LOG: 'info',
+        },
+        initialPolicy: lambdaConfig.policy,
+      });
+
+      // add the rule
+      new Rule(this, `${lambdaName}Rule`, {
+        eventPattern: lambdaConfig.eventPattern,
+        eventBus,
+        targets: [new LambdaFunction(lambda)],
+      });
     });
 
     new CfnOutput(this, 'ToDoApi', {
