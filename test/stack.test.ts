@@ -3,7 +3,7 @@ import { Template } from 'aws-cdk-lib/assertions';
 
 import * as TodoApp from '../iac/stack';
 
-test('SQS Queue and SNS Topic Created', () => {
+test('Resources are properly created', () => {
   const app = new cdk.App();
   const stack = new TodoApp.TodoAppStack(app, 'MyTestStack');
 
@@ -13,5 +13,6 @@ test('SQS Queue and SNS Topic Created', () => {
     Architectures: ['arm64'],
   });
 
-  template.resourceCountIs('AWS::Lambda::Function', 3);
+  template.resourceCountIs('AWS::Events::EventBus', 1);
+  template.resourceCountIs('AWS::DynamoDB::Table', 2);
 });
