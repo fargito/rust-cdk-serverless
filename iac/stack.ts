@@ -4,7 +4,8 @@ import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpIamAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
-import { EventBus } from 'aws-cdk-lib/aws-events';
+import { EventBus, Rule } from 'aws-cdk-lib/aws-events';
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Architecture, Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
@@ -19,7 +20,7 @@ const __dirname = path.dirname(__filename);
 
 const baseLambdaDir = '../rust-lambdas/target/lambda/';
 
-type LambdaConfig = {
+type HttpLambdaConfig = {
   codePath: string;
   httpPath: string;
   httpMethod: HttpMethod;
@@ -49,7 +50,7 @@ export class TodoAppStack extends Stack {
       { eventBus },
     );
 
-    const httpLambdasConfig: Record<string, LambdaConfig> = {
+    const httpLambdasConfig: Record<string, HttpLambdaConfig> = {
       CreateTodo: {
         codePath: 'create-todo/bootstrap.zip',
         httpMethod: HttpMethod.POST,
@@ -120,6 +121,30 @@ export class TodoAppStack extends Stack {
           lambda,
         ),
       });
+    });
+
+    // Async lambda
+    const onTodoCreatedLambda = new Function(this, 'OnTodoCreated', {
+      architecture: Architecture.ARM_64,
+      runtime: Runtime.PROVIDED_AL2023,
+      code: Code.fromAsset(
+        join(__dirname, baseLambdaDir, 'on-todo-created/bootstrap.zip'),
+      ),
+      handler: 'useless',
+      memorySize: 1024,
+      environment: {
+        TODOS_TABLE_NAME: todosTable.tableName,
+      },
+      initialPolicy: [],
+    });
+
+    new Rule(this, 'OnTodoCreatedEventRule', {
+      eventPattern: {
+        source: ['api.todos'],
+        detailType: ['TODO_CREATED'],
+      },
+      eventBus,
+      targets: [new LambdaFunction(onTodoCreatedLambda)],
     });
 
     new CfnOutput(this, 'ToDoApi', {
