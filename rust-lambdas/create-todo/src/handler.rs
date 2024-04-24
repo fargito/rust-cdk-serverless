@@ -75,7 +75,7 @@ pub(crate) async fn handler(
     let entries = PutEventsRequestEntry::builder()
         .event_bus_name(event_bus_name)
         .source("api.todos")
-        .detail_type("TODO.CREATED")
+        .detail_type("TODO_CREATED")
         .detail(todo.to_string())
         .build();
 

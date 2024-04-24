@@ -1,3 +1,4 @@
+import { EventScoutClient } from '@event-scout/client';
 import { SignatureV4 } from '@smithy/signature-v4';
 import axios from 'axios';
 import { randomUUID } from 'crypto';
@@ -14,6 +15,20 @@ describe('todos CRUD API', () => {
   const httpApiUrl = globalThis.httpApiUrl;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const signatureV4: SignatureV4 = globalThis.signatureV4;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const eventScoutClient: EventScoutClient = globalThis.eventScoutClient;
+
+  beforeAll(
+    async () => {
+      await eventScoutClient.start({
+        eventPattern: {
+          source: ['api.todos'],
+          'detail-type': ['TODO_CREATED'],
+        },
+      });
+    },
+    30 * 1000, // 30s timeout
+  );
 
   describe('authentication', () => {
     it('should return a 403 when calling with no authorization', async () => {
@@ -79,5 +94,9 @@ describe('todos CRUD API', () => {
         expect.arrayContaining([todo]),
       );
     });
+  });
+
+  afterAll(async () => {
+    await eventScoutClient.stop();
   });
 });

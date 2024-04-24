@@ -4,10 +4,11 @@ import {
   ListExportsCommand,
 } from '@aws-sdk/client-cloudformation';
 import { fromEnv, fromIni } from '@aws-sdk/credential-providers';
+import { EventScoutClient } from '@event-scout/client';
 import { SignatureV4 } from '@smithy/signature-v4';
 import { config } from 'dotenv';
 
-import { httpApiExportName } from 'iac/shared';
+import { eventScoutEndpointExportName, httpApiExportName } from 'iac/shared';
 
 // load .env
 config();
@@ -36,6 +37,13 @@ const httpApiUrl = cfOutputs.Exports?.find(
 if (httpApiUrl === undefined)
   throw new Error('unable to retrieve the HTTP URL');
 
+const eventScoutEndpoint = cfOutputs.Exports?.find(
+  o => o.Name === eventScoutEndpointExportName,
+)?.Value;
+
+if (eventScoutEndpoint === undefined)
+  throw new Error('unable to retrieve the EventScout endpoint');
+
 const signatureV4 = new SignatureV4({
   service: 'execute-api',
   region,
@@ -43,5 +51,12 @@ const signatureV4 = new SignatureV4({
   sha256: Sha256,
 });
 
+const eventScoutClient = new EventScoutClient({
+  credentials,
+  region,
+  endpoint: eventScoutEndpoint,
+});
+
+globalThis.eventScoutClient = eventScoutClient;
 globalThis.httpApiUrl = httpApiUrl;
 globalThis.signatureV4 = signatureV4;
