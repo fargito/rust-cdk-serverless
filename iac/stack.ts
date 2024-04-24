@@ -135,7 +135,7 @@ export class TodoAppStack extends Stack {
       memorySize: 1024,
       environment: {
         TODOS_TABLE_NAME: todosTable.tableName,
-        RUST_LOG: 'debug',
+        RUST_LOG: 'info',
       },
       initialPolicy: [],
     });
