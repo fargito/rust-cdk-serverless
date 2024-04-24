@@ -108,6 +108,7 @@ export class TodoAppStack extends Stack {
         environment: {
           TODOS_TABLE_NAME: todosTable.tableName,
           EVENT_BUS_NAME: eventBus.eventBusName,
+          RUST_LOG: 'info',
         },
         initialPolicy: lambdaConfig.policy,
       });
@@ -134,6 +135,7 @@ export class TodoAppStack extends Stack {
       memorySize: 1024,
       environment: {
         TODOS_TABLE_NAME: todosTable.tableName,
+        RUST_LOG: 'debug',
       },
       initialPolicy: [],
     });
