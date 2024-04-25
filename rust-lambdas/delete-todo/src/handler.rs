@@ -3,7 +3,7 @@ use aws_sdk_dynamodb::types::AttributeValue;
 use shared::FailureResponse;
 
 use lambda_http::{Request, RequestExt};
-use tracing::debug;
+use tracing::{debug, error};
 
 use std::{collections::HashMap, time::Instant};
 
@@ -30,9 +30,13 @@ pub(crate) async fn handler(
         ])))
         .send()
         .await
-        .map_err(|_| FailureResponse {
-            status_code: StatusCode::INTERNAL_SERVER_ERROR,
-            body: "Unable to delete todo".into(),
+        .map_err(|err| {
+            error!(err = ?err, "Unable to set todo");
+
+            FailureResponse {
+                status_code: StatusCode::INTERNAL_SERVER_ERROR,
+                body: "Unable to delete todo".into(),
+            }
         })?;
 
     debug!("Item deleted in {:.2?}", start.elapsed());

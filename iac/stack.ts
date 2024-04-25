@@ -135,7 +135,13 @@ export class TodoAppStack extends Stack {
     const asyncLambdasConfig: Record<string, AsyncLambdaConfig> = {
       OnTodoCreated: {
         codePath: 'on-todo-created/bootstrap.zip',
-        policy: [],
+        policy: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            resources: [todosTable.tableArn],
+            actions: ['dynamodb:UpdateItem'],
+          }),
+        ],
         eventPattern: {
           source: ['api.todos'],
           detailType: ['TODO_CREATED'],
