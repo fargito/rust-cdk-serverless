@@ -5,7 +5,7 @@ use serde::Deserialize;
 use shared::{FailureResponse, Todo};
 
 use lambda_http::{Body, Request};
-use tracing::debug;
+use tracing::{debug, error};
 use ulid::Ulid;
 
 use std::time::Instant;
@@ -54,9 +54,13 @@ pub(crate) async fn handler(
         )
         .send()
         .await
-        .map_err(|_| FailureResponse {
-            status_code: StatusCode::INTERNAL_SERVER_ERROR,
-            body: "Unable to set todo".into(),
+        .map_err(|err| {
+            error!(err = ?err, "Unable to set todo");
+
+            FailureResponse {
+                status_code: StatusCode::INTERNAL_SERVER_ERROR,
+                body: "Unable to set todo".into(),
+            }
         })?;
 
     debug!("Item stored in {:.2?}", start.elapsed());
