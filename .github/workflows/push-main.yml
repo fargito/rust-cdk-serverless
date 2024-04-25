@@ -68,6 +68,10 @@ jobs:
         run: cargo lambda build --arm64 --release --output-format zip
         working-directory: rust-lambdas
 
+      - name: Check Rust code
+        run: cargo check --workspace --release --locked
+        working-directory: rust-lambdas
+
       - name: 🧪 Test linter
         run: pnpm run test-linter
 
