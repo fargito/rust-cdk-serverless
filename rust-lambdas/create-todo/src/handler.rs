@@ -25,7 +25,7 @@ pub(crate) async fn handler(
 ) -> Result<(StatusCode, serde_json::Value), FailureResponse> {
     let body = match request.body() {
         Body::Text(body) => {
-            serde_json::from_str::<CreateTodo>(&body).map_err(|_| FailureResponse {
+            serde_json::from_str::<CreateTodo>(body).map_err(|_| FailureResponse {
                 status_code: StatusCode::BAD_REQUEST,
                 body: "Invalid request".into(),
             })
