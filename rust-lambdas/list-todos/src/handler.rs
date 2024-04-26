@@ -1,10 +1,13 @@
 use std::time::Instant;
 
 use aws_sdk_dynamodb::types::AttributeValue;
-use lambda_http::{http::StatusCode, Request};
+use lambda_http::{
+    http::StatusCode,
+    tracing::{debug, error},
+    Request,
+};
 
 use shared::{FailureResponse, Todo};
-use tracing::{debug, error};
 
 pub(crate) async fn handler(
     _request: Request,

@@ -4,8 +4,10 @@ use aws_sdk_eventbridge::types::PutEventsRequestEntry;
 use serde::Deserialize;
 use shared::{FailureResponse, Todo};
 
-use lambda_http::{Body, Request};
-use tracing::{debug, error};
+use lambda_http::{
+    tracing::{debug, error},
+    Body, Request,
+};
 use ulid::Ulid;
 
 use std::time::Instant;
@@ -24,12 +26,10 @@ pub(crate) async fn handler(
     event_bus_name: &str,
 ) -> Result<(StatusCode, serde_json::Value), FailureResponse> {
     let body = match request.body() {
-        Body::Text(body) => {
-            serde_json::from_str::<CreateTodo>(body).map_err(|_| FailureResponse {
-                status_code: StatusCode::BAD_REQUEST,
-                body: "Invalid request".into(),
-            })
-        }
+        Body::Text(body) => serde_json::from_str::<CreateTodo>(body).map_err(|_| FailureResponse {
+            status_code: StatusCode::BAD_REQUEST,
+            body: "Invalid request".into(),
+        }),
         _ => Err(FailureResponse {
             status_code: StatusCode::BAD_REQUEST,
             body: "Invalid request".into(),

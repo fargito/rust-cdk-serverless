@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { EventScout } from '@event-scout/construct';
-import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
+import { CfnOutput, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
 import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpIamAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
@@ -8,7 +8,14 @@ import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { EventBus, EventPattern, Rule } from 'aws-cdk-lib/aws-events';
 import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { Architecture, Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
+import {
+  Architecture,
+  Code,
+  Function,
+  LogFormat,
+  Runtime,
+} from 'aws-cdk-lib/aws-lambda';
+import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
@@ -57,6 +64,12 @@ export class TodoAppStack extends Stack {
       'EventScout',
       { eventBus },
     );
+
+    const logGroup = new LogGroup(this, 'Logs', {
+      logGroupName: 'todos-api',
+      retention: RetentionDays.FIVE_DAYS,
+      removalPolicy: RemovalPolicy.DESTROY, // do not keep log group if it is no longer included in a deployment
+    });
 
     const httpLambdasConfig: Record<string, HttpLambdaConfig> = {
       CreateTodo: {
@@ -113,6 +126,8 @@ export class TodoAppStack extends Stack {
         ),
         handler: 'useless',
         memorySize: 1024,
+        logFormat: LogFormat.JSON,
+        logGroup,
         environment: {
           TODOS_TABLE_NAME: todosTable.tableName,
           EVENT_BUS_NAME: eventBus.eventBusName,
@@ -160,6 +175,8 @@ export class TodoAppStack extends Stack {
         ),
         handler: 'useless',
         memorySize: 1024,
+        logFormat: LogFormat.JSON,
+        logGroup,
         environment: {
           TODOS_TABLE_NAME: todosTable.tableName,
           RUST_LOG: 'info',
