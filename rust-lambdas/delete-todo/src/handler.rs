@@ -2,8 +2,10 @@ use aws_lambda_events::http::StatusCode;
 use aws_sdk_dynamodb::types::AttributeValue;
 use shared::FailureResponse;
 
-use lambda_http::{Request, RequestExt};
-use tracing::{debug, error};
+use lambda_http::{
+    tracing::{debug, error},
+    Request, RequestExt,
+};
 
 use std::{collections::HashMap, time::Instant};
 

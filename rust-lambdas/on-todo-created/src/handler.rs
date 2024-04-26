@@ -1,8 +1,10 @@
 use aws_lambda_events::eventbridge::EventBridgeEvent;
 use aws_sdk_dynamodb::types::AttributeValue;
-use lambda_runtime::{Error, LambdaEvent};
+use lambda_runtime::{
+    tracing::{error, info},
+    Error, LambdaEvent,
+};
 use shared::Todo;
-use tracing::{error, info};
 
 pub(crate) async fn handler(
     event: LambdaEvent<EventBridgeEvent<Todo>>,

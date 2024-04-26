@@ -4,11 +4,12 @@ use std::env;
 use std::time::Instant;
 
 use aws_config::BehaviorVersion;
-use lambda_http::{service_fn, tower::ServiceExt, Error};
-
-use shared::setup_logging;
-
-use tracing::debug;
+use lambda_http::{
+    service_fn,
+    tower::ServiceExt,
+    tracing::{self, debug},
+    Error,
+};
 
 use handler::handler;
 
@@ -16,7 +17,7 @@ use handler::handler;
 async fn main() -> Result<(), Error> {
     let start = Instant::now();
 
-    setup_logging();
+    tracing::init_default_subscriber();
 
     let config = aws_config::load_defaults(BehaviorVersion::latest()).await;
     let dynamodb_client = aws_sdk_dynamodb::Client::new(&config);
