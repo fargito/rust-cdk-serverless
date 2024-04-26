@@ -111,6 +111,11 @@ export class TodoAppStack extends Stack {
             resources: [todosTable.tableArn],
             actions: ['dynamodb:DeleteItem'],
           }),
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            resources: [eventBus.eventBusArn],
+            actions: ['events:PutEvents'],
+          }),
         ],
       },
     };
