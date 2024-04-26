@@ -16,3 +16,11 @@ impl std::fmt::Display for FailureResponse {
 // Implement Error for the FailureResponse so that we can `?` (try) the Response
 // returned by `lambda_runtime::run(func).await` in `fn main`.
 impl std::error::Error for FailureResponse {}
+
+#[derive(thiserror::Error, Debug)]
+pub enum DynamoDBError<'a> {
+    #[error("missing attribute {attribute}")]
+    MissingAttribute { attribute: &'a str },
+    #[error("invalid attribute {attribute}")]
+    InvalidAttribute { attribute: &'a str },
+}

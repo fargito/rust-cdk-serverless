@@ -111,6 +111,11 @@ export class TodoAppStack extends Stack {
             resources: [todosTable.tableArn],
             actions: ['dynamodb:DeleteItem'],
           }),
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            resources: [eventBus.eventBusArn],
+            actions: ['events:PutEvents'],
+          }),
         ],
       },
     };
@@ -160,6 +165,20 @@ export class TodoAppStack extends Stack {
         eventPattern: {
           source: ['api.todos'],
           detailType: ['TODO_CREATED'],
+        },
+      },
+      OnTodoDeleted: {
+        codePath: 'on-todo-deleted/bootstrap.zip',
+        policy: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            resources: [todosTable.tableArn],
+            actions: ['dynamodb:UpdateItem'],
+          }),
+        ],
+        eventPattern: {
+          source: ['api.todos'],
+          detailType: ['TODO_DELETED'],
         },
       },
     };

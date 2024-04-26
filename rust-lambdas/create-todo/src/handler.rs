@@ -89,9 +89,13 @@ pub(crate) async fn handler(
         .entries(entries)
         .send()
         .await
-        .map_err(|_| FailureResponse {
-            status_code: StatusCode::INTERNAL_SERVER_ERROR,
-            body: "Unable to send confirmation event".into(),
+        .map_err(|err| {
+            error!(err = ?err, "Unable to send confirmation event");
+
+            FailureResponse {
+                status_code: StatusCode::INTERNAL_SERVER_ERROR,
+                body: "Unable to send confirmation event".into(),
+            }
         });
 
     Ok((StatusCode::OK, todo))

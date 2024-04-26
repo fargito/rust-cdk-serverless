@@ -14,7 +14,7 @@ pub(crate) async fn handler(
         .key("PK", AttributeValue::S("TODO".into()))
         .key("SK", AttributeValue::S("COUNTER".into()))
         .update_expression("ADD todosCount :increment")
-        .expression_attribute_values(":increment", AttributeValue::N("1".into()))
+        .expression_attribute_values(":increment", AttributeValue::N("-1".into()))
         .send()
         .await
         .map_err(|err| {

@@ -7,7 +7,7 @@ use lambda_http::{
     Request,
 };
 
-use shared::{FailureResponse, Todo};
+use shared::{un_marshall_todo, FailureResponse, Todo};
 
 pub(crate) async fn handler(
     _request: Request,
@@ -42,53 +42,13 @@ pub(crate) async fn handler(
             body: "Got no items from DynamoDB".into(),
         })?
         .into_iter()
-        .flat_map(|item| -> Result<Todo, DynamoDBError> {
-            Ok(Todo {
-                id: item
-                    .get("id")
-                    .ok_or(DynamoDBError::MissingAttribute { attribute: "id" })?
-                    .to_owned()
-                    .as_s()
-                    .map_err(|err| {
-                        error!(err = ?err, "Unable to query table");
-
-                        DynamoDBError::InvalidAttribute { attribute: "id" }
-                    })?
-                    .to_string(),
-                title: item
-                    .get("title")
-                    .ok_or(DynamoDBError::MissingAttribute { attribute: "title" })?
-                    .to_owned()
-                    .as_s()
-                    .map_err(|err| {
-                        error!(err = ?err, "Unable to query table");
-
-                        DynamoDBError::InvalidAttribute { attribute: "title" }
-                    })?
-                    .to_string(),
-                description: item
-                    .get("description")
-                    .ok_or(DynamoDBError::MissingAttribute {
-                        attribute: "description",
-                    })?
-                    .to_owned()
-                    .as_s()
-                    .map_err(|err| {
-                        error!(err = ?err, "Unable to query table");
-
-                        DynamoDBError::InvalidAttribute {
-                            attribute: "description",
-                        }
-                    })?
-                    .to_string(),
-            })
-        })
+        .flat_map(un_marshall_todo)
         .collect();
 
     debug!("Item retrieved in {:.2?}", start.elapsed());
 
     let todos = serde_json::to_value(todos).map_err(|err| {
-        error!(err = ?err, "Unable to query table");
+        error!(err = ?err, "Unable to serialize todo");
 
         FailureResponse {
             status_code: StatusCode::INTERNAL_SERVER_ERROR,
@@ -97,12 +57,4 @@ pub(crate) async fn handler(
     })?;
 
     Ok((StatusCode::OK, todos))
-}
-
-#[derive(thiserror::Error, Debug)]
-pub enum DynamoDBError<'a> {
-    #[error("missing attribute {attribute}")]
-    MissingAttribute { attribute: &'a str },
-    #[error("invalid attribute {attribute}")]
-    InvalidAttribute { attribute: &'a str },
 }

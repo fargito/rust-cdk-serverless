@@ -23,7 +23,7 @@ describe('todos CRUD API', () => {
       await eventScoutClient.start({
         eventPattern: {
           source: ['api.todos'],
-          'detail-type': ['TODO_CREATED'],
+          'detail-type': ['TODO_CREATED', 'TODO_DELETED'],
         },
       });
     },
@@ -104,6 +104,12 @@ describe('todos CRUD API', () => {
             expect.objectContaining({
               source: 'api.todos',
               'detail-type': 'TODO_CREATED',
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+              detail: expect.objectContaining(todo),
+            }),
+            expect.objectContaining({
+              source: 'api.todos',
+              'detail-type': 'TODO_DELETED',
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               detail: expect.objectContaining(todo),
             }),
