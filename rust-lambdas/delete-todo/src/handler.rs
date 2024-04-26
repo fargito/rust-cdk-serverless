@@ -1,7 +1,7 @@
 use aws_lambda_events::http::StatusCode;
 use aws_sdk_dynamodb::types::{AttributeValue, ReturnValue};
 use aws_sdk_eventbridge::types::PutEventsRequestEntry;
-use shared::{un_marshall_todo, FailureResponse};
+use shared::{un_marshall_todo, DynamoDBError, FailureResponse};
 
 use lambda_http::{
     tracing::{debug, error},
@@ -47,23 +47,22 @@ pub(crate) async fn handler(
 
     debug!("Item deleted in {:.2?}", start.elapsed());
 
-    let todo = res.attributes.ok_or_else(|| {
-        error!("Unexpected empty attributes");
+    let todo = res
+        .attributes
+        .ok_or_else(|| {
+            error!("Unexpected empty attributes");
 
-        FailureResponse {
-            status_code: StatusCode::INTERNAL_SERVER_ERROR,
-            body: "Unexpected empty attributes".into(),
-        }
-    })?;
+            DynamoDBError::EmptyAttributes
+        })
+        .and_then(un_marshall_todo)
+        .map_err(|err| {
+            error!(err = ?err, "Unable to deserialize todo");
 
-    let todo = un_marshall_todo(todo).map_err(|err| {
-        error!(err = ?err, "Unable to serialize todo");
-
-        FailureResponse {
-            status_code: StatusCode::INTERNAL_SERVER_ERROR,
-            body: "Unable to serialize todo".into(),
-        }
-    })?;
+            FailureResponse {
+                status_code: StatusCode::INTERNAL_SERVER_ERROR,
+                body: "Unable to deserialize todo".into(),
+            }
+        })?;
 
     let todo = serde_json::to_value(todo).map_err(|err| {
         error!(err = ?err, "Unable to serialize todo");

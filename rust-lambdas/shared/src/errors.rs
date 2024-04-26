@@ -19,6 +19,8 @@ impl std::error::Error for FailureResponse {}
 
 #[derive(thiserror::Error, Debug)]
 pub enum DynamoDBError<'a> {
+    #[error("empty attributes")]
+    EmptyAttributes,
     #[error("missing attribute {attribute}")]
     MissingAttribute { attribute: &'a str },
     #[error("invalid attribute {attribute}")]
