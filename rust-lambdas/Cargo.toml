@@ -5,6 +5,7 @@ members = [
     "delete-todo",
     "list-todos",
     "on-todo-created",
+    "on-todo-deleted",
 ]
 
 resolver = "2"

@@ -162,6 +162,20 @@ export class TodoAppStack extends Stack {
           detailType: ['TODO_CREATED'],
         },
       },
+      OnTodoDeleted: {
+        codePath: 'on-todo-deleted/bootstrap.zip',
+        policy: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            resources: [todosTable.tableArn],
+            actions: ['dynamodb:UpdateItem'],
+          }),
+        ],
+        eventPattern: {
+          source: ['api.todos'],
+          detailType: ['TODO_DELETED'],
+        },
+      },
     };
 
     // Async Lambdas config
