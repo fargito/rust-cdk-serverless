@@ -21,8 +21,8 @@ importers:
         specifier: ^3.535.0
         version: 3.535.0
       '@event-scout/client':
-        specifier: ^0.6.1
-        version: 0.6.1(@serverless/typescript@3.38.0)(ajv@8.12.0)(aws-cdk-lib@2.139.0(constructs@10.3.0))
+        specifier: ^0.7.0
+        version: 0.7.0(@serverless/typescript@3.38.0)(ajv@8.12.0)(aws-cdk-lib@2.139.0(constructs@10.3.0))
       '@event-scout/construct':
         specifier: ^0.6.1
         version: 0.6.1(@serverless/typescript@3.38.0)(axios@1.6.8)
@@ -492,11 +492,14 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@event-scout/client@0.6.1':
-    resolution: {integrity: sha512-Bm196q3QwI54/6jx68s7hns3FUVIZybu6QL5EI8CKd8TJXN2AakaG8e/6I3+vuVN3si2jBgs4H4e5CsfUYaRuQ==}
+  '@event-scout/client@0.7.0':
+    resolution: {integrity: sha512-adVnrb+lqV4CeZE7HH9+E10Eyohk1EF32CrNc6VS5IBUXRHdnaoJr/P93dzGLEQAr9pEmQ7oPt01+p/FZ/eIAQ==}
 
   '@event-scout/construct-contracts@0.6.1':
     resolution: {integrity: sha512-jbkDS1CpF9eqWSXNzVMIOA87djyAVsP78NWm1cboxGddGAFCUAnlmXHOQ/QocA2FR3k0yFdk0ov84HutSE8/8g==}
+
+  '@event-scout/construct-contracts@0.7.0':
+    resolution: {integrity: sha512-IprxkRR8wEqj5IaHJmsEaovgQ5nu47SNKuiNni3ESRGnfG34CLOaNIN8+ccbDMV2dfQJGZ66F8yP1ze+KNl64g==}
 
   '@event-scout/construct@0.6.1':
     resolution: {integrity: sha512-1VfLgrbhexsUSVKpvw/C7LRM9JCO4sKo5SemsbsAbKEZ4Mu25tjlP5m8m5RPP3VVhE5W/ILXOCIdJ97YvITP+g==}
@@ -899,6 +902,7 @@ packages:
   '@swc/core@1.5.0':
     resolution: {integrity: sha512-fjADAC5gOOX54Rpcr1lF9DHLD+nPD5H/zXLtEgK2Ez3esmogT+LfHzCZtUxqetjvaMChKhQ0Pp0ZB6Hpz/tCbw==}
     engines: {node: '>=10'}
+    deprecated: Mac OS installation is broken
     peerDependencies:
       '@swc/helpers': ^0.5.0
     peerDependenciesMeta:
@@ -3537,11 +3541,11 @@ snapshots:
 
   '@eslint/js@8.57.0': {}
 
-  '@event-scout/client@0.6.1(@serverless/typescript@3.38.0)(ajv@8.12.0)(aws-cdk-lib@2.139.0(constructs@10.3.0))':
+  '@event-scout/client@0.7.0(@serverless/typescript@3.38.0)(ajv@8.12.0)(aws-cdk-lib@2.139.0(constructs@10.3.0))':
     dependencies:
       '@aws-crypto/sha256-js': 5.2.0
       '@aws-sdk/types': 3.535.0
-      '@event-scout/construct-contracts': 0.6.1(@serverless/typescript@3.38.0)(ajv@8.12.0)(aws-cdk-lib@2.139.0(constructs@10.3.0))(axios@1.6.8)
+      '@event-scout/construct-contracts': 0.7.0(@serverless/typescript@3.38.0)(ajv@8.12.0)(aws-cdk-lib@2.139.0(constructs@10.3.0))(axios@1.6.8)
       '@smithy/signature-v4': 2.3.0
       '@swarmion/serverless-contracts': 0.31.3(@serverless/typescript@3.38.0)(ajv@8.12.0)(aws-cdk-lib@2.139.0(constructs@10.3.0))(axios@1.6.8)
       axios: 1.6.8
@@ -3553,6 +3557,17 @@ snapshots:
       - debug
 
   '@event-scout/construct-contracts@0.6.1(@serverless/typescript@3.38.0)(ajv@8.12.0)(aws-cdk-lib@2.139.0(constructs@10.3.0))(axios@1.6.8)':
+    dependencies:
+      '@swarmion/serverless-contracts': 0.31.3(@serverless/typescript@3.38.0)(ajv@8.12.0)(aws-cdk-lib@2.139.0(constructs@10.3.0))(axios@1.6.8)
+      json-schema-to-ts: 3.0.1
+    transitivePeerDependencies:
+      - '@serverless/typescript'
+      - ajv
+      - aws-cdk-lib
+      - aws-crt
+      - axios
+
+  '@event-scout/construct-contracts@0.7.0(@serverless/typescript@3.38.0)(ajv@8.12.0)(aws-cdk-lib@2.139.0(constructs@10.3.0))(axios@1.6.8)':
     dependencies:
       '@swarmion/serverless-contracts': 0.31.3(@serverless/typescript@3.38.0)(ajv@8.12.0)(aws-cdk-lib@2.139.0(constructs@10.3.0))(axios@1.6.8)
       json-schema-to-ts: 3.0.1
