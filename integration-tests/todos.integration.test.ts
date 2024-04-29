@@ -18,6 +18,8 @@ describe('todos CRUD API', () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const eventScoutClient: EventScoutClient = globalThis.eventScoutClient;
 
+  const listId = randomUUID();
+
   beforeAll(
     async () => {
       await eventScoutClient.start({
@@ -32,7 +34,7 @@ describe('todos CRUD API', () => {
 
   describe('authentication', () => {
     it('should return a 403 when calling with no authorization', async () => {
-      const response = await fetch(`${httpApiUrl}todos`);
+      const response = await fetch(`${httpApiUrl}todos/${listId}`);
 
       expect(response.status).toBe(403);
     });
@@ -40,7 +42,7 @@ describe('todos CRUD API', () => {
     it('should return a 200 when properly authorizing', async () => {
       const signedRequest = await getSignedAxiosConfig(
         signatureV4,
-        `${httpApiUrl}todos`,
+        `${httpApiUrl}todos/${listId}`,
         'GET',
       );
 
@@ -57,7 +59,7 @@ describe('todos CRUD API', () => {
         // Create a Todo
         const createTodoRequest = await getSignedAxiosConfig(
           signatureV4,
-          `${httpApiUrl}todos`,
+          `${httpApiUrl}todos/${listId}`,
           'POST',
           {
             title: `Todo ${randomUUID()}`,
@@ -74,7 +76,7 @@ describe('todos CRUD API', () => {
         // List todos
         const listTodosRequest = await getSignedAxiosConfig(
           signatureV4,
-          `${httpApiUrl}todos`,
+          `${httpApiUrl}todos/${listId}`,
           'GET',
         );
         const listTodosResponse = await axios(listTodosRequest);
@@ -85,7 +87,7 @@ describe('todos CRUD API', () => {
         // Delete
         const deleteTodoRequest = await getSignedAxiosConfig(
           signatureV4,
-          `${httpApiUrl}todos/${todo.id}`,
+          `${httpApiUrl}todos/${listId}/${todo.id}`,
           'DELETE',
         );
         const deleteTodoResponse = await axios(deleteTodoRequest);

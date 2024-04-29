@@ -19,7 +19,12 @@ pub(crate) async fn handler(
 ) -> Result<(StatusCode, serde_json::Value), FailureResponse> {
     let path_parameters = request.path_parameters();
 
-    let id = path_parameters.first("todoId").ok_or(FailureResponse {
+    let list_id = path_parameters.first("listId").ok_or(FailureResponse {
+        status_code: StatusCode::BAD_REQUEST,
+        body: "Missing list id".into(),
+    })?;
+
+    let todo_id = path_parameters.first("todoId").ok_or(FailureResponse {
         status_code: StatusCode::BAD_REQUEST,
         body: "Invalid request".into(),
     })?;
@@ -30,8 +35,8 @@ pub(crate) async fn handler(
         .delete_item()
         .table_name(todos_table_name)
         .set_key(Some(HashMap::from([
-            ("PK".into(), AttributeValue::S("TODO".into())),
-            ("SK".into(), AttributeValue::S(format!("ID#{id}"))),
+            ("PK".into(), AttributeValue::S(format!("TODO#{list_id}"))),
+            ("SK".into(), AttributeValue::S(format!("ID#{todo_id}"))),
         ])))
         .return_values(ReturnValue::AllOld)
         .send()

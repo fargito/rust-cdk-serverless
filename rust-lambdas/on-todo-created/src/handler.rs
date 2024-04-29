@@ -4,14 +4,17 @@ use lambda_runtime::{tracing::error, Error, LambdaEvent};
 use shared::Todo;
 
 pub(crate) async fn handler(
-    _event: LambdaEvent<EventBridgeEvent<Todo>>,
+    event: LambdaEvent<EventBridgeEvent<Todo>>,
     dynamodb_client: &aws_sdk_dynamodb::Client,
     todos_table_name: &str,
 ) -> Result<(), Error> {
     dynamodb_client
         .update_item()
         .table_name(todos_table_name)
-        .key("PK", AttributeValue::S("TODO".into()))
+        .key(
+            "PK",
+            AttributeValue::S(format!("TODO#{}", event.payload.detail.list_id)),
+        )
         .key("SK", AttributeValue::S("COUNTER".into()))
         .update_expression("ADD todosCount :increment")
         .expression_attribute_values(":increment", AttributeValue::N("1".into()))

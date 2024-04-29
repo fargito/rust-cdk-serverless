@@ -75,7 +75,7 @@ export class TodoAppStack extends Stack {
       CreateTodo: {
         codePath: 'create-todo/bootstrap.zip',
         httpMethod: HttpMethod.POST,
-        httpPath: '/todos',
+        httpPath: '/todos/{listId}',
         policy: [
           new PolicyStatement({
             effect: Effect.ALLOW,
@@ -92,7 +92,7 @@ export class TodoAppStack extends Stack {
       ListTodos: {
         codePath: 'list-todos/bootstrap.zip',
         httpMethod: HttpMethod.GET,
-        httpPath: '/todos',
+        httpPath: '/todos/{listId}',
         policy: [
           new PolicyStatement({
             effect: Effect.ALLOW,
@@ -104,7 +104,7 @@ export class TodoAppStack extends Stack {
       DeleteTodo: {
         codePath: 'delete-todo/bootstrap.zip',
         httpMethod: HttpMethod.DELETE,
-        httpPath: '/todos/{todoId}',
+        httpPath: '/todos/{listId}/{todoId}',
         policy: [
           new PolicyStatement({
             effect: Effect.ALLOW,
