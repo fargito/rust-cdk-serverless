@@ -66,7 +66,6 @@ export class TodoAppStack extends Stack {
     );
 
     const logGroup = new LogGroup(this, 'Logs', {
-      logGroupName: 'todos-api',
       retention: RetentionDays.FIVE_DAYS,
       removalPolicy: RemovalPolicy.DESTROY, // do not keep log group if it is no longer included in a deployment
     });
