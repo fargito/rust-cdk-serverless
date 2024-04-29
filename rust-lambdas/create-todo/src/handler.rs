@@ -6,7 +6,7 @@ use shared::{FailureResponse, Todo};
 
 use lambda_http::{
     tracing::{debug, error},
-    Body, Request,
+    Body, Request, RequestExt,
 };
 use ulid::Ulid;
 
@@ -25,6 +25,13 @@ pub(crate) async fn handler(
     todos_table_name: &str,
     event_bus_name: &str,
 ) -> Result<(StatusCode, serde_json::Value), FailureResponse> {
+    let path_parameters = request.path_parameters();
+
+    let list_id = path_parameters.first("listId").ok_or(FailureResponse {
+        status_code: StatusCode::BAD_REQUEST,
+        body: "Missing list id".into(),
+    })?;
+
     let body = match request.body() {
         Body::Text(body) => serde_json::from_str::<CreateTodo>(body).map_err(|_| FailureResponse {
             status_code: StatusCode::BAD_REQUEST,
@@ -39,14 +46,15 @@ pub(crate) async fn handler(
     let start = Instant::now();
 
     // generate ulid in order to have sorted items
-    let id = Ulid::new().to_string();
+    let todo_id = Ulid::new().to_string();
 
     dynamodb_client
         .put_item()
         .table_name(todos_table_name)
-        .item("PK", AttributeValue::S("TODO".into()))
-        .item("SK", AttributeValue::S(format!("ID#{id}")))
-        .item("id", AttributeValue::S(id.clone()))
+        .item("PK", AttributeValue::S(format!("TODO#{list_id}")))
+        .item("SK", AttributeValue::S(format!("ID#{todo_id}")))
+        .item("id", AttributeValue::S(todo_id.clone()))
+        .item("list_id", AttributeValue::S(list_id.to_string()))
         .item("title", AttributeValue::S(body.title.to_string()))
         .item(
             "description",
@@ -66,7 +74,8 @@ pub(crate) async fn handler(
     debug!("Item stored in {:.2?}", start.elapsed());
 
     let todo = Todo {
-        id,
+        id: todo_id,
+        list_id: list_id.into(),
         title: body.title,
         description: body.description,
     };

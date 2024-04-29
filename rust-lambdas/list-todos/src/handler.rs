@@ -4,23 +4,30 @@ use aws_sdk_dynamodb::types::AttributeValue;
 use lambda_http::{
     http::StatusCode,
     tracing::{debug, error},
-    Request,
+    Request, RequestExt,
 };
 
 use shared::{un_marshall_todo, FailureResponse, Todo};
 
 pub(crate) async fn handler(
-    _request: Request,
+    request: Request,
     dynamodb_client: &aws_sdk_dynamodb::Client,
     todos_table_name: &str,
 ) -> Result<(StatusCode, serde_json::Value), FailureResponse> {
+    let path_parameters = request.path_parameters();
+
+    let list_id = path_parameters.first("listId").ok_or(FailureResponse {
+        status_code: StatusCode::BAD_REQUEST,
+        body: "Missing list id".into(),
+    })?;
+
     let start = Instant::now();
 
     let result = dynamodb_client
         .query()
         .table_name(todos_table_name)
         .key_condition_expression("PK = :PK AND begins_with(SK, :SK)")
-        .expression_attribute_values(":PK", AttributeValue::S("TODO".into()))
+        .expression_attribute_values(":PK", AttributeValue::S(format!("TODO#{list_id}")))
         .expression_attribute_values(":SK", AttributeValue::S("ID#".into()))
         .send()
         .await

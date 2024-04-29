@@ -9,6 +9,7 @@ use crate::DynamoDBError;
 #[derive(Serialize, Deserialize)]
 pub struct Todo {
     pub id: String,
+    pub list_id: String,
     pub title: String,
     pub description: String,
 }
@@ -26,6 +27,21 @@ pub fn un_marshall_todo<'a>(
                 error!(err = ?err, "Unable to query table");
 
                 DynamoDBError::InvalidAttribute { attribute: "id" }
+            })?
+            .to_string(),
+        list_id: item
+            .get("list_id")
+            .ok_or(DynamoDBError::MissingAttribute {
+                attribute: "list_id",
+            })?
+            .to_owned()
+            .as_s()
+            .map_err(|err| {
+                error!(err = ?err, "Unable to query table");
+
+                DynamoDBError::InvalidAttribute {
+                    attribute: "list_id",
+                }
             })?
             .to_string(),
         title: item
