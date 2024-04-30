@@ -98,6 +98,9 @@ describe('todos CRUD API', () => {
           expect.arrayContaining([todo]),
         );
 
+        // we want the give time to the async process, say 10s
+        await new Promise(r => setTimeout(r, 10 * 1000));
+
         // check events
         const events = await eventScoutClient.query();
 
