@@ -23,6 +23,6 @@ aws-sdk-dynamodb = "1.23.0"
 aws-sdk-eventbridge = "1.21.0"
 lambda_http = { version = "0.11.1", default-features = false, features = ["apigw_http", "tracing"] }
 lambda_runtime = "0.11.1"
-serde = "^1.0.199"
+serde = "^1.0.200"
 serde_json = "^1.0.116"
 tokio = { version = "1.37.0", features = ["macros"] }
