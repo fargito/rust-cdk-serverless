@@ -2,6 +2,14 @@
 
 A sample serverless app with Rust. I'm just experimenting stuff here so don't take anything at face value 🙃.
 
+## Overview
+
+A **very** simple todo API to create, retrieve and delete todos. No front for now.
+
+This is the architecture schema:
+
+![Todo API schema](./docs/img/rust-cdk-serverless.png)
+
 ## Setup
 
 ### Requirements
