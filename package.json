@@ -35,7 +35,7 @@
     "axios": "^1.6.8",
     "constructs": "^10.0.98",
     "dotenv": "^16.4.5",
-    "eslint": "^8.29.0",
+    "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.5.2",
     "eslint-plugin-import": "^2.26.0",
