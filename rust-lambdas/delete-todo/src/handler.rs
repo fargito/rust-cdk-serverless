@@ -1,7 +1,7 @@
 use aws_lambda_events::http::StatusCode;
 use aws_sdk_dynamodb::types::{AttributeValue, ReturnValue};
 use aws_sdk_eventbridge::types::PutEventsRequestEntry;
-use shared::{un_marshall_todo, DynamoDBError, FailureResponse};
+use shared::{DynamoDBError, FailureResponse, Todo};
 
 use lambda_http::{
     tracing::{debug, error},
@@ -59,7 +59,7 @@ pub(crate) async fn handler(
 
             DynamoDBError::EmptyAttributes
         })
-        .and_then(un_marshall_todo)
+        .and_then(Todo::try_from)
         .map_err(|err| {
             error!(err = ?err, "Unable to deserialize todo");
 

@@ -14,61 +14,71 @@ pub struct Todo {
     pub description: String,
 }
 
-pub fn un_marshall_todo<'a>(
-    item: HashMap<String, AttributeValue>,
-) -> Result<Todo, DynamoDBError<'a>> {
-    Ok(Todo {
-        id: item
-            .get("id")
-            .ok_or(DynamoDBError::MissingAttribute { attribute: "id" })?
-            .to_owned()
-            .as_s()
-            .map_err(|err| {
-                error!(err = ?err, "Unable to query table");
+impl TryFrom<HashMap<String, AttributeValue>> for Todo {
+    type Error = DynamoDBError;
 
-                DynamoDBError::InvalidAttribute { attribute: "id" }
-            })?
-            .to_string(),
-        list_id: item
-            .get("list_id")
-            .ok_or(DynamoDBError::MissingAttribute {
-                attribute: "list_id",
-            })?
-            .to_owned()
-            .as_s()
-            .map_err(|err| {
-                error!(err = ?err, "Unable to query table");
+    fn try_from(item: HashMap<String, AttributeValue>) -> Result<Self, Self::Error> {
+        Ok(Todo {
+            id: item
+                .get("id")
+                .ok_or(DynamoDBError::MissingAttribute {
+                    attribute: "id".into(),
+                })?
+                .to_owned()
+                .as_s()
+                .map_err(|err| {
+                    error!(err = ?err, "Unable to query table");
 
-                DynamoDBError::InvalidAttribute {
-                    attribute: "list_id",
-                }
-            })?
-            .to_string(),
-        title: item
-            .get("title")
-            .ok_or(DynamoDBError::MissingAttribute { attribute: "title" })?
-            .to_owned()
-            .as_s()
-            .map_err(|err| {
-                error!(err = ?err, "Unable to query table");
+                    DynamoDBError::InvalidAttribute {
+                        attribute: "id".into(),
+                    }
+                })?
+                .to_string(),
+            list_id: item
+                .get("list_id")
+                .ok_or(DynamoDBError::MissingAttribute {
+                    attribute: "list_id".into(),
+                })?
+                .to_owned()
+                .as_s()
+                .map_err(|err| {
+                    error!(err = ?err, "Unable to query table");
 
-                DynamoDBError::InvalidAttribute { attribute: "title" }
-            })?
-            .to_string(),
-        description: item
-            .get("description")
-            .ok_or(DynamoDBError::MissingAttribute {
-                attribute: "description",
-            })?
-            .to_owned()
-            .as_s()
-            .map_err(|err| {
-                error!(err = ?err, "Unable to query table");
+                    DynamoDBError::InvalidAttribute {
+                        attribute: "list_id".into(),
+                    }
+                })?
+                .to_string(),
+            title: item
+                .get("title")
+                .ok_or(DynamoDBError::MissingAttribute {
+                    attribute: "title".into(),
+                })?
+                .to_owned()
+                .as_s()
+                .map_err(|err| {
+                    error!(err = ?err, "Unable to query table");
 
-                DynamoDBError::InvalidAttribute {
-                    attribute: "description",
-                }
-            })?
-            .to_string(),
-    })
+                    DynamoDBError::InvalidAttribute {
+                        attribute: "title".into(),
+                    }
+                })?
+                .to_string(),
+            description: item
+                .get("description")
+                .ok_or(DynamoDBError::MissingAttribute {
+                    attribute: "description".into(),
+                })?
+                .to_owned()
+                .as_s()
+                .map_err(|err| {
+                    error!(err = ?err, "Unable to query table");
+
+                    DynamoDBError::InvalidAttribute {
+                        attribute: "description".into(),
+                    }
+                })?
+                .to_string(),
+        })
+    }
 }

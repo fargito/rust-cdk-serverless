@@ -18,11 +18,11 @@ impl std::fmt::Display for FailureResponse {
 impl std::error::Error for FailureResponse {}
 
 #[derive(thiserror::Error, Debug)]
-pub enum DynamoDBError<'a> {
+pub enum DynamoDBError {
     #[error("empty attributes")]
     EmptyAttributes,
     #[error("missing attribute {attribute}")]
-    MissingAttribute { attribute: &'a str },
+    MissingAttribute { attribute: String },
     #[error("invalid attribute {attribute}")]
-    InvalidAttribute { attribute: &'a str },
+    InvalidAttribute { attribute: String },
 }
