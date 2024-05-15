@@ -55,8 +55,7 @@ aws configure --profile <your-profile-name>
 ### Build Rust Lambda code
 
 ```bash
-cd rust-lambdas/
-cargo lambda build --arm64 --release --output-format zip
+pnpm build
 ```
 
 ### Run tests

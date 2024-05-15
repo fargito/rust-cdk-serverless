@@ -25,6 +25,7 @@ module.exports = {
     'repository',
     'workspaces',
     'sideEffects',
+    'type',
     'files',
     'main',
     'module',
