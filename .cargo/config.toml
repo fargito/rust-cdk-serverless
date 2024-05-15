@@ -1,0 +1,4 @@
+[alias]
+build-lambdas = "lambda build --arm64 --release --output-format zip --manifest-path ./rust-lambdas/Cargo.toml"
+check-lambdas = "check --workspace --release --locked --manifest-path ./rust-lambdas/Cargo.toml"
+test-lambdas = "test --workspace --manifest-path ./rust-lambdas/Cargo.toml"

@@ -65,12 +65,13 @@ jobs:
           arch: x86_64
 
       - name: Build Rust Lambdas
-        run: cargo lambda build --arm64 --release --output-format zip
-        working-directory: rust-lambdas
+        run: pnpm build
 
       - name: Check Rust code
-        run: cargo check --workspace --release --locked
-        working-directory: rust-lambdas
+        run: cargo check-lambdas
+
+      - name: Test Rust code
+        run: cargo test-lambdas
 
       - name: 🧪 Test linter
         run: pnpm run test-linter
