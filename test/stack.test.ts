@@ -13,11 +13,12 @@ test('Resources are properly created', () => {
     // all functions should have arm64 architecture
     Architectures: Match.arrayEquals(['arm64']),
     // all functions should have json logging
-    // LoggingConfig: { LogFormat: 'JSON' },
+    LoggingConfig: { LogFormat: 'JSON' },
     // all functions should have the same runtime
-    // Runtime: 'provided.al2023',
+    Runtime: 'provided.al2023',
   });
 
+  template.resourceCountIs('AWS::Lambda::Function', 5);
   template.resourceCountIs('AWS::Events::EventBus', 1);
-  template.resourceCountIs('AWS::DynamoDB::Table', 2);
+  template.resourceCountIs('AWS::DynamoDB::Table', 1);
 });

@@ -1,5 +1,4 @@
 /* eslint-disable max-lines */
-import { EventScout } from '@event-scout/construct';
 import { CfnOutput, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
 import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpIamAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
@@ -20,7 +19,7 @@ import { Construct } from 'constructs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
 
-import { eventScoutEndpointExportName, httpApiExportName } from './shared';
+import { httpApiExportName } from './shared';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -43,6 +42,8 @@ type AsyncLambdaConfig = LambdaConfig & {
 };
 
 export class TodoAppStack extends Stack {
+  eventBusName: string;
+
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
@@ -58,12 +59,7 @@ export class TodoAppStack extends Stack {
 
     const eventBus = new EventBus(this, 'EventBus');
 
-    // event scout resources
-    const { restEndpoint: eventScoutEndpoint } = new EventScout(
-      this,
-      'EventScout',
-      { eventBus },
-    );
+    this.eventBusName = eventBus.eventBusName;
 
     const logGroup = new LogGroup(this, 'Logs', {
       retention: RetentionDays.FIVE_DAYS,
@@ -214,12 +210,6 @@ export class TodoAppStack extends Stack {
       value: httpApi.url ?? 'null',
       description: 'Todo Api endpoint',
       exportName: httpApiExportName,
-    });
-
-    new CfnOutput(this, 'EventScoutEndpoint', {
-      value: eventScoutEndpoint,
-      description: 'EventScout endpoint',
-      exportName: eventScoutEndpointExportName,
     });
   }
 }

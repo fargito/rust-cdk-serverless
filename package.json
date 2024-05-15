@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "bootstrap": "cdk bootstrap",
-    "deploy": "cdk deploy",
-    "destroy": "cdk destroy",
+    "deploy": "cdk deploy --all",
+    "destroy": "cdk destroy --all",
     "lint-fix": "pnpm linter-base-config --fix",
     "lint-fix-all": "pnpm lint-fix .",
     "linter-base-config": "eslint --ext=js,ts",

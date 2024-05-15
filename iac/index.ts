@@ -2,6 +2,8 @@
 import * as cdk from 'aws-cdk-lib';
 
 import { TodoAppStack } from './stack';
+import { TestStack } from './test-stack';
 
 const app = new cdk.App();
-new TodoAppStack(app, 'TodoAppStack');
+const { eventBusName } = new TodoAppStack(app, 'TodoAppStack');
+new TestStack(app, 'TestStack', { eventBusName });
