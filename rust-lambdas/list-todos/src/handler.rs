@@ -7,7 +7,7 @@ use lambda_http::{
     Request, RequestExt,
 };
 
-use shared::{un_marshall_todo, FailureResponse, Todo};
+use shared::{FailureResponse, Todo};
 
 pub(crate) async fn handler(
     request: Request,
@@ -49,7 +49,7 @@ pub(crate) async fn handler(
             body: "Got no items from DynamoDB".into(),
         })?
         .into_iter()
-        .flat_map(un_marshall_todo)
+        .flat_map(Todo::try_from)
         .collect();
 
     debug!("Item retrieved in {:.2?}", start.elapsed());
