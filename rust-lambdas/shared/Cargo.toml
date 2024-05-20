@@ -13,3 +13,4 @@ serde = { workspace = true }
 thiserror = "1.0.59"
 tokio = { workspace = true }
 tracing = "0.1.40"
+ts-rs = "8.1.0"

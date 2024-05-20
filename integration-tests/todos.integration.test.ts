@@ -3,13 +3,8 @@ import { SignatureV4 } from '@smithy/signature-v4';
 import axios from 'axios';
 import { randomUUID } from 'crypto';
 
+import { Todo } from './bindings/Todo';
 import { getSignedAxiosConfig } from './get-signed-request';
-
-type Todo = {
-  id: string;
-  title: string;
-  description: string;
-};
 
 describe('todos CRUD API', () => {
   const httpApiUrl = globalThis.httpApiUrl;
