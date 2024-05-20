@@ -19,10 +19,11 @@ description = "A sample Rust Serverless app"
 [workspace.dependencies]
 aws_lambda_events = { version = "0.15.0", default-features = false, features = ["apigw", "eventbridge"] }
 aws-config = { version = "1.3.0", default-features = false, features = ["rustls", "rt-tokio"] }
-aws-sdk-dynamodb = { version = "1.25.0", default-features = false }
-aws-sdk-eventbridge = { version = "1.22.0", default-features = false }
+aws-sdk-dynamodb = { version = "1.25.0", default-features = false, features = ["test-util"] }
+aws-sdk-eventbridge = { version = "1.22.0", default-features = false, features = ["test-util"] }
+aws-smithy-mocks-experimental = { version = "0.2.1" }
 lambda_http = { version = "0.11.1", default-features = false, features = ["apigw_http", "tracing"] }
 lambda_runtime = { version = "0.11.1", default-features = false }
-serde = { version = "^1.0.200", default-features = false }
-serde_json = { version = "^1.0.116", default-features = false }
+serde = { version = "1.0.200", default-features = false }
+serde_json = { version = "1.0.116", default-features = false }
 tokio = { version = "1.37.0", features = ["macros"] }

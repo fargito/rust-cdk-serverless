@@ -1,6 +1,7 @@
 use aws_lambda_events::http::StatusCode;
 use aws_sdk_dynamodb::types::AttributeValue;
 use aws_sdk_eventbridge::types::PutEventsRequestEntry;
+
 use serde::Deserialize;
 use shared::{FailureResponse, Todo};
 
@@ -107,5 +108,71 @@ pub(crate) async fn handler(
             }
         });
 
-    Ok((StatusCode::OK, todo))
+    Ok((StatusCode::CREATED, todo))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use aws_sdk_eventbridge::operation::put_events::PutEventsOutput;
+    use aws_smithy_mocks_experimental::{mock, mock_client};
+
+    use aws_sdk_dynamodb::operation::put_item::PutItemOutput;
+    use serde_json::json;
+
+    #[tokio::test]
+    async fn test_handler() {
+        let mock_put_item = mock!(aws_sdk_dynamodb::Client::put_item)
+            .then_output(|| PutItemOutput::builder().build());
+        let dynamodb_client = mock_client!(aws_sdk_dynamodb, &[&mock_put_item]);
+
+        let mock_put_events = mock!(aws_sdk_eventbridge::Client::put_events)
+            .then_output(|| PutEventsOutput::builder().build());
+        let eventbridge_client = mock_client!(aws_sdk_eventbridge, &[&mock_put_events]);
+
+        let req = json!({
+          "version": "2.0",
+          "routeKey": "$default",
+          "rawPath": "/my/path",
+          "rawQueryString": "",
+          "cookies": [],
+          "headers": {},
+          "queryStringParameters": {},
+          "requestContext": {
+            "accountId": "123456789012",
+            "apiId": "api-id",
+            "domainName": "id.execute-api.us-east-1.amazonaws.com",
+            "domainPrefix": "id",
+            "http": {
+              "method": "POST",
+              "path": "/my/path",
+              "protocol": "HTTP/1.1",
+              "sourceIp": "IP",
+              "userAgent": "agent"
+            },
+            "requestId": "id",
+            "routeKey": "$default",
+            "stage": "$default",
+            "time": "12/Mar/2020:19:03:58 +0000"
+          },
+          "body": "{\"title\": \"Toto todo\", \"description\": \"This is a great description\"}",
+          "pathParameters": { "listId": "toto" },
+          "isBase64Encoded": false,
+          "stageVariables": {}
+        })
+        .to_string();
+
+        let event = lambda_http::request::from_str(&req).unwrap();
+
+        let (status, res) = handler(event, &dynamodb_client, &eventbridge_client, "toto", "tata")
+            .await
+            .expect("failed to handle event");
+
+        assert_eq!(status, 201);
+
+        let todo: Todo = serde_json::from_value(res).unwrap();
+
+        assert_eq!(todo.title, "Toto todo");
+        assert_eq!(todo.description, "This is a great description");
+    }
 }
