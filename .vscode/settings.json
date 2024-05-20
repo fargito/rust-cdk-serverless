@@ -37,7 +37,9 @@
   "vitest.commandLine": "pnpm vitest",
   "cSpell.words": [
     "aarch",
+    "automock",
     "eventbridge",
+    "mockall",
     "serde",
     "thiserror",
     "Todos"

@@ -70,7 +70,7 @@ describe('todos CRUD API', () => {
 
         const todo = createTodoResponse.data;
 
-        expect(createTodoResponse.status).toBe(200);
+        expect(createTodoResponse.status).toBe(201);
         expect(todo).toMatchObject(todo);
 
         // List todos
