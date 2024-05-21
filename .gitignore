@@ -13,3 +13,5 @@ target
 
 coverage
 tsconfig.tsbuildinfo
+
+integration-tests/bindings

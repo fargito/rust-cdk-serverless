@@ -71,8 +71,11 @@ jobs:
       - name: Test Rust code
         run: cargo test-lambdas
 
+      - name: 🧪 Check format
+        run: pnpm format-check
+
       - name: 🧪 Test linter
-        run: pnpm run test-linter
+        run: pnpm test-linter
 
       - name: 🏗 Test types
         run: pnpm test-type

@@ -3,9 +3,12 @@ use std::collections::HashMap;
 use aws_sdk_dynamodb::types::AttributeValue;
 use serde::{Deserialize, Serialize};
 use tracing::error;
+use ts_rs::TS;
 
 use crate::DynamoDBError;
 
+#[derive(TS)]
+#[ts(export, export_to = "../../../integration-tests/bindings/")]
 #[derive(Serialize, Deserialize)]
 pub struct Todo {
     pub id: String,

@@ -20,7 +20,9 @@ const credentials =
 
 const region = process.env.AWS_REGION;
 
-if (region === undefined) throw new Error('expected region');
+if (region === undefined) {
+  throw new Error('expected region');
+}
 
 const cloudformationClient = new CloudFormationClient({
   region,
@@ -34,15 +36,17 @@ const httpApiUrl = cfOutputs.Exports?.find(
   o => o.Name === httpApiExportName,
 )?.Value;
 
-if (httpApiUrl === undefined)
+if (httpApiUrl === undefined) {
   throw new Error('unable to retrieve the HTTP URL');
+}
 
 const eventScoutEndpoint = cfOutputs.Exports?.find(
   o => o.Name === eventScoutEndpointExportName,
 )?.Value;
 
-if (eventScoutEndpoint === undefined)
+if (eventScoutEndpoint === undefined) {
   throw new Error('unable to retrieve the EventScout endpoint');
+}
 
 const signatureV4 = new SignatureV4({
   service: 'execute-api',
