@@ -50,12 +50,6 @@ jobs:
         with:
           workspaces: 'rust-lambdas -> target'
 
-      - name: Cache Lambdas build
-        uses: actions/cache@v4
-        with:
-          path: rust-lambdas/target/lambda
-          key: ${{ runner.os }}-build-${{ env.STAGE }}
-
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
