@@ -39,11 +39,14 @@ jobs:
       - name: Install Node.js dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Cache Lambdas build
-        uses: actions/cache@v4
-        with:
-          path: rust-lambdas/target/lambda
-          key: ${{ runner.os }}-build-${{ env.STAGE }}
+      - name: Generate fake Lambda assets # this is required for the cdk, and we don't want to actually build
+        run: |
+          mkdir rust-lambdas/target;
+          mkdir rust-lambdas/target/lambda;
+          for asset in create-todo list-todos delete-todo on-todo-created on-todo-deleted; do
+            mkdir rust-lambdas/target/lambda/$asset;
+            touch rust-lambdas/target/lambda/$asset/bootstrap.zip;
+          done;
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
