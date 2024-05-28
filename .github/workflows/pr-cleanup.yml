@@ -52,4 +52,4 @@ jobs:
           role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
 
       - name: 🧽 Destroy
-        run: pnpm run destroy --context stage=${{ env.STAGE }}
+        run: pnpm run destroy --context stage=${{ env.STAGE }} --force
