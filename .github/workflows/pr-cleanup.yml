@@ -1,0 +1,49 @@
+on:
+  pull_request:
+    types: [closed]
+
+name: 🧽 PR Cleanup
+
+permissions:
+  id-token: write # this is required for AWS https://github.com/aws-actions/configure-aws-credentials#usage
+
+env:
+  CI: true
+  AWS_REGION: eu-west-1
+  STAGE: pr-${{ github.event.number }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  clean-cdk-env:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4.0.0
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: pnpm
+
+      - name: Install Node.js dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
+
+      - name: 🧽 Destroy
+        run: pnpm run destroy --context stage=${{ env.STAGE }}
