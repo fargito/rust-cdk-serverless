@@ -2,6 +2,18 @@
 
 A sample serverless app with Rust. I'm just experimenting stuff here so don't take anything at face value 🙃.
 
+## Features
+
+Current features:
+
+- ✅ Synchronous lambdas
+- ✅ Asynchronous lambdas
+- ✅ IAC unit tests
+- 🕑 Lambda unit tests
+- ✅ Integration tests
+- 🕑 Preview environments
+- ❌ Frontend
+
 ## Overview
 
 A **very** simple todo API to create, retrieve and delete todos. No front for now.
@@ -26,7 +38,7 @@ nvm use
 npm install -g pnpm
 ```
 
-**Rust toolchain**: for now the Rust version is not pinned. Follow [the official install instructions](https://www.rust-lang.org/tools/install).
+**Rust toolchain**: the Rust version is pinned in `rust-toolchain.toml`. Follow [the official install instructions](https://www.rust-lang.org/tools/install).
 
 **Cargo Lambda**: in order to cross-compile Rust code to Lambda runtime. Follow [install instructions](https://www.cargo-lambda.info/guide/installation.html).
 
