@@ -39,6 +39,12 @@ jobs:
       - name: Install Node.js dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Cache Lambdas build
+        uses: actions/cache@v4
+        with:
+          path: rust-lambdas/target/lambda
+          key: ${{ runner.os }}-build-${{ env.STAGE }}
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -46,4 +52,4 @@ jobs:
           role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
 
       - name: 🧽 Destroy
-        run: pnpm run destroy --context stage=${{ env.STAGE }}
+        run: pnpm run destroy --context stage=${{ env.STAGE }} --force
