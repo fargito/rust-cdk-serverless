@@ -9,8 +9,13 @@ concurrency:
 
 name: ⛷ PR tests
 
+permissions:
+  id-token: write # this is required for AWS https://github.com/aws-actions/configure-aws-credentials#usage
+
 env:
   CI: true
+  AWS_REGION: eu-west-1
+  STAGE: pr-${{ github.event.number }}
 
 defaults:
   run:
@@ -83,3 +88,18 @@ jobs:
 
       - name: ⛅ Test CDK
         run: pnpm test-cdk
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
+
+      - name: CDK Bootstrap
+        run: pnpm run bootstrap
+
+      - name: 🚀 Deploy
+        run: pnpm run deploy --context stage=${{ env.STAGE }}
+
+      - name: 🔎 Run integration tests
+        run: pnpm test-integration

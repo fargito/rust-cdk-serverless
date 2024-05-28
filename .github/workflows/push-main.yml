@@ -83,6 +83,9 @@ jobs:
       - name: 🏗 Test unit
         run: pnpm test-unit
 
+      - name: ⛅ Test CDK
+        run: pnpm test-cdk
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -93,7 +96,7 @@ jobs:
         run: pnpm run bootstrap
 
       - name: 🚀 Deploy
-        run: pnpm run deploy
+        run: pnpm run deploy --context stage=production
 
       - name: 🔎 Run integration tests
         run: pnpm test-integration
