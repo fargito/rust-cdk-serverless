@@ -3,7 +3,7 @@ import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { EventBus } from 'aws-cdk-lib/aws-events';
 import { Construct } from 'constructs';
 
-import { eventScoutEndpointExportName } from './shared';
+import { defaultStage, getEventScoutEndpointExportName } from './shared';
 
 export class TestStack extends Stack {
   constructor(
@@ -18,6 +18,10 @@ export class TestStack extends Stack {
       this,
       'EventScout',
       { eventBus: EventBus.fromEventBusName(this, 'Bus', props.eventBusName) },
+    );
+
+    const eventScoutEndpointExportName = getEventScoutEndpointExportName(
+      (this.node.tryGetContext('stage') as string | undefined) ?? defaultStage,
     );
 
     new CfnOutput(this, 'EventScoutEndpoint', {

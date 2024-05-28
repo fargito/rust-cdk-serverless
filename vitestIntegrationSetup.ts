@@ -8,7 +8,11 @@ import { EventScoutClient } from '@event-scout/client';
 import { SignatureV4 } from '@smithy/signature-v4';
 import { config } from 'dotenv';
 
-import { eventScoutEndpointExportName, httpApiExportName } from 'iac/shared';
+import {
+  defaultStage,
+  getEventScoutEndpointExportName,
+  getHttpApiExportName,
+} from 'iac/shared';
 
 // load .env
 config();
@@ -19,6 +23,7 @@ const credentials =
     : fromIni({ profile: process.env.AWS_PROFILE });
 
 const region = process.env.AWS_REGION;
+const stage = process.env.STAGE ?? defaultStage;
 
 if (region === undefined) {
   throw new Error('expected region');
@@ -31,6 +36,9 @@ const cloudformationClient = new CloudFormationClient({
 
 // For now Cloudformation has no better way than to query all exports and filter client-side
 const cfOutputs = await cloudformationClient.send(new ListExportsCommand({}));
+
+const httpApiExportName = getHttpApiExportName(stage);
+const eventScoutEndpointExportName = getEventScoutEndpointExportName(stage);
 
 const httpApiUrl = cfOutputs.Exports?.find(
   o => o.Name === httpApiExportName,

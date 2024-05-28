@@ -19,7 +19,7 @@ import { Construct } from 'constructs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
 
-import { httpApiExportName } from './shared';
+import { defaultStage, getHttpApiExportName } from './shared';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -205,6 +205,10 @@ export class TodoAppStack extends Stack {
         targets: [new LambdaFunction(lambda)],
       });
     });
+
+    const httpApiExportName = getHttpApiExportName(
+      (this.node.tryGetContext('stage') as string | undefined) ?? defaultStage,
+    );
 
     new CfnOutput(this, 'ToDoApi', {
       value: httpApi.url ?? 'null',
