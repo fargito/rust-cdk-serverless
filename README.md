@@ -11,7 +11,7 @@ Current features:
 - ✅ IAC unit tests
 - 🕑 Lambda unit tests
 - ✅ Integration tests
-- 🕑 Preview environments
+- ✅ Preview environments
 - ❌ Frontend
 
 ## Overview
