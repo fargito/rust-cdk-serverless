@@ -11,7 +11,7 @@ import {
   Architecture,
   Code,
   Function,
-  LogFormat,
+  LoggingFormat,
   Runtime,
 } from 'aws-cdk-lib/aws-lambda';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
@@ -127,7 +127,7 @@ export class TodoAppStack extends Stack {
         ),
         handler: 'useless',
         memorySize: 1024,
-        logFormat: LogFormat.JSON,
+        loggingFormat: LoggingFormat.JSON,
         logGroup,
         environment: {
           TODOS_TABLE_NAME: todosTable.tableName,
@@ -190,7 +190,7 @@ export class TodoAppStack extends Stack {
         ),
         handler: 'useless',
         memorySize: 1024,
-        logFormat: LogFormat.JSON,
+        loggingFormat: LoggingFormat.JSON,
         logGroup,
         environment: {
           TODOS_TABLE_NAME: todosTable.tableName,
