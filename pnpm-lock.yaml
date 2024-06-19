@@ -31,7 +31,7 @@ importers:
         version: 3.1.1
       '@swc-node/register':
         specifier: ^1.9.0
-        version: 1.9.1(@swc/core@1.5.0)(@swc/types@0.1.6)(typescript@5.4.5)
+        version: 1.9.2(@swc/core@1.5.0)(@swc/types@0.1.6)(typescript@5.4.5)
       '@types/node':
         specifier: ^20.9.1
         version: 20.14.6
@@ -918,8 +918,8 @@ packages:
       '@swc/core': '>= 1.4.13'
       '@swc/types': '>= 0.1'
 
-  '@swc-node/register@1.9.1':
-    resolution: {integrity: sha512-z//TBXJdRWXoISCXlQmVz+NMm8Qm/UvcfKiGC0tSJdfeVYf5EZkGqvk2OiRH4SIJ6OGFfS9T0YrvA2pDKzWtPA==}
+  '@swc-node/register@1.9.2':
+    resolution: {integrity: sha512-BBjg0QNuEEmJSoU/++JOXhrjWdu3PTyYeJWsvchsI0Aqtj8ICkz/DqlwtXbmZVZ5vuDPpTfFlwDBZe81zgShMA==}
     peerDependencies:
       '@swc/core': '>= 1.4.13'
       typescript: '>= 4.3'
@@ -4282,15 +4282,15 @@ snapshots:
       '@swc/core': 1.5.0
       '@swc/types': 0.1.6
 
-  '@swc-node/register@1.9.1(@swc/core@1.5.0)(@swc/types@0.1.6)(typescript@5.4.5)':
+  '@swc-node/register@1.9.2(@swc/core@1.5.0)(@swc/types@0.1.6)(typescript@5.4.5)':
     dependencies:
       '@swc-node/core': 1.13.1(@swc/core@1.5.0)(@swc/types@0.1.6)
       '@swc-node/sourcemap-support': 0.5.0
       '@swc/core': 1.5.0
       colorette: 2.0.20
-      debug: 4.3.4
+      debug: 4.3.5
       pirates: 4.0.6
-      tslib: 2.6.2
+      tslib: 2.6.3
       typescript: 5.4.5
     transitivePeerDependencies:
       - '@swc/types'
@@ -4299,7 +4299,7 @@ snapshots:
   '@swc-node/sourcemap-support@0.5.0':
     dependencies:
       source-map-support: 0.5.21
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@swc/core-darwin-arm64@1.5.0':
     optional: true
