@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Test CDK",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "pnpm",
+            "args": [
+                "test-cdk",
+            ],
+            "sourceMaps": true,
+            "smartStep": true,
+            "protocol": "inspector",
+            "autoAttachChildProcesses": true,
+            "console": "integratedTerminal",
+            "outputCapture": "console"
+        }
+    ]
+}
