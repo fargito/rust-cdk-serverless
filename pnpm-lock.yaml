@@ -27,8 +27,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.6
       '@smithy/signature-v4':
-        specifier: ^3.0.0
-        version: 3.1.2
+        specifier: ^4.0.0
+        version: 4.0.0
       '@swc-node/register':
         specifier: ^1.9.0
         version: 1.10.8(@swc/core@1.5.0)(@swc/types@0.1.6)(typescript@5.5.3)
@@ -870,6 +870,10 @@ packages:
 
   '@smithy/signature-v4@3.1.2':
     resolution: {integrity: sha512-3BcPylEsYtD0esM4Hoyml/+s7WP2LFhcM3J2AGdcL2vx9O60TtfpDOL72gjb4lU8NeRPeKAwR77YNyyGvMbuEA==}
+    engines: {node: '>=16.0.0'}
+
+  '@smithy/signature-v4@4.0.0':
+    resolution: {integrity: sha512-ervYjQ+ZvmNG51Ui77IOTPri7nOyo8Kembzt9uwwlmtXJPmFXvslOahbA1blvAVs7G0KlYMiOBog1rAt7RVXxg==}
     engines: {node: '>=16.0.0'}
 
   '@smithy/smithy-client@3.1.7':
@@ -4102,7 +4106,7 @@ snapshots:
 
   '@smithy/is-array-buffer@2.2.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@smithy/is-array-buffer@3.0.0':
     dependencies:
@@ -4207,6 +4211,16 @@ snapshots:
       '@smithy/util-utf8': 3.0.0
       tslib: 2.6.3
 
+  '@smithy/signature-v4@4.0.0':
+    dependencies:
+      '@smithy/is-array-buffer': 3.0.0
+      '@smithy/types': 3.3.0
+      '@smithy/util-hex-encoding': 3.0.0
+      '@smithy/util-middleware': 3.0.3
+      '@smithy/util-uri-escape': 3.0.0
+      '@smithy/util-utf8': 3.0.0
+      tslib: 2.6.3
+
   '@smithy/smithy-client@3.1.7':
     dependencies:
       '@smithy/middleware-endpoint': 3.0.5
@@ -4243,7 +4257,7 @@ snapshots:
   '@smithy/util-buffer-from@2.2.0':
     dependencies:
       '@smithy/is-array-buffer': 2.2.0
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@smithy/util-buffer-from@3.0.0':
     dependencies:
@@ -4311,7 +4325,7 @@ snapshots:
   '@smithy/util-utf8@2.3.0':
     dependencies:
       '@smithy/util-buffer-from': 2.2.0
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@smithy/util-utf8@3.0.0':
     dependencies:
