@@ -31,7 +31,7 @@ importers:
         version: 4.0.0
       '@swc-node/register':
         specifier: ^1.9.0
-        version: 1.10.8(@swc/core@1.5.0)(@swc/types@0.1.6)(typescript@5.5.3)
+        version: 1.10.9(@swc/core@1.5.0)(@swc/types@0.1.6)(typescript@5.5.3)
       '@types/node':
         specifier: ^20.9.1
         version: 20.14.11
@@ -981,8 +981,8 @@ packages:
       '@swc/core': '>= 1.4.13'
       '@swc/types': '>= 0.1'
 
-  '@swc-node/register@1.10.8':
-    resolution: {integrity: sha512-XklUNYwI//+dVOzY66tsVdknAmmOTO8qSzVEP62fNDHycFhnwZtqFNPc7UiNAhzOQuP1sRBfLZXQ0ynXlrkX7Q==}
+  '@swc-node/register@1.10.9':
+    resolution: {integrity: sha512-iXy2sjP0phPEpK2yivjRC3PAgoLaT4sjSk0LDWCTdcTBJmR4waEog0E6eJbvoOkLkOtWw37SB8vCkl/bbh4+8A==}
     peerDependencies:
       '@swc/core': '>= 1.4.13'
       typescript: '>= 4.3'
@@ -4106,7 +4106,7 @@ snapshots:
 
   '@smithy/is-array-buffer@2.2.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.6.2
 
   '@smithy/is-array-buffer@3.0.0':
     dependencies:
@@ -4257,7 +4257,7 @@ snapshots:
   '@smithy/util-buffer-from@2.2.0':
     dependencies:
       '@smithy/is-array-buffer': 2.2.0
-      tslib: 2.6.3
+      tslib: 2.6.2
 
   '@smithy/util-buffer-from@3.0.0':
     dependencies:
@@ -4325,7 +4325,7 @@ snapshots:
   '@smithy/util-utf8@2.3.0':
     dependencies:
       '@smithy/util-buffer-from': 2.2.0
-      tslib: 2.6.3
+      tslib: 2.6.2
 
   '@smithy/util-utf8@3.0.0':
     dependencies:
@@ -4373,7 +4373,7 @@ snapshots:
       '@swc/core': 1.5.0
       '@swc/types': 0.1.6
 
-  '@swc-node/register@1.10.8(@swc/core@1.5.0)(@swc/types@0.1.6)(typescript@5.5.3)':
+  '@swc-node/register@1.10.9(@swc/core@1.5.0)(@swc/types@0.1.6)(typescript@5.5.3)':
     dependencies:
       '@swc-node/core': 1.13.3(@swc/core@1.5.0)(@swc/types@0.1.6)
       '@swc-node/sourcemap-support': 0.5.1
