@@ -43,7 +43,7 @@
     "syncpack": "^12.3.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
-    "vite-tsconfig-paths": "^4.0.5",
+    "vite-tsconfig-paths": "^5.0.0",
     "vitest": "^2.0.0"
   },
   "engines": {
