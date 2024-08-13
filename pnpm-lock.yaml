@@ -16,7 +16,7 @@ importers:
         version: 3.629.0
       '@aws-sdk/credential-providers':
         specifier: ^3.552.0
-        version: 3.629.0(@aws-sdk/client-sso-oidc@3.600.0)
+        version: 3.630.0(@aws-sdk/client-sso-oidc@3.600.0)
       '@aws-sdk/types':
         specifier: ^3.535.0
         version: 3.609.0
@@ -240,8 +240,8 @@ packages:
     peerDependencies:
       '@aws-sdk/client-sts': ^3.621.0
 
-  '@aws-sdk/credential-providers@3.629.0':
-    resolution: {integrity: sha512-B/tvj7bcUp3GOaSvcZDpyvQGiSseKoGkQz0Xj6NFkhXfd0Sf7RD9Bm3iOP8yF4JeGSjbUcvS3HRrL1IZvz+3OQ==}
+  '@aws-sdk/credential-providers@3.630.0':
+    resolution: {integrity: sha512-fuF/lAZ5pj0DooT8wA1lcrR8vtzBNdTHA5dAmmV930eDoT5XZ+/NeQnclWds40xGj2KDi5YEhuMwOqEZqEQ0Aw==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/middleware-host-header@3.598.0':
@@ -3495,7 +3495,7 @@ snapshots:
       '@smithy/types': 3.3.0
       tslib: 2.6.3
 
-  '@aws-sdk/credential-providers@3.629.0(@aws-sdk/client-sso-oidc@3.600.0)':
+  '@aws-sdk/credential-providers@3.630.0(@aws-sdk/client-sso-oidc@3.600.0)':
     dependencies:
       '@aws-sdk/client-cognito-identity': 3.629.0
       '@aws-sdk/client-sso': 3.629.0
