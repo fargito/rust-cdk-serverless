@@ -52,7 +52,7 @@ importers:
         version: 2.155.0(constructs@10.3.0)
       axios:
         specifier: ^1.6.8
-        version: 1.7.6
+        version: 1.7.7
       constructs:
         specifier: ^10.0.98
         version: 10.3.0
@@ -1286,8 +1286,8 @@ packages:
     engines: {node: '>= 14.15.0'}
     hasBin: true
 
-  axios@1.7.6:
-    resolution: {integrity: sha512-Ekur6XDwhnJ5RgOCaxFnXyqlPALI3rVeukZMwOdfghW7/wGz784BYKiQq+QD8NPcr91KRo30KfHOchyijwWw7g==}
+  axios@1.7.7:
+    resolution: {integrity: sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -3911,10 +3911,10 @@ snapshots:
     dependencies:
       '@aws-crypto/sha256-js': 5.2.0
       '@aws-sdk/types': 3.609.0
-      '@event-scout/construct-contracts': 0.7.6(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.155.0(constructs@10.3.0))(axios@1.7.6)
+      '@event-scout/construct-contracts': 0.7.6(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.155.0(constructs@10.3.0))(axios@1.7.7)
       '@smithy/signature-v4': 3.1.2
-      '@swarmion/serverless-contracts': 0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.155.0(constructs@10.3.0))(axios@1.7.6)
-      axios: 1.7.6
+      '@swarmion/serverless-contracts': 0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.155.0(constructs@10.3.0))(axios@1.7.7)
+      axios: 1.7.7
     transitivePeerDependencies:
       - '@serverless/typescript'
       - ajv
@@ -3922,9 +3922,9 @@ snapshots:
       - aws-crt
       - debug
 
-  '@event-scout/construct-contracts@0.7.6(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.155.0(constructs@10.3.0))(axios@1.7.6)':
+  '@event-scout/construct-contracts@0.7.6(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.155.0(constructs@10.3.0))(axios@1.7.7)':
     dependencies:
-      '@swarmion/serverless-contracts': 0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.155.0(constructs@10.3.0))(axios@1.7.6)
+      '@swarmion/serverless-contracts': 0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.155.0(constructs@10.3.0))(axios@1.7.7)
       json-schema-to-ts: 3.1.0
     transitivePeerDependencies:
       - '@serverless/typescript'
@@ -4381,7 +4381,7 @@ snapshots:
       '@smithy/types': 3.3.0
       tslib: 2.6.3
 
-  '@swarmion/serverless-contracts@0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.155.0(constructs@10.3.0))(axios@1.7.6)':
+  '@swarmion/serverless-contracts@0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.155.0(constructs@10.3.0))(axios@1.7.7)':
     dependencies:
       '@aws-sdk/client-eventbridge': 3.600.0
       '@aws-sdk/client-sqs': 3.600.0
@@ -4400,7 +4400,7 @@ snapshots:
     optionalDependencies:
       '@serverless/typescript': 3.38.0
       ajv: 8.13.0
-      axios: 1.7.6
+      axios: 1.7.7
     transitivePeerDependencies:
       - aws-cdk-lib
       - aws-crt
@@ -4752,7 +4752,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.2
 
-  axios@1.7.6:
+  axios@1.7.7:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
