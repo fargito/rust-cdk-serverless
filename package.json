@@ -5,6 +5,7 @@
   "scripts": {
     "bootstrap": "cdk bootstrap",
     "build": "cargo build-lambdas",
+    "clean": "cdk gc --unstable='gc' --type='s3' --rollback-buffer-days=1 --confirm=false",
     "deploy": "cdk deploy --all",
     "destroy": "cdk destroy --all",
     "format-check": "prettier --check .",

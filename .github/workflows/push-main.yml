@@ -101,3 +101,6 @@ jobs:
 
       - name: 🔎 Run integration tests
         run: pnpm test-integration
+
+      - name: 🧹 CDK garbage collection
+        run: pnpm run clean
