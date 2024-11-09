@@ -25,7 +25,7 @@ importers:
         version: 0.7.6(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.166.0(constructs@10.4.2))
       '@event-scout/construct':
         specifier: ^0.7.0
-        version: 0.7.6
+        version: 0.7.7
       '@smithy/signature-v4':
         specifier: ^4.0.0
         version: 4.2.1
@@ -574,11 +574,11 @@ packages:
   '@event-scout/construct-contracts@0.7.6':
     resolution: {integrity: sha512-qG/yeqwa3kqZsBzLIe+paBJeILd4dUrCIwf3F4kDp8pzbjHy8dRcXfRmRqXHKKdF12uj1+Xb5LYWF0IICJVi0Q==}
 
-  '@event-scout/construct@0.7.6':
-    resolution: {integrity: sha512-OdKLrCO6v5QCj1kXzYDSxm0az7yd6t+5JWxsewTfl/E0kVheCiYtDAYzIbWTPewFjNA36YqyY7OYZx5VBlDU3Q==}
+  '@event-scout/construct@0.7.7':
+    resolution: {integrity: sha512-QJzNwKltSX4BueKCBrgqiqCH1/Dls80e7iF3noEjPFP9vLZ1vZkV3JpGdy3B4EtCPgjV/Xwm5JImjbrSFoRc1g==}
 
-  '@event-scout/lambda-assets@0.7.6':
-    resolution: {integrity: sha512-fZM1gBFUlRjO2KwDNMoQwZwQn7DpEQAdWJWjZbL6HBzLqt0C8SwpZIXz0fcUQwQX9LLhfaPyqCxeuPiGdHH2cw==}
+  '@event-scout/lambda-assets@0.7.7':
+    resolution: {integrity: sha512-XMxqPpyDu4rgOvZCg4ukyfSCw8nJaFORlusVvtde3jSQLAFEc6rOW1gOY5JEbv5zD4IjnaPQr3sHjYmazmG4nw==}
 
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
@@ -3940,13 +3940,13 @@ snapshots:
       - aws-crt
       - axios
 
-  '@event-scout/construct@0.7.6':
+  '@event-scout/construct@0.7.7':
     dependencies:
-      '@event-scout/lambda-assets': 0.7.6
+      '@event-scout/lambda-assets': 0.7.7
       aws-cdk-lib: 2.166.0(constructs@10.4.2)
       constructs: 10.4.2
 
-  '@event-scout/lambda-assets@0.7.6': {}
+  '@event-scout/lambda-assets@0.7.7': {}
 
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
