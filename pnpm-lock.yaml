@@ -52,7 +52,7 @@ importers:
         version: 2.171.0(constructs@10.4.2)
       axios:
         specifier: ^1.6.8
-        version: 1.7.7
+        version: 1.7.8
       constructs:
         specifier: ^10.0.98
         version: 10.4.2
@@ -1306,8 +1306,8 @@ packages:
     engines: {node: '>= 14.15.0'}
     hasBin: true
 
-  axios@1.7.7:
-    resolution: {integrity: sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==}
+  axios@1.7.8:
+    resolution: {integrity: sha512-Uu0wb7KNqK2t5K+YQyVCLM76prD5sRFjKHbJYCP1J7JFGEQ6nN7HWn9+04LAeiJ3ji54lgS/gZCH1oxyrf1SPw==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -1746,8 +1746,8 @@ packages:
   flatted@3.3.1:
     resolution: {integrity: sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==}
 
-  follow-redirects@1.15.6:
-    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
+  follow-redirects@1.15.9:
+    resolution: {integrity: sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -1762,8 +1762,8 @@ packages:
     resolution: {integrity: sha512-Ld2g8rrAyMYFXBhEqMz8ZAHBi4J4uS1i/CxGMDnjyFWddMXLVcDp051DZfu+t7+ab7Wv6SMqpWmyFIj5UbfFvg==}
     engines: {node: '>=14'}
 
-  form-data@4.0.0:
-    resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
+  form-data@4.0.1:
+    resolution: {integrity: sha512-tzN8e4TX8+kkxGPK8D5u0FNmjPUjw3lwC9lSLxxoB/+GtsJG91CO8bSWy73APlgAZzZbXEYZJuxjkHH2w+Ezhw==}
     engines: {node: '>= 6'}
 
   format-util@1.0.5:
@@ -3931,10 +3931,10 @@ snapshots:
     dependencies:
       '@aws-crypto/sha256-js': 5.2.0
       '@aws-sdk/types': 3.696.0
-      '@event-scout/construct-contracts': 0.7.7(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.171.0(constructs@10.4.2))(axios@1.7.7)
+      '@event-scout/construct-contracts': 0.7.7(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.171.0(constructs@10.4.2))(axios@1.7.8)
       '@smithy/signature-v4': 4.2.3
-      '@swarmion/serverless-contracts': 0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.171.0(constructs@10.4.2))(axios@1.7.7)
-      axios: 1.7.7
+      '@swarmion/serverless-contracts': 0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.171.0(constructs@10.4.2))(axios@1.7.8)
+      axios: 1.7.8
     transitivePeerDependencies:
       - '@serverless/typescript'
       - ajv
@@ -3942,9 +3942,9 @@ snapshots:
       - aws-crt
       - debug
 
-  '@event-scout/construct-contracts@0.7.7(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.171.0(constructs@10.4.2))(axios@1.7.7)':
+  '@event-scout/construct-contracts@0.7.7(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.171.0(constructs@10.4.2))(axios@1.7.8)':
     dependencies:
-      '@swarmion/serverless-contracts': 0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.171.0(constructs@10.4.2))(axios@1.7.7)
+      '@swarmion/serverless-contracts': 0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.171.0(constructs@10.4.2))(axios@1.7.8)
       json-schema-to-ts: 3.1.1
     transitivePeerDependencies:
       - '@serverless/typescript'
@@ -4399,7 +4399,7 @@ snapshots:
       '@smithy/types': 3.7.1
       tslib: 2.8.1
 
-  '@swarmion/serverless-contracts@0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.171.0(constructs@10.4.2))(axios@1.7.7)':
+  '@swarmion/serverless-contracts@0.32.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.171.0(constructs@10.4.2))(axios@1.7.8)':
     dependencies:
       '@aws-sdk/client-eventbridge': 3.687.0
       '@aws-sdk/client-sqs': 3.687.0
@@ -4418,7 +4418,7 @@ snapshots:
     optionalDependencies:
       '@serverless/typescript': 3.38.0
       ajv: 8.13.0
-      axios: 1.7.7
+      axios: 1.7.8
     transitivePeerDependencies:
       - aws-cdk-lib
       - aws-crt
@@ -4779,10 +4779,10 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.2
 
-  axios@1.7.7:
+  axios@1.7.8:
     dependencies:
-      follow-redirects: 1.15.6
-      form-data: 4.0.0
+      follow-redirects: 1.15.9
+      form-data: 4.0.1
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
@@ -5305,7 +5305,7 @@ snapshots:
 
   flatted@3.3.1: {}
 
-  follow-redirects@1.15.6: {}
+  follow-redirects@1.15.9: {}
 
   for-each@0.3.3:
     dependencies:
@@ -5316,7 +5316,7 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  form-data@4.0.0:
+  form-data@4.0.1:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
