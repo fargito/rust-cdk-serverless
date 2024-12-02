@@ -167,9 +167,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-eventbridge"
-version = "1.51.0"
+version = "1.52.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0b74971e477bc409fd2c97f314e04ec0edecf86a073916710030e8fffb8fb906"
+checksum = "e15b2f7a05d2098c5c2ce14f9ca5d42d51d89544866655bcbd905ca794a3e41a"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
