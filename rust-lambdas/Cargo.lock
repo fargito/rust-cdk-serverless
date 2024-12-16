@@ -435,6 +435,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "aws_lambda_events"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "52ddb91585253ccc85be3f2e0d5635529efdeadaf8a1da3230b433d3bbe43648"
+dependencies = [
+ "base64 0.22.1",
+ "bytes",
+ "http 1.1.0",
+ "http-body 1.0.0",
+ "http-serde",
+ "query_map",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "backtrace"
 version = "0.3.71"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -626,7 +642,7 @@ dependencies = [
  "aws-sdk-dynamodb",
  "aws-sdk-eventbridge",
  "aws-smithy-mocks-experimental",
- "aws_lambda_events",
+ "aws_lambda_events 0.15.1",
  "lambda_http",
  "serde",
  "serde_json",
@@ -699,7 +715,7 @@ dependencies = [
  "aws-config",
  "aws-sdk-dynamodb",
  "aws-sdk-eventbridge",
- "aws_lambda_events",
+ "aws_lambda_events 0.15.1",
  "lambda_http",
  "serde",
  "serde_json",
@@ -1203,11 +1219,11 @@ dependencies = [
 
 [[package]]
 name = "lambda_http"
-version = "0.13.0"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "67fe279be7f89f5f72c97c3a96f45c43db8edab1007320ecc6a5741273b4d6db"
+checksum = "68b470cea1ec37b96e9543870a33c1f4b9e243754fe5892668efa3125ea12784"
 dependencies = [
- "aws_lambda_events",
+ "aws_lambda_events 0.16.0",
  "base64 0.22.1",
  "bytes",
  "encoding_rs",
@@ -1436,7 +1452,7 @@ version = "0.1.0"
 dependencies = [
  "aws-config",
  "aws-sdk-dynamodb",
- "aws_lambda_events",
+ "aws_lambda_events 0.15.1",
  "lambda_runtime",
  "serde",
  "serde_json",
@@ -1450,7 +1466,7 @@ version = "0.1.0"
 dependencies = [
  "aws-config",
  "aws-sdk-dynamodb",
- "aws_lambda_events",
+ "aws_lambda_events 0.15.1",
  "lambda_runtime",
  "serde",
  "serde_json",
@@ -1928,7 +1944,7 @@ version = "0.1.0"
 dependencies = [
  "aws-config",
  "aws-sdk-dynamodb",
- "aws_lambda_events",
+ "aws_lambda_events 0.15.1",
  "serde",
  "thiserror 2.0.7",
  "tokio",
