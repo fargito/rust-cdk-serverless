@@ -144,9 +144,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-dynamodb"
-version = "1.61.0"
+version = "1.62.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "822deb729d56924c4c97427cb7fbe2f2e168face2c61d1b2b769b16befd23b6b"
+checksum = "3658e7d6cef9dc7a7b5ebb705005409a8f708e4bd20b1e462b560701eb59caf2"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
@@ -167,9 +167,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-eventbridge"
-version = "1.58.0"
+version = "1.59.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1af27c5267a90b5ac2b1fb9e9aaddabfd048b042b87475f8ba897c87c1d55024"
+checksum = "606fd59761994bec2cd78299410be84477ed75e4d121715fa2b7ed13f0ad4f22"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
