@@ -24,7 +24,7 @@
     "@aws-sdk/credential-providers": "^3.552.0",
     "@aws-sdk/types": "^3.535.0",
     "@event-scout/client": "^0.8.0",
-    "@event-scout/construct": "^0.7.0",
+    "@event-scout/construct": "^0.8.0",
     "@smithy/signature-v4": "^5.0.0",
     "@swc-node/register": "^1.9.0",
     "@types/node": "^22.0.0",
