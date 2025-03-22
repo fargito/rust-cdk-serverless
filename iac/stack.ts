@@ -15,7 +15,7 @@ import {
   Runtime,
   Tracing,
 } from 'aws-cdk-lib/aws-lambda';
-import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
+import { LogGroup, LogGroupProps, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
@@ -63,10 +63,10 @@ export class TodoAppStack extends Stack {
 
     this.eventBusName = eventBus.eventBusName;
 
-    const logGroup = new LogGroup(this, 'Logs', {
+    const logGroupProps: LogGroupProps = {
       retention: RetentionDays.FIVE_DAYS,
       removalPolicy: RemovalPolicy.DESTROY, // do not keep log group if it is no longer included in a deployment
-    });
+    };
 
     const httpLambdasConfig: Record<string, HttpLambdaConfig> = {
       CreateTodo: {
@@ -130,7 +130,7 @@ export class TodoAppStack extends Stack {
         memorySize: 1024,
         loggingFormat: LoggingFormat.JSON,
         tracing: Tracing.ACTIVE,
-        logGroup,
+        logGroup: new LogGroup(this, `${lambdaName}Logs`, logGroupProps),
         environment: {
           TODOS_TABLE_NAME: todosTable.tableName,
           EVENT_BUS_NAME: eventBus.eventBusName,
@@ -194,7 +194,7 @@ export class TodoAppStack extends Stack {
         memorySize: 1024,
         loggingFormat: LoggingFormat.JSON,
         tracing: Tracing.ACTIVE,
-        logGroup,
+        logGroup: new LogGroup(this, `${lambdaName}Logs`, logGroupProps),
         environment: {
           TODOS_TABLE_NAME: todosTable.tableName,
           RUST_LOG: 'info',
