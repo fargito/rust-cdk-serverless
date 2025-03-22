@@ -13,6 +13,7 @@ import {
   Function,
   LoggingFormat,
   Runtime,
+  Tracing,
 } from 'aws-cdk-lib/aws-lambda';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
@@ -128,6 +129,7 @@ export class TodoAppStack extends Stack {
         handler: 'useless',
         memorySize: 1024,
         loggingFormat: LoggingFormat.JSON,
+        tracing: Tracing.ACTIVE,
         logGroup,
         environment: {
           TODOS_TABLE_NAME: todosTable.tableName,
@@ -191,6 +193,7 @@ export class TodoAppStack extends Stack {
         handler: 'useless',
         memorySize: 1024,
         loggingFormat: LoggingFormat.JSON,
+        tracing: Tracing.ACTIVE,
         logGroup,
         environment: {
           TODOS_TABLE_NAME: todosTable.tableName,
