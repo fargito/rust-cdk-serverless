@@ -4,12 +4,13 @@ use aws_sdk_eventbridge::types::PutEventsRequestEntry;
 use shared::{DynamoDBError, FailureResponse, Todo};
 
 use lambda_http::{
-    tracing::{debug, error},
+    tracing::{self, debug, error, info},
     Request, RequestExt,
 };
 
 use std::{collections::HashMap, time::Instant};
 
+#[tracing::instrument(skip_all)]
 pub(crate) async fn handler(
     request: Request,
     dynamodb_client: &aws_sdk_dynamodb::Client,
@@ -77,6 +78,12 @@ pub(crate) async fn handler(
             body: "Unable to serialize todo".into(),
         }
     })?;
+
+    info!(
+        todo_id = todo_id,
+        list_id = list_id,
+        "Successfully deleted todo",
+    );
 
     let entries = PutEventsRequestEntry::builder()
         .event_bus_name(event_bus_name)

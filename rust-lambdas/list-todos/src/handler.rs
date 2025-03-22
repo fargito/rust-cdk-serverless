@@ -3,12 +3,13 @@ use std::time::Instant;
 use aws_sdk_dynamodb::types::AttributeValue;
 use lambda_http::{
     http::StatusCode,
-    tracing::{debug, error},
+    tracing::{self, debug, error, info},
     Request, RequestExt,
 };
 
 use shared::{FailureResponse, Todo};
 
+#[tracing::instrument(skip_all)]
 pub(crate) async fn handler(
     request: Request,
     dynamodb_client: &aws_sdk_dynamodb::Client,
@@ -39,6 +40,8 @@ pub(crate) async fn handler(
                 body: "Unable to set todo".into(),
             }
         })?;
+
+    info!(list_id = list_id, "Retrieved list");
 
     debug!("{result:?}");
 

@@ -6,7 +6,7 @@ use serde::Deserialize;
 use shared::{FailureResponse, Todo};
 
 use lambda_http::{
-    tracing::{debug, error},
+    tracing::{self, debug, error, info},
     Body, Request, RequestExt,
 };
 use ulid::Ulid;
@@ -19,6 +19,7 @@ struct CreateTodo {
     description: String,
 }
 
+#[tracing::instrument(skip_all)]
 pub(crate) async fn handler(
     request: Request,
     dynamodb_client: &aws_sdk_dynamodb::Client,
@@ -71,6 +72,12 @@ pub(crate) async fn handler(
                 body: "Unable to set todo".into(),
             }
         })?;
+
+    info!(
+        todo_id = todo_id,
+        list_id = list_id,
+        "Successfully created todo",
+    );
 
     debug!("Item stored in {:.2?}", start.elapsed());
 
