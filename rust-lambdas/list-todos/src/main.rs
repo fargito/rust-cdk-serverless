@@ -3,7 +3,6 @@ mod handler;
 use std::env;
 use std::time::Instant;
 
-use aws_config::BehaviorVersion;
 use lambda_http::{
     service_fn,
     tower::ServiceExt,
@@ -12,6 +11,7 @@ use lambda_http::{
 };
 
 use handler::handler;
+use shared::get_dynamodb_client;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -19,8 +19,7 @@ async fn main() -> Result<(), Error> {
 
     tracing::init_default_subscriber();
 
-    let config = aws_config::load_defaults(BehaviorVersion::latest()).await;
-    let dynamodb_client = aws_sdk_dynamodb::Client::new(&config);
+    let dynamodb_client = get_dynamodb_client().await;
 
     let todos_table_name = env::var("TODOS_TABLE_NAME").expect("Missing TODOS_TABLE_NAME env var");
 
