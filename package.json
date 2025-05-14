@@ -31,7 +31,7 @@
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@typescript-eslint/parser": "^7.5.0",
     "@vitest/coverage-v8": "^3.0.0",
-    "aws-cdk": "2.1014.0",
+    "aws-cdk": "2.1015.0",
     "aws-cdk-lib": "2.195.0",
     "axios": "^1.6.8",
     "constructs": "^10.0.98",
