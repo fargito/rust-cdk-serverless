@@ -22,7 +22,7 @@ importers:
         version: 3.821.0
       '@event-scout/client':
         specifier: ^0.8.0
-        version: 0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.201.0(constructs@10.4.2))
+        version: 0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.202.0(constructs@10.4.2))
       '@event-scout/construct':
         specifier: ^0.8.0
         version: 0.8.0
@@ -48,8 +48,8 @@ importers:
         specifier: 2.1019.1
         version: 2.1019.1
       aws-cdk-lib:
-        specifier: 2.201.0
-        version: 2.201.0(constructs@10.4.2)
+        specifier: 2.202.0
+        version: 2.202.0(constructs@10.4.2)
       axios:
         specifier: ^1.6.8
         version: 1.10.0
@@ -96,8 +96,8 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@aws-cdk/asset-awscli-v1@2.2.237':
-    resolution: {integrity: sha512-OlXylbXI52lboFVJBFLae+WB99qWmI121x/wXQHEMj2RaVNVbWE+OAHcDk2Um1BitUQCaTf9ki57B0Fuqx0Rvw==}
+  '@aws-cdk/asset-awscli-v1@2.2.240':
+    resolution: {integrity: sha512-Ry5yvGVf8s7j1Gf1aBFs0mBnWzRkkRtgSVpRGkDWXvZoPbRODAH33S1mAxkETNb+dNnTPGE2Gvws0XbhpJ6RzA==}
 
   '@aws-cdk/asset-node-proxy-agent-v6@2.1.0':
     resolution: {integrity: sha512-7bY3J8GCVxLupn/kNmpPc5VJz8grx+4RKfnnJiO1LG+uxkZfANZG3RMHhE+qQxxwkyQ9/MfPtTpf748UhR425A==}
@@ -1559,8 +1559,8 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  aws-cdk-lib@2.201.0:
-    resolution: {integrity: sha512-0ioqzM5dkJl02uchOfgeCY3thV3jTn9YkyZ/UF5P4Hq9iNGHQqmPu5xE/VcAV7+P72Z/zV+QLV0xkVT6iLF/bw==}
+  aws-cdk-lib@2.202.0:
+    resolution: {integrity: sha512-JDycQoE8AxUAeCFXFoCx6FGvR78e6W9zYxPgmfW/uPPbntyNCXXBqwyAYo17RGS/lr0RO3zqD/oCBZSNU2e/Yg==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       constructs: ^10.0.0
@@ -3140,7 +3140,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@aws-cdk/asset-awscli-v1@2.2.237': {}
+  '@aws-cdk/asset-awscli-v1@2.2.240': {}
 
   '@aws-cdk/asset-node-proxy-agent-v6@2.1.0': {}
 
@@ -4181,13 +4181,13 @@ snapshots:
 
   '@eslint/js@8.57.1': {}
 
-  '@event-scout/client@0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.201.0(constructs@10.4.2))':
+  '@event-scout/client@0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.202.0(constructs@10.4.2))':
     dependencies:
       '@aws-crypto/sha256-js': 5.2.0
       '@aws-sdk/types': 3.821.0
-      '@event-scout/construct-contracts': 0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.201.0(constructs@10.4.2))(axios@1.10.0)
+      '@event-scout/construct-contracts': 0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.202.0(constructs@10.4.2))(axios@1.10.0)
       '@smithy/signature-v4': 5.1.2
-      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.201.0(constructs@10.4.2))(axios@1.10.0)
+      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.202.0(constructs@10.4.2))(axios@1.10.0)
       axios: 1.10.0
     transitivePeerDependencies:
       - '@serverless/typescript'
@@ -4196,9 +4196,9 @@ snapshots:
       - aws-crt
       - debug
 
-  '@event-scout/construct-contracts@0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.201.0(constructs@10.4.2))(axios@1.10.0)':
+  '@event-scout/construct-contracts@0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.202.0(constructs@10.4.2))(axios@1.10.0)':
     dependencies:
-      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.201.0(constructs@10.4.2))(axios@1.10.0)
+      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.202.0(constructs@10.4.2))(axios@1.10.0)
       json-schema-to-ts: 3.1.1
     transitivePeerDependencies:
       - '@serverless/typescript'
@@ -4210,7 +4210,7 @@ snapshots:
   '@event-scout/construct@0.8.0':
     dependencies:
       '@event-scout/lambda-assets': 0.8.0
-      aws-cdk-lib: 2.201.0(constructs@10.4.2)
+      aws-cdk-lib: 2.202.0(constructs@10.4.2)
       constructs: 10.4.2
 
   '@event-scout/lambda-assets@0.8.0': {}
@@ -4929,11 +4929,11 @@ snapshots:
 
   '@standard-schema/spec@1.0.0': {}
 
-  '@swarmion/serverless-contracts@0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.201.0(constructs@10.4.2))(axios@1.10.0)':
+  '@swarmion/serverless-contracts@0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.202.0(constructs@10.4.2))(axios@1.10.0)':
     dependencies:
       '@aws-sdk/client-eventbridge': 3.687.0
       '@aws-sdk/client-sqs': 3.687.0
-      '@swarmion/serverless-helpers': 0.33.0(@serverless/typescript@3.38.0)(aws-cdk-lib@2.201.0(constructs@10.4.2))
+      '@swarmion/serverless-helpers': 0.33.0(@serverless/typescript@3.38.0)(aws-cdk-lib@2.202.0(constructs@10.4.2))
       '@types/aws-lambda': 8.10.145
       '@types/http-errors': 2.0.4
       http-errors: 2.0.0
@@ -4954,10 +4954,10 @@ snapshots:
       - aws-cdk-lib
       - aws-crt
 
-  '@swarmion/serverless-helpers@0.33.0(@serverless/typescript@3.38.0)(aws-cdk-lib@2.201.0(constructs@10.4.2))':
+  '@swarmion/serverless-helpers@0.33.0(@serverless/typescript@3.38.0)(aws-cdk-lib@2.202.0(constructs@10.4.2))':
     dependencies:
       '@serverless/typescript': 3.38.0
-      aws-cdk-lib: 2.201.0(constructs@10.4.2)
+      aws-cdk-lib: 2.202.0(constructs@10.4.2)
       json-schema-to-ts: 3.1.1
 
   '@swc-node/core@1.13.3(@swc/core@1.5.0)(@swc/types@0.1.6)':
@@ -5364,9 +5364,9 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.0.0
 
-  aws-cdk-lib@2.201.0(constructs@10.4.2):
+  aws-cdk-lib@2.202.0(constructs@10.4.2):
     dependencies:
-      '@aws-cdk/asset-awscli-v1': 2.2.237
+      '@aws-cdk/asset-awscli-v1': 2.2.240
       '@aws-cdk/asset-node-proxy-agent-v6': 2.1.0
       '@aws-cdk/cloud-assembly-schema': 44.5.0
       constructs: 10.4.2
