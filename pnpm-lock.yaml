@@ -43,7 +43,7 @@ importers:
         version: 7.18.0(eslint@8.57.1)(typescript@5.9.3)
       '@vitest/coverage-v8':
         specifier: ^4.0.0
-        version: 4.0.3(vitest@4.0.4(@types/node@22.18.12))
+        version: 4.0.4(vitest@4.0.4(@types/node@22.18.12))
       aws-cdk:
         specifier: 2.1031.0
         version: 2.1031.0
@@ -235,6 +235,7 @@ packages:
   '@aws-sdk/credential-provider-web-identity@3.917.0':
     resolution: {integrity: sha512-pZncQhFbwW04pB0jcD5OFv3x2gAddDYCVxyJVixgyhSw7bKCYxqu6ramfq1NxyVpmm+qsw+ijwi/3cCmhUHF/A==}
     engines: {node: '>=18.0.0'}
+    deprecated: This version contains a compilation TypeScript error https://github.com/aws/aws-sdk-js-v3/issues/7457 - please use @aws-sdk/credential-providers@3.918.0 or higher
 
   '@aws-sdk/credential-providers@3.916.0':
     resolution: {integrity: sha512-wazu2awF69ohF3AaDlYkD+tanaqwJ309o9GawNg3o1oW7orhdcvh6P8BftSjuIzuAMiauvQquxcUrNTLxHtvOA==}
@@ -1496,11 +1497,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@vitest/coverage-v8@4.0.3':
-    resolution: {integrity: sha512-I+MlLwyJRBjmJr1kFYSxoseINbIdpxIAeK10jmXgB0FUtIfdYsvM3lGAvBu5yk8WPyhefzdmbCHCc1idFbNRcg==}
+  '@vitest/coverage-v8@4.0.4':
+    resolution: {integrity: sha512-YM7gDj2TX2AXyGLz0p/B7hvTsTfaQc+kSV/LU0nEnKlep/ZfbdCDppPND4YQiQC43OXyrhkG3y8ZSTqYb2CKqQ==}
     peerDependencies:
-      '@vitest/browser': 4.0.3
-      vitest: 4.0.3
+      '@vitest/browser': 4.0.4
+      vitest: 4.0.4
     peerDependenciesMeta:
       '@vitest/browser':
         optional: true
@@ -1519,9 +1520,6 @@ packages:
       vite:
         optional: true
 
-  '@vitest/pretty-format@4.0.3':
-    resolution: {integrity: sha512-N7gly/DRXzxa9w9sbDXwD9QNFYP2hw90LLLGDobPNwiWgyW95GMxsCt29/COIKKh3P7XJICR38PSDePenMBtsw==}
-
   '@vitest/pretty-format@4.0.4':
     resolution: {integrity: sha512-lHI2rbyrLVSd1TiHGJYyEtbOBo2SDndIsN3qY4o4xe2pBxoJLD6IICghNCvD7P+BFin6jeyHXiUICXqgl6vEaQ==}
 
@@ -1533,9 +1531,6 @@ packages:
 
   '@vitest/spy@4.0.4':
     resolution: {integrity: sha512-G9L13AFyYECo40QG7E07EdYnZZYCKMTSp83p9W8Vwed0IyCG1GnpDLxObkx8uOGPXfDpdeVf24P1Yka8/q1s9g==}
-
-  '@vitest/utils@4.0.3':
-    resolution: {integrity: sha512-qV6KJkq8W3piW6MDIbGOmn1xhvcW4DuA07alqaQ+vdx7YA49J85pnwnxigZVQFQw3tWnQNRKWwhz5wbP6iv/GQ==}
 
   '@vitest/utils@4.0.4':
     resolution: {integrity: sha512-4bJLmSvZLyVbNsYFRpPYdJViG9jZyRvMZ35IF4ymXbRZoS+ycYghmwTGiscTXduUg2lgKK7POWIyXJNute1hjw==}
@@ -5329,10 +5324,10 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.9.2':
     optional: true
 
-  '@vitest/coverage-v8@4.0.3(vitest@4.0.4(@types/node@22.18.12))':
+  '@vitest/coverage-v8@4.0.4(vitest@4.0.4(@types/node@22.18.12))':
     dependencies:
       '@bcoe/v8-coverage': 1.0.2
-      '@vitest/utils': 4.0.3
+      '@vitest/utils': 4.0.4
       ast-v8-to-istanbul: 0.3.8
       debug: 4.4.3
       istanbul-lib-coverage: 3.2.2
@@ -5363,10 +5358,6 @@ snapshots:
     optionalDependencies:
       vite: 7.1.12(@types/node@22.18.12)
 
-  '@vitest/pretty-format@4.0.3':
-    dependencies:
-      tinyrainbow: 3.0.3
-
   '@vitest/pretty-format@4.0.4':
     dependencies:
       tinyrainbow: 3.0.3
@@ -5383,11 +5374,6 @@ snapshots:
       pathe: 2.0.3
 
   '@vitest/spy@4.0.4': {}
-
-  '@vitest/utils@4.0.3':
-    dependencies:
-      '@vitest/pretty-format': 4.0.3
-      tinyrainbow: 3.0.3
 
   '@vitest/utils@4.0.4':
     dependencies:
