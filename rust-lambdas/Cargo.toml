@@ -27,3 +27,4 @@ lambda_runtime = { version = "1.0.1", default-features = false, features = ["tra
 serde = { version = "1.0.200", default-features = false }
 serde_json = { version = "1.0.116", default-features = false }
 tokio = { version = "1.37.0", features = ["macros"] }
+tracing = "0.1.43"
