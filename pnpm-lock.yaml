@@ -85,7 +85,7 @@ importers:
         version: 7.3.1(@types/node@24.10.13)
       vite-tsconfig-paths:
         specifier: ^6.0.0
-        version: 6.1.0(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.13))
+        version: 6.1.1(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.13))
       vitest:
         specifier: ^4.0.0
         version: 4.0.18(@types/node@24.10.13)
@@ -3105,8 +3105,8 @@ packages:
     resolution: {integrity: sha512-d7KLgL1LD3U3fgnvWEY1cQXoO/q6EQ1BSz48Sa149V/5zVTAbgmZIpyI8TRi6U9/JNyeYLlTKsEMPtLC27RFUg==}
     engines: {node: ^18.17.0 || >=20.5.0}
 
-  vite-tsconfig-paths@6.1.0:
-    resolution: {integrity: sha512-kpd3sY9glHIDaq4V/Tlc1Y8WaKtutoc3B525GHxEVKWX42FKfQsXvjFOemu1I8VIN8pNbrMLWVTbW79JaRUxKg==}
+  vite-tsconfig-paths@6.1.1:
+    resolution: {integrity: sha512-2cihq7zliibCCZ8P9cKJrQBkfgdvcFkOOc3Y02o3GWUDLgqjWsZudaoiuOwO/gzTzy17cS5F7ZPo4bsnS4DGkg==}
     peerDependencies:
       vite: '*'
 
@@ -7130,7 +7130,7 @@ snapshots:
 
   validate-npm-package-name@6.0.0: {}
 
-  vite-tsconfig-paths@6.1.0(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.13)):
+  vite-tsconfig-paths@6.1.1(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.13)):
     dependencies:
       debug: 4.4.3
       globrex: 0.1.2
