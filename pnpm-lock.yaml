@@ -22,7 +22,7 @@ importers:
         version: 3.973.6
       '@event-scout/client':
         specifier: ^0.8.0
-        version: 0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.243.0(constructs@10.5.1))
+        version: 0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.244.0(constructs@10.5.1))
       '@event-scout/construct':
         specifier: ^0.8.0
         version: 0.8.0
@@ -48,8 +48,8 @@ importers:
         specifier: 2.1112.0
         version: 2.1112.0
       aws-cdk-lib:
-        specifier: 2.243.0
-        version: 2.243.0(constructs@10.5.1)
+        specifier: 2.244.0
+        version: 2.244.0(constructs@10.5.1)
       axios:
         specifier: ^1.6.8
         version: 1.13.6
@@ -345,6 +345,7 @@ packages:
   '@aws-sdk/xml-builder@3.972.14':
     resolution: {integrity: sha512-G/Yd8Bnnyh8QrqLf8jWJbixEnScUFW24e/wOBGYdw1Cl4r80KX/DvHyM2GVZ2vTp7J4gTEr8IXJlTadA8+UfuQ==}
     engines: {node: '>=20.0.0'}
+    deprecated: Upgrade @aws-sdk/xml-builder to v3.972.13 or higher to fix a fast-xml-parser configuration issue, see https://github.com/aws/aws-sdk-js-v3/issues/7867
 
   '@aws/lambda-invoke-store@0.2.4':
     resolution: {integrity: sha512-iY8yvjE0y651BixKNPgmv1WrQc+GZ142sb0z4gYnChDDY2YqI4P/jsSopBWrKfAt7LOJAkOXt7rC/hms+WclQQ==}
@@ -1638,8 +1639,8 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  aws-cdk-lib@2.243.0:
-    resolution: {integrity: sha512-qIhg/3gSNeZ9LoVmDATO45HPk+POkoCfPZRezeOPhd2kAJ/wzYswyUcMqpDWXrlRrEVYntxsykQs+2eMA04Isg==}
+  aws-cdk-lib@2.244.0:
+    resolution: {integrity: sha512-j5FVeZv5W+v6j6OnW8RjoN04T+8pYvDJJV7yXhhj4IiGDKPgMH3fflQLQXJousd2QQk+nSAjghDVJcrZ4GFyGA==}
     engines: {node: '>= 20.0.0'}
     peerDependencies:
       constructs: ^10.5.0
@@ -4069,13 +4070,13 @@ snapshots:
 
   '@eslint/js@8.57.1': {}
 
-  '@event-scout/client@0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.243.0(constructs@10.5.1))':
+  '@event-scout/client@0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.244.0(constructs@10.5.1))':
     dependencies:
       '@aws-crypto/sha256-js': 5.2.0
       '@aws-sdk/types': 3.973.6
-      '@event-scout/construct-contracts': 0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.243.0(constructs@10.5.1))(axios@1.13.6)
+      '@event-scout/construct-contracts': 0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.244.0(constructs@10.5.1))(axios@1.13.6)
       '@smithy/signature-v4': 5.3.12
-      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.243.0(constructs@10.5.1))(axios@1.13.6)
+      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.244.0(constructs@10.5.1))(axios@1.13.6)
       axios: 1.13.6
     transitivePeerDependencies:
       - '@serverless/typescript'
@@ -4084,9 +4085,9 @@ snapshots:
       - aws-crt
       - debug
 
-  '@event-scout/construct-contracts@0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.243.0(constructs@10.5.1))(axios@1.13.6)':
+  '@event-scout/construct-contracts@0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.244.0(constructs@10.5.1))(axios@1.13.6)':
     dependencies:
-      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.243.0(constructs@10.5.1))(axios@1.13.6)
+      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.244.0(constructs@10.5.1))(axios@1.13.6)
       json-schema-to-ts: 3.1.1
     transitivePeerDependencies:
       - '@serverless/typescript'
@@ -4098,7 +4099,7 @@ snapshots:
   '@event-scout/construct@0.8.0':
     dependencies:
       '@event-scout/lambda-assets': 0.8.0
-      aws-cdk-lib: 2.243.0(constructs@10.5.1)
+      aws-cdk-lib: 2.244.0(constructs@10.5.1)
       constructs: 10.5.1
 
   '@event-scout/lambda-assets@0.8.0': {}
@@ -4838,11 +4839,11 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@swarmion/serverless-contracts@0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.243.0(constructs@10.5.1))(axios@1.13.6)':
+  '@swarmion/serverless-contracts@0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.244.0(constructs@10.5.1))(axios@1.13.6)':
     dependencies:
       '@aws-sdk/client-eventbridge': 3.687.0
       '@aws-sdk/client-sqs': 3.687.0
-      '@swarmion/serverless-helpers': 0.33.0(@serverless/typescript@3.38.0)(aws-cdk-lib@2.243.0(constructs@10.5.1))
+      '@swarmion/serverless-helpers': 0.33.0(@serverless/typescript@3.38.0)(aws-cdk-lib@2.244.0(constructs@10.5.1))
       '@types/aws-lambda': 8.10.145
       '@types/http-errors': 2.0.4
       http-errors: 2.0.0
@@ -4863,10 +4864,10 @@ snapshots:
       - aws-cdk-lib
       - aws-crt
 
-  '@swarmion/serverless-helpers@0.33.0(@serverless/typescript@3.38.0)(aws-cdk-lib@2.243.0(constructs@10.5.1))':
+  '@swarmion/serverless-helpers@0.33.0(@serverless/typescript@3.38.0)(aws-cdk-lib@2.244.0(constructs@10.5.1))':
     dependencies:
       '@serverless/typescript': 3.38.0
-      aws-cdk-lib: 2.243.0(constructs@10.5.1)
+      aws-cdk-lib: 2.244.0(constructs@10.5.1)
       json-schema-to-ts: 3.1.1
 
   '@swc-node/core@1.14.1(@swc/core@1.5.0)(@swc/types@0.1.6)':
@@ -5273,7 +5274,7 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
-  aws-cdk-lib@2.243.0(constructs@10.5.1):
+  aws-cdk-lib@2.244.0(constructs@10.5.1):
     dependencies:
       '@aws-cdk/asset-awscli-v1': 2.2.263
       '@aws-cdk/asset-node-proxy-agent-v6': 2.1.1
