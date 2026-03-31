@@ -45,14 +45,14 @@ importers:
         specifier: ^4.0.0
         version: 4.1.2(vitest@4.1.2(@types/node@24.12.0)(vite@8.0.3(@types/node@24.12.0)(esbuild@0.27.2)))
       aws-cdk:
-        specifier: 2.1115.0
-        version: 2.1115.0
+        specifier: 2.1115.1
+        version: 2.1115.1
       aws-cdk-lib:
         specifier: 2.245.0
         version: 2.245.0(constructs@10.6.0)
       axios:
         specifier: ^1.6.8
-        version: 1.14.1
+        version: 1.14.0
       constructs:
         specifier: ^10.0.98
         version: 10.6.0
@@ -1631,13 +1631,13 @@ packages:
       - yaml
       - mime-types
 
-  aws-cdk@2.1115.0:
-    resolution: {integrity: sha512-PpNNflDt1L2TxpMh2h7cPHnFkDVeY1hwIxuGuvswS08mA0syOT4OmZx8hZYdcLru6NceCsn0x/7uTHpb6Hzo5A==}
+  aws-cdk@2.1115.1:
+    resolution: {integrity: sha512-6vvSuHTq5FKClXIIXXvbmdYkzG+I6Ij80iXyg3Oky3+FZn+lYgYlM3RCS9gLWyJLhgcOhwB8jQpy6593OlbQcw==}
     engines: {node: '>= 18.0.0'}
     hasBin: true
 
-  axios@1.14.1:
-    resolution: {integrity: sha512-vF/aB4vrIzLyOb2TB9gpuE8gusNHpZqk2ZZcAqSnRjW5IcY7tFSBEurD2tbakohj0Rw5xMHYwjSqOGSfr0iewA==}
+  axios@1.14.0:
+    resolution: {integrity: sha512-3Y8yrqLSwjuzpXuZ0oIYZ/XGgLwUIBU3uLvbcpb0pidD9ctpShJd43KSlEEkVQg6DS0G9NKyzOvBfUtDKEyHvQ==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -2607,9 +2607,6 @@ packages:
   pirates@4.0.7:
     resolution: {integrity: sha512-TfySrs/5nm8fQJDcBDuUng3VOUKsd7S+zqvbOTiGXHfxX4wK31ard+hoNuvkicM/2YFzlpDgABOevKSsB4G/FA==}
     engines: {node: '>= 6'}
-
-  plain-crypto-js@4.2.1:
-    resolution: {integrity: sha512-Wv41p4/aEMq03JjDqi0JxPYT4aoMbbQMSM8ur4QkjvjGEeuYvI7rGkqLcOZ7K1iThQGvpNvJnxRWcNodCNuEEQ==}
 
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
@@ -4143,10 +4140,10 @@ snapshots:
     dependencies:
       '@aws-crypto/sha256-js': 5.2.0
       '@aws-sdk/types': 3.973.6
-      '@event-scout/construct-contracts': 0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.245.0(constructs@10.6.0))(axios@1.14.1)
+      '@event-scout/construct-contracts': 0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.245.0(constructs@10.6.0))(axios@1.14.0)
       '@smithy/signature-v4': 5.3.12
-      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.245.0(constructs@10.6.0))(axios@1.14.1)
-      axios: 1.14.1
+      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.245.0(constructs@10.6.0))(axios@1.14.0)
+      axios: 1.14.0
     transitivePeerDependencies:
       - '@serverless/typescript'
       - ajv
@@ -4154,9 +4151,9 @@ snapshots:
       - aws-crt
       - debug
 
-  '@event-scout/construct-contracts@0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.245.0(constructs@10.6.0))(axios@1.14.1)':
+  '@event-scout/construct-contracts@0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.245.0(constructs@10.6.0))(axios@1.14.0)':
     dependencies:
-      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.245.0(constructs@10.6.0))(axios@1.14.1)
+      '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.245.0(constructs@10.6.0))(axios@1.14.0)
       json-schema-to-ts: 3.1.1
     transitivePeerDependencies:
       - '@serverless/typescript'
@@ -4884,7 +4881,7 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@swarmion/serverless-contracts@0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.245.0(constructs@10.6.0))(axios@1.14.1)':
+  '@swarmion/serverless-contracts@0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.245.0(constructs@10.6.0))(axios@1.14.0)':
     dependencies:
       '@aws-sdk/client-eventbridge': 3.687.0
       '@aws-sdk/client-sqs': 3.687.0
@@ -4904,7 +4901,7 @@ snapshots:
     optionalDependencies:
       '@serverless/typescript': 3.38.0
       ajv: 8.13.0
-      axios: 1.14.1
+      axios: 1.14.0
     transitivePeerDependencies:
       - aws-cdk-lib
       - aws-crt
@@ -5331,13 +5328,12 @@ snapshots:
       '@aws-cdk/cloud-assembly-schema': 53.9.0
       constructs: 10.6.0
 
-  aws-cdk@2.1115.0: {}
+  aws-cdk@2.1115.1: {}
 
-  axios@1.14.1:
+  axios@1.14.0:
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.5
-      plain-crypto-js: 4.2.1
       proxy-from-env: 2.1.0
     transitivePeerDependencies:
       - debug
@@ -6400,8 +6396,6 @@ snapshots:
   picomatch@4.0.4: {}
 
   pirates@4.0.7: {}
-
-  plain-crypto-js@4.2.1: {}
 
   possible-typed-array-names@1.1.0: {}
 
