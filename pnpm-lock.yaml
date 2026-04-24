@@ -13,10 +13,10 @@ importers:
         version: 5.2.0
       '@aws-sdk/client-cloudformation':
         specifier: ^3.552.0
-        version: 3.1036.0
+        version: 3.1037.0
       '@aws-sdk/credential-providers':
         specifier: ^3.552.0
-        version: 3.1036.0
+        version: 3.1037.0
       '@aws-sdk/types':
         specifier: ^3.535.0
         version: 3.973.8
@@ -118,12 +118,12 @@ packages:
   '@aws-crypto/util@5.2.0':
     resolution: {integrity: sha512-4RkU9EsI6ZpBve5fseQlGNUWKMa1RLPQ1dnjnQoe07ldfIzcsGb5hC5W0Dm7u423KWzawlrpbjXBrXCEv9zazQ==}
 
-  '@aws-sdk/client-cloudformation@3.1036.0':
-    resolution: {integrity: sha512-nISQfcQa0qhA3iQl0MQzMJWRIGCTIdlBWSXmWWByEwOlyRTVjGRJmsQW+7/xRpyiyAQo/li4OtmTwOXGgFIDzg==}
+  '@aws-sdk/client-cloudformation@3.1037.0':
+    resolution: {integrity: sha512-nLSwtmayv7tjjp6t8Lc20xZCeA+XJ5UzXvauQCnO3aRZVAxrgarQntZjS+eWlRYGRqLBjXSre4xL7XwUlObb2A==}
     engines: {node: '>=20.0.0'}
 
-  '@aws-sdk/client-cognito-identity@3.1036.0':
-    resolution: {integrity: sha512-MQjdqPph5ZwaG6bGHeEr480NLFskTdr+ZEqXOoiBlwJUCy1sXHT3S/xrUAIVvGX93OetjOMbC81BHxNUHd6TkA==}
+  '@aws-sdk/client-cognito-identity@3.1037.0':
+    resolution: {integrity: sha512-/BQAyz98JRQFg3E8de3fGGydIYnsFRd6Cla4+zkviOe641fLCG0ZkPIk9D22HSi8qy9XKx+zk6ed2PcLO8uuPw==}
     engines: {node: '>=20.0.0'}
 
   '@aws-sdk/client-eventbridge@3.687.0':
@@ -224,8 +224,8 @@ packages:
     resolution: {integrity: sha512-swW6Bwvl8lanyEMtZOWE/oR6yqcRQH4HTQZUVsnDVgoXvRjRywpYpLv2BWwjUFyjPrqsdX6FeTkf4tMSe/qFTQ==}
     engines: {node: '>=20.0.0'}
 
-  '@aws-sdk/credential-providers@3.1036.0':
-    resolution: {integrity: sha512-7ZIp9c9MXhBhTHLsdKluREogxoazjenIUERGmoXj6Y2GtpgCqpUYqk5550sA4BytLE1mDExbUqKWEBY6jvTwmw==}
+  '@aws-sdk/credential-providers@3.1037.0':
+    resolution: {integrity: sha512-TPPoQzfNkWltNgjJn3RRY1S8VXffDvv49xGGs9K0DrYS9LZCLLsoHmSmShx9HQusPc/4Oz23rfRWTolCU19PdQ==}
     engines: {node: '>=20.0.0'}
 
   '@aws-sdk/middleware-host-header@3.686.0':
@@ -3149,7 +3149,7 @@ snapshots:
       '@smithy/util-utf8': 2.3.0
       tslib: 2.6.2
 
-  '@aws-sdk/client-cloudformation@3.1036.0':
+  '@aws-sdk/client-cloudformation@3.1037.0':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
@@ -3194,7 +3194,7 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-cognito-identity@3.1036.0':
+  '@aws-sdk/client-cognito-identity@3.1037.0':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
@@ -3702,9 +3702,9 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/credential-providers@3.1036.0':
+  '@aws-sdk/credential-providers@3.1037.0':
     dependencies:
-      '@aws-sdk/client-cognito-identity': 3.1036.0
+      '@aws-sdk/client-cognito-identity': 3.1037.0
       '@aws-sdk/core': 3.974.5
       '@aws-sdk/credential-provider-cognito-identity': 3.972.28
       '@aws-sdk/credential-provider-env': 3.972.31
@@ -4464,7 +4464,7 @@ snapshots:
 
   '@smithy/is-array-buffer@2.2.0':
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.2
 
   '@smithy/is-array-buffer@3.0.0':
     dependencies:
@@ -4743,7 +4743,7 @@ snapshots:
   '@smithy/util-buffer-from@2.2.0':
     dependencies:
       '@smithy/is-array-buffer': 2.2.0
-      tslib: 2.8.1
+      tslib: 2.6.2
 
   '@smithy/util-buffer-from@3.0.0':
     dependencies:
@@ -4873,7 +4873,7 @@ snapshots:
   '@smithy/util-utf8@2.3.0':
     dependencies:
       '@smithy/util-buffer-from': 2.2.0
-      tslib: 2.8.1
+      tslib: 2.6.2
 
   '@smithy/util-utf8@3.0.0':
     dependencies:
