@@ -16,7 +16,7 @@ importers:
         version: 3.1043.0
       '@aws-sdk/credential-providers':
         specifier: ^3.552.0
-        version: 3.1042.0
+        version: 3.1043.0
       '@aws-sdk/types':
         specifier: ^3.535.0
         version: 3.973.8
@@ -122,8 +122,8 @@ packages:
     resolution: {integrity: sha512-gAHRcbIQV/R1MLOZRf3wZ61AgPU9jmzK147rLWiPJ1i26JKg0Nlg0qg3mr3s9T4EF8XfEf7ev8xh63T6AakHLA==}
     engines: {node: '>=20.0.0'}
 
-  '@aws-sdk/client-cognito-identity@3.1042.0':
-    resolution: {integrity: sha512-Cdan/gdzcNEwnvaxzCDQUDJnAAROfvnxjlv5/kvc78E1yQYdgqMN9vEzaqePDNjj8V0rel/iGx2tTlf3KY+V5g==}
+  '@aws-sdk/client-cognito-identity@3.1043.0':
+    resolution: {integrity: sha512-ALRMiZ1UO6Vs4stAv0xkuUTxGJGHbSQ/T/m62sKDWu9fyTiz4Xo5UHUyeD7l5xgfRWVCbpzSJzfoEtzlBrc6TQ==}
     engines: {node: '>=20.0.0'}
 
   '@aws-sdk/client-eventbridge@3.687.0':
@@ -224,8 +224,8 @@ packages:
     resolution: {integrity: sha512-lYHFF30DGI20jZcYX8cm6Ns0V7f1dDN6g/MBDLTyD/5iw+bXs3yBr2iAiHDkx4RFU5JgsnZvCHYKiRVPRdmOgw==}
     engines: {node: '>=20.0.0'}
 
-  '@aws-sdk/credential-providers@3.1042.0':
-    resolution: {integrity: sha512-TKOJXoBKTtfWkRrMITPBq4CFfiXydKc7bcvTONLhXgs1BuyHPcVp2KL0Rl1//xmlw48lYgnT/jn99SanLhB8EQ==}
+  '@aws-sdk/credential-providers@3.1043.0':
+    resolution: {integrity: sha512-pOM9CG72ecjZwlMnmihwDbZYjgTHz28G+W5yUTlL9a9CpR6FxIEyzejKer/69RRN5ePUAyEnsmwuxn4EdBKzDw==}
     engines: {node: '>=20.0.0'}
 
   '@aws-sdk/middleware-host-header@3.686.0':
@@ -3195,7 +3195,7 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-cognito-identity@3.1042.0':
+  '@aws-sdk/client-cognito-identity@3.1043.0':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
@@ -3703,9 +3703,9 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/credential-providers@3.1042.0':
+  '@aws-sdk/credential-providers@3.1043.0':
     dependencies:
-      '@aws-sdk/client-cognito-identity': 3.1042.0
+      '@aws-sdk/client-cognito-identity': 3.1043.0
       '@aws-sdk/core': 3.974.8
       '@aws-sdk/credential-provider-cognito-identity': 3.972.31
       '@aws-sdk/credential-provider-env': 3.972.34
