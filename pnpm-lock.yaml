@@ -28,7 +28,7 @@ importers:
         version: 0.8.0
       '@smithy/signature-v4':
         specifier: ^5.0.0
-        version: 5.4.0
+        version: 5.4.1
       '@swc-node/register':
         specifier: ^1.9.0
         version: 1.11.1(@swc/core@1.5.0)(@swc/types@0.1.6)(typescript@5.9.3)
@@ -882,8 +882,8 @@ packages:
     resolution: {integrity: sha512-x7BlLbUFL8NWCGjMF9C+1N5cVCxcPa7g6Tv9B4A2luWx3be3oU8hQ96wIwxe/s7OhIzvoJH73HAUSg5JXVlEtQ==}
     engines: {node: '>=18.0.0'}
 
-  '@smithy/core@3.24.0':
-    resolution: {integrity: sha512-rZ5YfycIXX6puoGjthnDiMpUgtKNOq3c7CndQYkCNYQTv26AiCrZQOJPy7ANSfZ6Okk3UvCRnmO1OYWlLnYZgg==}
+  '@smithy/core@3.24.1':
+    resolution: {integrity: sha512-3mT7o4qQyUWttYnVK3A0Z/u3Xha3E81tXn32Tz6vjZiUXhBrkEivpw1hBYfh84iFF9CSzkBU9Y1DJ3Q6RQ231g==}
     engines: {node: '>=18.0.0'}
 
   '@smithy/credential-provider-imds@3.2.8':
@@ -1039,8 +1039,8 @@ packages:
     resolution: {integrity: sha512-5JWeMQYg81TgU4cG+OexAWdvDTs5JDdbEZx+Qr1iPbvo91QFGzjy0IkXAKaXUHqmKUJgSHK0ZxnCkgZpzkeNTA==}
     engines: {node: '>=16.0.0'}
 
-  '@smithy/signature-v4@5.4.0':
-    resolution: {integrity: sha512-nkdB9T8JS6iD5PukE5TB8KqcvMEPVPHVUY7J0odYJgyIM40Du2msUhBdoPNRqRArDDcGQqVQcbzu0CZA7b+Nkw==}
+  '@smithy/signature-v4@5.4.1':
+    resolution: {integrity: sha512-728lZZEWYWubBESrfntNslZQYDKRlJDY4dcDnYbL50+gu35pGPLblu4S0/RH/RDLF6me1M87ECHsHELGL7dA/Q==}
     engines: {node: '>=18.0.0'}
 
   '@smithy/smithy-client@3.7.0':
@@ -3509,7 +3509,7 @@ snapshots:
       '@smithy/node-config-provider': 4.3.14
       '@smithy/property-provider': 4.2.14
       '@smithy/protocol-http': 5.3.14
-      '@smithy/signature-v4': 5.4.0
+      '@smithy/signature-v4': 5.4.1
       '@smithy/smithy-client': 4.12.13
       '@smithy/types': 4.14.1
       '@smithy/util-base64': 4.3.2
@@ -3814,7 +3814,7 @@ snapshots:
       '@smithy/core': 3.23.17
       '@smithy/node-config-provider': 4.3.14
       '@smithy/protocol-http': 5.3.14
-      '@smithy/signature-v4': 5.4.0
+      '@smithy/signature-v4': 5.4.1
       '@smithy/smithy-client': 4.12.13
       '@smithy/types': 4.14.1
       '@smithy/util-config-provider': 4.2.2
@@ -3928,7 +3928,7 @@ snapshots:
       '@aws-sdk/middleware-sdk-s3': 3.972.37
       '@aws-sdk/types': 3.973.8
       '@smithy/protocol-http': 5.3.14
-      '@smithy/signature-v4': 5.4.0
+      '@smithy/signature-v4': 5.4.1
       '@smithy/types': 4.14.1
       tslib: 2.8.1
 
@@ -4173,7 +4173,7 @@ snapshots:
       '@aws-crypto/sha256-js': 5.2.0
       '@aws-sdk/types': 3.973.8
       '@event-scout/construct-contracts': 0.8.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.253.1(constructs@10.6.0))(axios@1.16.0)
-      '@smithy/signature-v4': 5.4.0
+      '@smithy/signature-v4': 5.4.1
       '@swarmion/serverless-contracts': 0.33.0(@serverless/typescript@3.38.0)(ajv@8.13.0)(aws-cdk-lib@2.253.1(constructs@10.6.0))(axios@1.16.0)
       axios: 1.16.0
     transitivePeerDependencies:
@@ -4428,7 +4428,7 @@ snapshots:
       '@smithy/uuid': 1.1.2
       tslib: 2.8.1
 
-  '@smithy/core@3.24.0':
+  '@smithy/core@3.24.1':
     dependencies:
       '@aws-crypto/crc32': 5.2.0
       '@smithy/types': 4.14.1
@@ -4689,9 +4689,9 @@ snapshots:
       '@smithy/util-utf8': 3.0.0
       tslib: 2.8.1
 
-  '@smithy/signature-v4@5.4.0':
+  '@smithy/signature-v4@5.4.1':
     dependencies:
-      '@smithy/core': 3.24.0
+      '@smithy/core': 3.24.1
       '@smithy/types': 4.14.1
       tslib: 2.8.1
 
