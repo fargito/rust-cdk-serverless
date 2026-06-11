@@ -314,9 +314,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-mocks-experimental"
-version = "0.2.3"
+version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a7ca11c7a3ea8d7fd78cf8dd36362c3006e71f9b719cf63d858b8a99a1a24d23"
+checksum = "1ce8a35535906a8a9ceadbe7ff70ae8686a36f7df03b288b1256c084a5c45c69"
 dependencies = [
  "aws-smithy-runtime-api",
  "aws-smithy-types",
