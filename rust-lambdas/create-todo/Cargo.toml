@@ -15,4 +15,4 @@ serde = { workspace = true }
 serde_json = { workspace = true }
 tokio = { workspace = true }
 tracing = { workspace = true }
-ulid = "1.1.2"
+ulid = "2.0.0"
