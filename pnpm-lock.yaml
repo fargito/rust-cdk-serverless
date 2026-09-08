@@ -13,10 +13,10 @@ importers:
         version: 5.2.0
       '@aws-sdk/client-cloudformation':
         specifier: ^3.552.0
-        version: 3.1127.0
+        version: 3.1128.0
       '@aws-sdk/credential-providers':
         specifier: ^3.552.0
-        version: 3.1127.0
+        version: 3.1128.0
       '@aws-sdk/types':
         specifier: ^3.535.0
         version: 3.974.5
@@ -118,8 +118,8 @@ packages:
   '@aws-crypto/util@5.2.0':
     resolution: {integrity: sha512-4RkU9EsI6ZpBve5fseQlGNUWKMa1RLPQ1dnjnQoe07ldfIzcsGb5hC5W0Dm7u423KWzawlrpbjXBrXCEv9zazQ==}
 
-  '@aws-sdk/client-cloudformation@3.1127.0':
-    resolution: {integrity: sha512-uWYCvCTWlIq5Q2WAmL0Zm1N0XjcBV2F1ayVUNXCIFOy5ldb4LxZqA6KGexSKPN+S6GE/RduCe28RkIQlbNUwxw==}
+  '@aws-sdk/client-cloudformation@3.1128.0':
+    resolution: {integrity: sha512-JZHDgu9HSXk4kbaqhNWTeomC3D/XmMqeztwEG0V8CeiOD8q9T4wcQD0ekKAon1lI5rrtyryYHyIR9oda7PJdJw==}
     engines: {node: '>=20.0.0'}
 
   '@aws-sdk/client-eventbridge@3.687.0':
@@ -220,8 +220,8 @@ packages:
     resolution: {integrity: sha512-d3AGyVu759PGr35mEB2s22xxlNEA5rpdxtSPJthfPFJvoQ8dt357iVPECqWfUxXp1toJAvKmbtcIYVGigaGsCA==}
     engines: {node: '>=20.0.0'}
 
-  '@aws-sdk/credential-providers@3.1127.0':
-    resolution: {integrity: sha512-zyoeKOan26lklS12+Iwj1aX8EidoAheQaVRmltee0EAC3eydTy+AIXtLOsVicYSOVsDjPJMiVykT/7n47ARpag==}
+  '@aws-sdk/credential-providers@3.1128.0':
+    resolution: {integrity: sha512-yKAD0B1YcucqTPSJKWU1QH/MSk8NZAheqCoqmVetC1rlX9IYG10Vzb6pStkRNEDjpoOeQ97W3W/DAT1o12TtuQ==}
     engines: {node: '>=20.0.0'}
 
   '@aws-sdk/middleware-host-header@3.686.0':
@@ -2964,7 +2964,7 @@ snapshots:
       '@smithy/util-utf8': 2.3.0
       tslib: 2.6.2
 
-  '@aws-sdk/client-cloudformation@3.1127.0':
+  '@aws-sdk/client-cloudformation@3.1128.0':
     dependencies:
       '@aws-sdk/core': 3.977.9
       '@aws-sdk/credential-provider-node': 3.972.82
@@ -3411,7 +3411,7 @@ snapshots:
       '@smithy/types': 4.18.0
       tslib: 2.8.1
 
-  '@aws-sdk/credential-providers@3.1127.0':
+  '@aws-sdk/credential-providers@3.1128.0':
     dependencies:
       '@aws-sdk/core': 3.977.9
       '@aws-sdk/credential-provider-cognito-identity': 3.972.69
